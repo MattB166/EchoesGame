@@ -977,13 +977,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {x: 0, y: 0}
-  walkSpeed: 3.65
+  walkSpeed: 5.04
   sprintSpeed: 0
-  jumpForce: 3
+  jumpForce: 3.5
   customTimeScale: 1
   isGrounded: 0
-  gravity: -9.5
+  gravity: -12.3
   groundcheckDistance: 0.02
+  coyoteTime: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

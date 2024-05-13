@@ -25,6 +25,8 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [Range(-20f,-0.05f)] public float gravity;
     [Range(0.01f,0.5f)] public float groundcheckDistance;
+    public float coyoteTime = 0.5f;
+    private float coyoteCounter;
     public LayerMask groundLayer;
     private Transform groundCheck;
     // Start is called before the first frame update
@@ -54,7 +56,7 @@ public class Movement : MonoBehaviour
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
-        Debug.Log("reading input"); 
+       // Debug.Log("reading input"); 
     }
 
     private Vector2 Move()
@@ -67,7 +69,7 @@ public class Movement : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (isGrounded && context.performed)
+        if (coyoteCounter > 0 && context.performed)
             jumpInput = true;
         else if(context.canceled)
             jumpInput = false;
@@ -77,6 +79,7 @@ public class Movement : MonoBehaviour
     {
         if(jumpInput)
         {
+           
             yVelocity = Mathf.Sqrt(jumpForce * -2 * gravity);
             jumpInput = false;
         }
@@ -85,14 +88,20 @@ public class Movement : MonoBehaviour
     private void CalculateGroundChecks()
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
-        Debug.Log(isGrounded);
+        //Debug.Log(isGrounded);
         Jump();
         if (isGrounded && yVelocity < 0)
         {
             yVelocity = 0f;
+            coyoteCounter = coyoteTime;
         }
         else if (!isGrounded)
+        {
             yVelocity += gravity * Time.deltaTime * customTimeScale;
+            coyoteCounter -= Time.deltaTime;
+            Debug.Log(coyoteCounter);
+        }
+           
     }
     
 }
