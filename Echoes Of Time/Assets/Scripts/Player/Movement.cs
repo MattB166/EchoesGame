@@ -17,6 +17,11 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float sprintSpeed;
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
+    private Animator animator;
+    private string currentState;
+    /// <summary>
+    /// struct of animation states ?? instead of using just plain strings 
+    /// </summary>
 
     [Header("Jump Settings")]
     private bool jumpInput;
@@ -35,6 +40,7 @@ public class Movement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("groundcheck");
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -105,4 +111,11 @@ public class Movement : MonoBehaviour
            
     }
     
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState) return;
+        animator.Play(newState);
+        currentState = newState;
+    }
 }
