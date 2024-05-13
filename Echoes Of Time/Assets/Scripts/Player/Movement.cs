@@ -27,6 +27,7 @@ public class Movement : MonoBehaviour
     [Range(0.01f,0.5f)] public float groundcheckDistance;
     public float coyoteTime = 0.5f;
     private float coyoteCounter;
+    //add jump buffer next 
     public LayerMask groundLayer;
     private Transform groundCheck;
     // Start is called before the first frame update
