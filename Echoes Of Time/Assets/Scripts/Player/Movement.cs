@@ -2,51 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public enum AnimationTypes
-{
-    Player_Idle,
-    Player_Run,
-    Player_Jump,
-    Player_Fall,
-    Player_Climb,
-    Player_Roll,
-    Player_Die,
-   Player_Bow_Idle,
-   Player_Bow_Run,
-   Player_Bow_Jump,
-   Player_Bow_Fall,
-   Player_Bow_Climb,
-   Player_Bow_Roll,
-   Player_Bow_Die,
-   Player_Bow_Attack,
-   Player_Sword_Idle,
-   Player_Sword_Run,
-   Player_Sword_Jump,
-   Player_Sword_Fall,
-   Player_Sword_Climb,
-   Player_Sword_Roll,
-   Player_Sword_Die,
-   Player_Sword_Attack1,
-   Player_Sword_Attack2,
-   Player_Sword_Attack3,
-   Player_Spear_Idle,
-   Player_Spear_Run,
-   Player_Spear_Jump,
-   Player_Spear_Fall,
-   Player_Spear_Climb,
-   Player_Spear_Roll,
-   Player_Spear_Die,
-   Player_Spear_Attack1,
-   Player_Spear_Attack2,
-   Player_Spear_Throw,
-}
-[System.Serializable]
-public struct AnimationContainer
-{
-    public string name;
-    public List<AnimationTypes> animations;
-  
-}
+
 /// <summary>
 /// Script which manages the movement of the player
 /// </summary>
@@ -62,13 +18,8 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
-    private string currentState;
-    public List<AnimationContainer> animationContainers;
-    public Dictionary<string, Animation> MainAnims; //dictionary of basic animations
-    public Dictionary<string, Animation> BowAnims; //dictionary of Bow animations
-    public Dictionary<string, Animation> SwordAnims; //dictionary of Sword animations
-    public Dictionary<string, Animation> SpearAnims; //dictionary of Spear animations
-
+    private string currentAnimState;
+    
 
     private bool jumpInput;
     private float yVelocity;
@@ -163,8 +114,8 @@ public class Movement : MonoBehaviour
 
     private void ChangeAnimationState(string newState)
     {
-        if (currentState == newState) return;
+        if (currentAnimState == newState) return;
         animator.Play(newState);
-        currentState = newState;
+        currentAnimState = newState;
     }
 }
