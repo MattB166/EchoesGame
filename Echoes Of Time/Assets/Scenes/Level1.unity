@@ -982,6 +982,7 @@ MonoBehaviour:
   sprintSpeed: 0
   jumpForce: 3.5
   customTimeScale: 1
+  animationContainers: []
   isGrounded: 0
   gravity: -12.3
   groundcheckDistance: 0.02
