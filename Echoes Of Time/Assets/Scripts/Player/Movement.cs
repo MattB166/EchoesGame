@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -52,11 +53,11 @@ public enum AnimationStates
 /// <summary>
 /// Script which manages the movement of the player
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Movement : MonoBehaviour
 {
     [HideInInspector] public Vector2 input;
-    private CharacterController controller;
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
@@ -64,13 +65,13 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
+    private Rigidbody2D rb;
     private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponsAnims = new();
     public Actions.Weapons currentWeapon;
     public AnimationStates currentState;
 
 
     private bool jumpInput;
-    private float yVelocity;
     private bool isJumping;
     [HideInInspector] public bool isGrounded;
     [Space(10)]
@@ -81,12 +82,12 @@ public class Movement : MonoBehaviour
     private float coyoteCounter;
     //add jump buffer next 
     public LayerMask groundLayer;
-    private Transform groundCheck;
+   // private Transform groundCheck;
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        groundCheck = transform.Find("groundcheck");
+       rb = GetComponent<Rigidbody2D>();
+      //  groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
@@ -109,11 +110,11 @@ public class Movement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function 
             SetAnimationState(currentWeapon, "Player_Run"); 
         }
-        else if(move.x == 0 && isGrounded)
+        else if(move.x == 0)
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
-        controller.Move(new Vector2(move.x, yVelocity) * Time.deltaTime * customTimeScale);
+       
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -126,8 +127,8 @@ public class Movement : MonoBehaviour
     private Vector2 Move()
     {
         Vector2 movement = input *walkSpeed;
-        movement.Normalize();
-        movement*=walkSpeed;
+        movement.y = rb.velocity.y;
+        rb.velocity = movement;
         return movement;
     }
 
@@ -143,27 +144,27 @@ public class Movement : MonoBehaviour
     {
         if(jumpInput)
         {
-           
-            yVelocity = Mathf.Sqrt(jumpForce * -2 * gravity);
+           Debug.Log("Jumping");
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            SetAnimationState(currentWeapon, "Player_Jump");
             jumpInput = false;
+            
         }
     }
 
     private void CalculateGroundChecks()
     {
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
-        //Debug.Log(isGrounded);
+       
         Jump();
-        if (isGrounded && yVelocity < 0)
+        if (isGrounded)
         {
-            yVelocity = 0f;
             coyoteCounter = coyoteTime;
         }
         else if (!isGrounded)
         {
-            yVelocity += gravity * Time.deltaTime * customTimeScale;
+            
             coyoteCounter -= Time.deltaTime;
-            Debug.Log(coyoteCounter);
+           // Debug.Log(coyoteCounter);
         }
            
     }
@@ -242,6 +243,23 @@ public class Movement : MonoBehaviour
     {
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
 
 
 }
