@@ -64,7 +64,7 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
-    private Dictionary<Weapons, Dictionary<AnimationStates, string>> weaponsAnims = new();
+    private Dictionary<Weapons, Dictionary<string, AnimationStates>> weaponsAnims = new();
     public Weapons currentWeapon;
     public AnimationStates currentState;
 
@@ -88,7 +88,7 @@ public class Movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
-        currentWeapon = Weapons.None;
+        currentWeapon = Weapons.Bow;
         InitialiseWeaponAnims();
     }
 
@@ -170,70 +170,64 @@ public class Movement : MonoBehaviour
     
     private void InitialiseWeaponAnims()
     {
-        weaponsAnims.Add(Weapons.None, new Dictionary<AnimationStates, string>
+        weaponsAnims.Add(Weapons.None, new Dictionary<string, AnimationStates>
       {
-          {AnimationStates.Player_Idle, "Player_Idle"},
-          {AnimationStates.Player_Run, "Player_Run"},
-          {AnimationStates.Player_Jump, "Player_Jump"},
-          {AnimationStates.Player_Fall, "Player_Fall"},
-          {AnimationStates.Player_Climb, "Player_Climb"},
-          {AnimationStates.Player_Roll, "Player_Roll"},
-          {AnimationStates.Player_Die, "Player_Die"},
+          {"Player_Idle",AnimationStates.Player_Idle},
+          {"Player_Run",AnimationStates.Player_Run},
+          {"Player_Jump",AnimationStates.Player_Jump},
+          {"Player_Fall",AnimationStates.Player_Fall},
+          {"Player_Climb",AnimationStates.Player_Climb},
+          {"Player_Roll",AnimationStates.Player_Roll},
+          {"Player_Die",AnimationStates.Player_Die },
       });
 
-        weaponsAnims.Add(Weapons.Sword, new Dictionary<AnimationStates, string>
+        weaponsAnims.Add(Weapons.Sword, new Dictionary<string, AnimationStates>
         {
-            {AnimationStates.Player_Sword_Idle, "Player_Idle"},
-            {AnimationStates.Player_Sword_Run, "Player_Run"},
-            {AnimationStates.Player_Sword_Jump, "Player_Jump"},
-            {AnimationStates.Player_Sword_Fall, "Player_Fall"},
-            {AnimationStates.Player_Sword_Climb, "Player_Climb"},
-            {AnimationStates.Player_Sword_Roll, "Player_Roll"},
-            {AnimationStates.Player_Sword_Die, "Player_Die"},
-            {AnimationStates.Player_Sword_Attack1, "Player_Attack1"},
-            {AnimationStates.Player_Sword_Attack2, "Player_Attack2"},
-            {AnimationStates.Player_Sword_Attack3, "Player_Attack3"},
+            {"Player_Idle",AnimationStates.Player_Sword_Idle },
+            {"Player_Run",AnimationStates.Player_Sword_Run},
+            {"Player_Jump",AnimationStates.Player_Sword_Jump},
+            {"Player_Fall",AnimationStates.Player_Sword_Fall},
+            {"Player_Climb",AnimationStates.Player_Sword_Climb},
+            {"Player_Roll",AnimationStates.Player_Sword_Roll},
+            {"Player_Die",AnimationStates.Player_Sword_Die },
+            {"Player_Attack1",AnimationStates.Player_Sword_Attack1 },
+            {"Player_Attack2",AnimationStates.Player_Sword_Attack2 },
+            {"Player_Attack3",AnimationStates.Player_Sword_Attack3}
         });
 
-        weaponsAnims.Add(Weapons.Spear, new Dictionary<AnimationStates, string>
+        weaponsAnims.Add(Weapons.Spear, new Dictionary<string, AnimationStates>
         {
-            {AnimationStates.Player_Spear_Idle, "Player_Idle"},
-            {AnimationStates.Player_Spear_Run, "Player_Run"},
-            {AnimationStates.Player_Spear_Jump, "Player_Jump"},
-            {AnimationStates.Player_Spear_Fall, "Player_Fall"},
-            {AnimationStates.Player_Spear_Climb, "Player_Climb"},
-            {AnimationStates.Player_Spear_Roll, "Player_Roll"},
-            {AnimationStates.Player_Spear_Die, "Player_Die"},
-            {AnimationStates.Player_Spear_Attack1, "Player_Attack1"},
-            {AnimationStates.Player_Spear_Attack2, "Player_Attack2"},
-            {AnimationStates.Player_Spear_Throw, "Player_Throw"},
-        });
-        weaponsAnims.Add(Weapons.Bow, new Dictionary<AnimationStates, string>
-        {
-            {AnimationStates.Player_Bow_Idle, "Player_Idle"},
-            {AnimationStates.Player_Bow_Run, "Player_Run"},
-            {AnimationStates.Player_Bow_Jump, "Player_Jump"},
-            {AnimationStates.Player_Bow_Fall, "Player_Fall"},
-            {AnimationStates.Player_Bow_Climb, "Player_Climb"},
-            {AnimationStates.Player_Bow_Roll, "Player_Roll"},
-            {AnimationStates.Player_Bow_Die, "Player_Die"},
-            {AnimationStates.Player_Bow_Attack, "Player_Attack"},
+            {"Player_Idle",AnimationStates.Player_Spear_Idle },
+            {"Player_Run",AnimationStates.Player_Spear_Run},
+            {"Player_Jump",AnimationStates.Player_Spear_Jump},
+            {"Player_Fall",AnimationStates.Player_Spear_Fall},
+            {"Player_Climb",AnimationStates.Player_Spear_Climb},
+            {"Player_Roll",AnimationStates.Player_Spear_Roll},
+            {"Player_Die",AnimationStates.Player_Spear_Die },
+            {"Player_Attack1",AnimationStates.Player_Spear_Attack1 },
+            {"Player_Attack2",AnimationStates.Player_Spear_Attack2 },
+            {"Player_Throw",AnimationStates.Player_Spear_Throw}
         });
 
+        weaponsAnims.Add(Weapons.Bow, new Dictionary<string, AnimationStates>
+        {
+            {"Player_Idle",AnimationStates.Player_Bow_Idle },
+            {"Player_Run",AnimationStates.Player_Bow_Run},
+            {"Player_Jump",AnimationStates.Player_Bow_Jump},
+            {"Player_Fall",AnimationStates.Player_Bow_Fall},
+            {"Player_Climb",AnimationStates.Player_Bow_Climb},
+            {"Player_Roll",AnimationStates.Player_Bow_Roll},
+            {"Player_Die",AnimationStates.Player_Bow_Die },
+            {"Player_Attack",AnimationStates.Player_Bow_Attack }
+        });
     }
 
 
     private void SetAnimationState(Weapons currentWeapon, string State)
     {
-       if(weaponsAnims.ContainsKey(currentWeapon))
+       if(weaponsAnims.ContainsKey(currentWeapon) && weaponsAnims[currentWeapon].ContainsKey(State))
         {
-            foreach (var item in weaponsAnims[currentWeapon])
-            {
-                if (item.Value == State)
-                {
-                    ChangeAnimationState(item.Key);
-                }
-            }
+            ChangeAnimationState(weaponsAnims[currentWeapon][State]);
         }
     }
     private void ChangeAnimationState(AnimationStates newState)
