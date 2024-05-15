@@ -3,6 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum AnimationStates
+{
+    Player_Idle,
+    Player_Run,
+    Player_Jump,
+    Player_Fall,
+    Player_Climb,
+    Player_Roll,
+    Player_Die,
+    Player_Bow_Idle,
+    Player_Bow_Run,
+    Player_Bow_Jump,
+    Player_Bow_Fall,
+    Player_Bow_Climb,
+    Player_Bow_Roll,
+    Player_Bow_Die,
+    Player_Bow_Attack,
+    Player_Spear_Idle,
+    Player_Spear_Run,
+    Player_Spear_Jump,
+    Player_Spear_Fall,
+    Player_Spear_Climb,
+    Player_Spear_Roll,
+    Player_Spear_Die,
+    Player_Spear_Attack1,
+    Player_Spear_Attack2,
+    Player_Spear_Throw,
+    Player_Sword_Idle,
+    Player_Sword_Run,
+    Player_Sword_Jump,
+    Player_Sword_Fall,
+    Player_Sword_Climb,
+    Player_Sword_Roll,
+    Player_Sword_Die,
+    Player_Sword_Attack1,
+    Player_Sword_Attack2,
+    Player_Sword_Attack3,
+}
+public enum Weapons
+{
+    Sword,
+    Spear,
+    Bow,
+    None
+}
+
 /// <summary>
 /// Script which manages the movement of the player
 /// </summary>
@@ -18,8 +64,10 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
-    private string currentAnimState;
-    
+    private Dictionary<Weapons, List<AnimationStates>> weaponAnims = new();
+    public Weapons currentWeapon;
+    public AnimationStates currentState;
+
 
     private bool jumpInput;
     private float yVelocity;
@@ -40,22 +88,30 @@ public class Movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
-      
+        currentWeapon = Weapons.None;
+        InitialiseWeaponAnims();
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         Vector2 move = Move();
         CalculateGroundChecks();
 
         if(move.x < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
+            SetAnimationState(currentWeapon, AnimationStates.Player_Run);
         }
-        else if(move.x > 0)
+        if(move.x > 0)
         {
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function 
+            SetAnimationState(currentWeapon, AnimationStates.Player_Run); ///wont work with changing weapons as cannot tell at runtime which weapon is equipped. need to alter containers 
+        }
+        else if(move.x == 0 && isGrounded)
+        {
+            SetAnimationState(currentWeapon, AnimationStates.Player_Idle);
         }
         controller.Move(new Vector2(move.x, yVelocity) * Time.deltaTime * customTimeScale);
     }
@@ -63,6 +119,7 @@ public class Movement : MonoBehaviour
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
+       
        // Debug.Log("reading input"); 
     }
 
@@ -111,11 +168,38 @@ public class Movement : MonoBehaviour
            
     }
     
-
-    private void ChangeAnimationState(string newState)
+    private void InitialiseWeaponAnims()
     {
-        if (currentAnimState == newState) return;
-        animator.Play(newState);
-        currentAnimState = newState;
+        weaponAnims.Add(Weapons.None, new List<AnimationStates> { AnimationStates.Player_Idle, AnimationStates.Player_Run, AnimationStates.Player_Jump, AnimationStates.Player_Fall, AnimationStates.Player_Climb, AnimationStates.Player_Roll, AnimationStates.Player_Die });
+        weaponAnims.Add(Weapons.Bow, new List<AnimationStates> { AnimationStates.Player_Bow_Idle, AnimationStates.Player_Bow_Run, AnimationStates.Player_Bow_Jump, AnimationStates.Player_Bow_Fall, AnimationStates.Player_Bow_Climb, AnimationStates.Player_Bow_Roll, AnimationStates.Player_Bow_Die });
+        weaponAnims.Add(Weapons.Spear, new List<AnimationStates> { AnimationStates.Player_Spear_Idle, AnimationStates.Player_Spear_Run, AnimationStates.Player_Spear_Jump, AnimationStates.Player_Spear_Fall, AnimationStates.Player_Spear_Climb, AnimationStates.Player_Spear_Roll, AnimationStates.Player_Spear_Die });
+        weaponAnims.Add(Weapons.Sword, new List<AnimationStates> { AnimationStates.Player_Sword_Idle, AnimationStates.Player_Sword_Run, AnimationStates.Player_Sword_Jump, AnimationStates.Player_Sword_Fall, AnimationStates.Player_Sword_Climb, AnimationStates.Player_Sword_Roll, AnimationStates.Player_Sword_Die });
     }
+
+
+    private void SetAnimationState(Weapons currentWeapon, AnimationStates stateToPlay)
+    {
+      if(weaponAnims.ContainsKey(currentWeapon))
+        {
+           if(weaponAnims[currentWeapon].Contains(stateToPlay))
+            {
+                ChangeAnimationState(stateToPlay);
+            }
+        }
+       
+    }
+    private void ChangeAnimationState(AnimationStates newState)
+    {
+        if(currentState == newState) return;
+        string state = newState.ToString();
+        animator.Play(state);
+        currentState = newState;
+    }
+
+    private void CheckWeaponForAnim()
+    {
+
+    }
+
+
 }
