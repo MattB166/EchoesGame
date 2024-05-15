@@ -41,13 +41,13 @@ public enum AnimationStates
     Player_Sword_Attack2,
     Player_Sword_Attack3,
 }
-public enum Weapons
-{
-    Sword,
-    Spear,
-    Bow,
-    None
-}
+//public enum Weapons
+//{
+//    Sword,
+//    Spear,
+//    Bow,
+//    None
+//}
 
 /// <summary>
 /// Script which manages the movement of the player
@@ -64,8 +64,8 @@ public class Movement : MonoBehaviour
     [Range(1,10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
-    private Dictionary<Weapons, Dictionary<string, AnimationStates>> weaponsAnims = new();
-    public Weapons currentWeapon;
+    private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponsAnims = new();
+    public Actions.Weapons currentWeapon;
     public AnimationStates currentState;
 
 
@@ -88,14 +88,14 @@ public class Movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
-        currentWeapon = Weapons.Bow;
+        currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        currentWeapon = GetComponent<Actions>().currentWeapon;
         Vector2 move = Move();
         CalculateGroundChecks();
 
@@ -107,7 +107,7 @@ public class Movement : MonoBehaviour
         if(move.x > 0)
         {
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function 
-            SetAnimationState(currentWeapon, "Player_Run"); ///wont work with changing weapons as cannot tell at runtime which weapon is equipped. need to alter containers 
+            SetAnimationState(currentWeapon, "Player_Run"); 
         }
         else if(move.x == 0 && isGrounded)
         {
@@ -170,7 +170,7 @@ public class Movement : MonoBehaviour
     
     private void InitialiseWeaponAnims()
     {
-        weaponsAnims.Add(Weapons.None, new Dictionary<string, AnimationStates>
+        weaponsAnims.Add(Actions.Weapons.None, new Dictionary<string, AnimationStates>
       {
           {"Player_Idle",AnimationStates.Player_Idle},
           {"Player_Run",AnimationStates.Player_Run},
@@ -181,7 +181,7 @@ public class Movement : MonoBehaviour
           {"Player_Die",AnimationStates.Player_Die },
       });
 
-        weaponsAnims.Add(Weapons.Sword, new Dictionary<string, AnimationStates>
+        weaponsAnims.Add(Actions.Weapons.Sword, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Sword_Idle },
             {"Player_Run",AnimationStates.Player_Sword_Run},
@@ -195,7 +195,7 @@ public class Movement : MonoBehaviour
             {"Player_Attack3",AnimationStates.Player_Sword_Attack3}
         });
 
-        weaponsAnims.Add(Weapons.Spear, new Dictionary<string, AnimationStates>
+        weaponsAnims.Add(Actions.Weapons.Spear, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Spear_Idle },
             {"Player_Run",AnimationStates.Player_Spear_Run},
@@ -209,7 +209,7 @@ public class Movement : MonoBehaviour
             {"Player_Throw",AnimationStates.Player_Spear_Throw}
         });
 
-        weaponsAnims.Add(Weapons.Bow, new Dictionary<string, AnimationStates>
+        weaponsAnims.Add(Actions.Weapons.Bow, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Bow_Idle },
             {"Player_Run",AnimationStates.Player_Bow_Run},
@@ -223,7 +223,7 @@ public class Movement : MonoBehaviour
     }
 
 
-    private void SetAnimationState(Weapons currentWeapon, string State)
+    private void SetAnimationState(Actions.Weapons currentWeapon, string State)
     {
        if(weaponsAnims.ContainsKey(currentWeapon) && weaponsAnims[currentWeapon].ContainsKey(State))
         {
