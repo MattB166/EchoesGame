@@ -20,7 +20,6 @@ public enum AnimationStates
     Player_Bow_Climb,
     Player_Bow_Roll,
     Player_Bow_Die,
-    Player_Bow_Attack,
     Player_Spear_Idle,
     Player_Spear_Run,
     Player_Spear_Jump,
@@ -28,9 +27,6 @@ public enum AnimationStates
     Player_Spear_Climb,
     Player_Spear_Roll,
     Player_Spear_Die,
-    Player_Spear_Attack1,
-    Player_Spear_Attack2,
-    Player_Spear_Throw,
     Player_Sword_Idle,
     Player_Sword_Run,
     Player_Sword_Jump,
@@ -38,9 +34,7 @@ public enum AnimationStates
     Player_Sword_Climb,
     Player_Sword_Roll,
     Player_Sword_Die,
-    Player_Sword_Attack1,
-    Player_Sword_Attack2,
-    Player_Sword_Attack3,
+   
 }
 //public enum Weapons
 //{
@@ -66,7 +60,7 @@ public class Movement : MonoBehaviour
     public float customTimeScale;
     private Animator animator;
     private Rigidbody2D rb;
-    private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponsAnims = new();
+    private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponMovementAnims = new();
     public Actions.Weapons currentWeapon;
     public AnimationStates currentState;
 
@@ -82,12 +76,12 @@ public class Movement : MonoBehaviour
     private float coyoteCounter;
     //add jump buffer next 
     public LayerMask groundLayer;
-   // private Transform groundCheck;
+    private Transform groundCheck;
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
-      //  groundCheck = transform.Find("groundcheck");
+       groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
@@ -96,6 +90,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
         Vector2 move = Move();
         CalculateGroundChecks();
@@ -114,6 +109,8 @@ public class Movement : MonoBehaviour
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
+
+       
        
     }
 
@@ -126,7 +123,7 @@ public class Movement : MonoBehaviour
 
     private Vector2 Move()
     {
-        Vector2 movement = input *walkSpeed;
+        Vector2 movement = input *walkSpeed * customTimeScale;
         movement.y = rb.velocity.y;
         rb.velocity = movement;
         return movement;
@@ -167,11 +164,13 @@ public class Movement : MonoBehaviour
            // Debug.Log(coyoteCounter);
         }
            
+        //if(rb.velocityY < 0)
+        //    SetAnimationState(currentWeapon, "Player_Fall");  ///little jittery 
     }
     
     private void InitialiseWeaponAnims()
     {
-        weaponsAnims.Add(Actions.Weapons.None, new Dictionary<string, AnimationStates>
+        weaponMovementAnims.Add(Actions.Weapons.None, new Dictionary<string, AnimationStates>
       {
           {"Player_Idle",AnimationStates.Player_Idle},
           {"Player_Run",AnimationStates.Player_Run},
@@ -182,7 +181,7 @@ public class Movement : MonoBehaviour
           {"Player_Die",AnimationStates.Player_Die },
       });
 
-        weaponsAnims.Add(Actions.Weapons.Sword, new Dictionary<string, AnimationStates>
+        weaponMovementAnims.Add(Actions.Weapons.Sword, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Sword_Idle },
             {"Player_Run",AnimationStates.Player_Sword_Run},
@@ -191,12 +190,9 @@ public class Movement : MonoBehaviour
             {"Player_Climb",AnimationStates.Player_Sword_Climb},
             {"Player_Roll",AnimationStates.Player_Sword_Roll},
             {"Player_Die",AnimationStates.Player_Sword_Die },
-            {"Player_Attack1",AnimationStates.Player_Sword_Attack1 },
-            {"Player_Attack2",AnimationStates.Player_Sword_Attack2 },
-            {"Player_Attack3",AnimationStates.Player_Sword_Attack3}
         });
 
-        weaponsAnims.Add(Actions.Weapons.Spear, new Dictionary<string, AnimationStates>
+        weaponMovementAnims.Add(Actions.Weapons.Spear, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Spear_Idle },
             {"Player_Run",AnimationStates.Player_Spear_Run},
@@ -205,12 +201,10 @@ public class Movement : MonoBehaviour
             {"Player_Climb",AnimationStates.Player_Spear_Climb},
             {"Player_Roll",AnimationStates.Player_Spear_Roll},
             {"Player_Die",AnimationStates.Player_Spear_Die },
-            {"Player_Attack1",AnimationStates.Player_Spear_Attack1 },
-            {"Player_Attack2",AnimationStates.Player_Spear_Attack2 },
-            {"Player_Throw",AnimationStates.Player_Spear_Throw}
+           
         });
 
-        weaponsAnims.Add(Actions.Weapons.Bow, new Dictionary<string, AnimationStates>
+        weaponMovementAnims.Add(Actions.Weapons.Bow, new Dictionary<string, AnimationStates>
         {
             {"Player_Idle",AnimationStates.Player_Bow_Idle },
             {"Player_Run",AnimationStates.Player_Bow_Run},
@@ -219,16 +213,15 @@ public class Movement : MonoBehaviour
             {"Player_Climb",AnimationStates.Player_Bow_Climb},
             {"Player_Roll",AnimationStates.Player_Bow_Roll},
             {"Player_Die",AnimationStates.Player_Bow_Die },
-            {"Player_Attack",AnimationStates.Player_Bow_Attack }
         });
     }
 
 
     private void SetAnimationState(Actions.Weapons currentWeapon, string State)
     {
-       if(weaponsAnims.ContainsKey(currentWeapon) && weaponsAnims[currentWeapon].ContainsKey(State))
+       if(weaponMovementAnims.ContainsKey(currentWeapon) && weaponMovementAnims[currentWeapon].ContainsKey(State))
         {
-            ChangeAnimationState(weaponsAnims[currentWeapon][State]);
+            ChangeAnimationState(weaponMovementAnims[currentWeapon][State]);
         }
     }
     private void ChangeAnimationState(AnimationStates newState)
@@ -244,21 +237,21 @@ public class Movement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 
 
 
