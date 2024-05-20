@@ -989,7 +989,7 @@ MonoBehaviour:
   isGrounded: 0
   gravity: -9.4
   groundcheckDistance: 0.02
-  coyoteTime: 0.5
+  coyoteTime: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
