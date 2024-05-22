@@ -21,12 +21,13 @@ public class Actions : MonoBehaviour
         Bow,
         None
     }
-
+    [Header("Weapon Settings")]
     public Weapons currentWeapon;
     public ActionAnims currentState;
     private Animator animator;
     private bool attackInput;
     private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
+
     
     // Start is called before the first frame update
     void Start()
