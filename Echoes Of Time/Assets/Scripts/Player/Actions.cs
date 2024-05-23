@@ -28,7 +28,7 @@ public class Actions : MonoBehaviour
     private bool attackInput;
     private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
 
-    
+    private InputPickupItem closestInputPickupItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +41,10 @@ public class Actions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     BaseAttack();
+        BaseAttack();
+        closestInputPickupItem =  UpdateClosestInputPickupItem();
+        if(closestInputPickupItem != null)
+        Debug.Log("Nearest pickup is" + closestInputPickupItem.itemData.name);
     }
 
     public void ChangeWeapon(InputAction.CallbackContext context)
@@ -141,5 +144,43 @@ public class Actions : MonoBehaviour
         }
        
         
+    }
+
+    public InputPickupItem UpdateClosestInputPickupItem()
+    {
+        float nearestDistance = float.MaxValue;
+        InputPickupItem nearestItem = null;
+        foreach (var item in InputPickupItem.itemsInRange)
+        {
+            float distance = Vector2.Distance(item.transform.position, transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestItem = item;
+            }
+        }
+        return nearestItem;
+    }
+
+    public void OnPickupInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && closestInputPickupItem != null)
+        {
+            switch(closestInputPickupItem.itemData.dataType)
+            {
+                case ItemData.DataType.Weapon:
+                    Debug.Log("Picked up weapon");
+                    break;
+                case ItemData.DataType.Health:
+                    //increase health
+                    break;
+                case ItemData.DataType.Coin:
+                    Debug.Log("Picked up coin");
+                    break;
+                default:
+                    break;
+            }
+            closestInputPickupItem.OnInteract();
+        }
     }
 }

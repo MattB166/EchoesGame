@@ -8,7 +8,7 @@ public abstract class BasePickupItem : BaseInteractableClass
     public override void OnInteract()
     {
         Collect();
-        Debug.Log("Collected " + itemData.itemName);
+        //Debug.Log("Collected " + itemData.itemName);
         PlayPickupSound();
         Destroy(gameObject);
     }
