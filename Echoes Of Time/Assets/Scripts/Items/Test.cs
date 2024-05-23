@@ -10,8 +10,7 @@ public class Test : PickupItem
         Debug.Log("This item has been collected");
         Debug.Log("Test value: " + testValue);
         //can be used for weapon pickups too. enables use of the specific weapon inside player actions 
-        
-        
+       
     }
 
 

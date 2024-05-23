@@ -36,13 +36,6 @@ public enum AnimationStates
     Player_Sword_Die,
    
 }
-//public enum Weapons
-//{
-//    Sword,
-//    Spear,
-//    Bow,
-//    None
-//}
 
 /// <summary>
 /// Script which manages the movement of the player
@@ -95,23 +88,27 @@ public class Movement : MonoBehaviour
         Vector2 move = Move();
         CalculateGroundChecks();
 
-        if(move.x < 0)
+        if(move.x < 0 && isGrounded)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             SetAnimationState(currentWeapon, "Player_Run");
         }
-        if(move.x > 0)
+        if(move.x > 0 && isGrounded)
         {
-            GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function 
+            GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
             SetAnimationState(currentWeapon, "Player_Run"); 
         }
-        else if(move.x == 0)
+        else if(move.x == 0 && move.y == 0)
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            SetAnimationState(currentWeapon, "Player_Fall");
+        }
 
-       
-       
+
+
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -156,6 +153,7 @@ public class Movement : MonoBehaviour
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
+
         }
         else if (!isGrounded)
         {
@@ -164,8 +162,7 @@ public class Movement : MonoBehaviour
            // Debug.Log(coyoteCounter);
         }
            
-        //if(rb.velocityY < 0)
-        //    SetAnimationState(currentWeapon, "Player_Fall");  ///little jittery 
+         
     }
     
     private void InitialiseWeaponAnims()
@@ -237,22 +234,7 @@ public class Movement : MonoBehaviour
 
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-    //    {
-    //        isGrounded = true;
-    //    }
-    //}
-
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
-
+    
 
 
 }
