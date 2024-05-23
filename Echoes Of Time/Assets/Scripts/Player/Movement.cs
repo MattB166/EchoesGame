@@ -65,7 +65,7 @@ public class Movement : MonoBehaviour
     [Header("Jump Settings")]
     [Range(-20f,-0.05f)] public float gravity;
     [Range(0.01f,0.5f)] public float groundcheckDistance;
-    public float coyoteTime = 0.5f;
+    public float coyoteTime;
     private float coyoteCounter;
     //add jump buffer next 
     public LayerMask groundLayer;
@@ -85,29 +85,8 @@ public class Movement : MonoBehaviour
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
-        Vector2 move = Move();
         CalculateGroundChecks();
-
-        if(move.x < 0 && isGrounded)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-            SetAnimationState(currentWeapon, "Player_Run");
-        }
-        if(move.x > 0 && isGrounded)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
-            SetAnimationState(currentWeapon, "Player_Run"); 
-        }
-        else if(move.x == 0 && move.y == 0)
-        {
-            SetAnimationState(currentWeapon, "Player_Idle");
-        }
-        if (!isGrounded && rb.velocity.y < 0)
-        {
-            SetAnimationState(currentWeapon, "Player_Fall");
-        }
-
-
+        CalculateMovementAnimationChecks();
 
     }
 
@@ -164,7 +143,32 @@ public class Movement : MonoBehaviour
            
          
     }
-    
+    public void CalculateMovementAnimationChecks()
+    {
+        Vector2 move = Move();
+
+        if (move.x < 0 && isGrounded)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            SetAnimationState(currentWeapon, "Player_Run");
+        }
+        if (move.x > 0 && isGrounded)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
+            SetAnimationState(currentWeapon, "Player_Run");
+        }
+        else if (move.x == 0 && move.y == 0)
+        {
+            SetAnimationState(currentWeapon, "Player_Idle");
+        }
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            SetAnimationState(currentWeapon, "Player_Fall");
+        }
+
+
+    }
+
     private void InitialiseWeaponAnims()
     {
         weaponMovementAnims.Add(Actions.Weapons.None, new Dictionary<string, AnimationStates>
