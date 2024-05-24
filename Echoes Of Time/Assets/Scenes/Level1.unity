@@ -1582,7 +1582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e258d8f5355c2449fad4d4a9960786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: f6a25775b60ceed408fb86d63948f310, type: 2}
 --- !u!61 &1336748911
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1928,7 +1927,7 @@ PrefabInstance:
       addedObject: {fileID: 3881615272560289933}
     - targetCorrespondingSourceObject: {fileID: 4205102535058199705, guid: 3d59e2a5b6a824e45884bc01e1b50617, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3881615272560289937}
+      addedObject: {fileID: 3881615272560289941}
   m_SourcePrefab: {fileID: 100100000, guid: 3d59e2a5b6a824e45884bc01e1b50617, type: 3}
 --- !u!1 &3881615272560289932 stripped
 GameObject:
@@ -1957,7 +1956,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3881615272560289937
+--- !u!114 &3881615272560289941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1966,7 +1965,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3881615272560289932}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e258d8f5355c2449fad4d4a9960786, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d33c746ffe34c5498e8558fffb6ceab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: b863ba30a83facc45a3e955643222011, type: 2}

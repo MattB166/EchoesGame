@@ -28,37 +28,6 @@ public abstract class InputPickupItem : BasePickupItem
         }
     }
 
-    private void Update()
-    {
-        
-
-
-    }
-    ///show UI of nearest item to pickup 
-    ///
-
-    //private InputPickupItem GetNearestItem()
-    //{
-    //    float nearestDistance = float.MaxValue;
-    //    InputPickupItem nearestItem = null;
-    //    Transform player = GameManager.instance.playerPos;
-    //    foreach (var item in itemsInRange)
-    //    {
-    //        float distance = Vector2.Distance(player.position, item.transform.position);
-    //        if (distance < nearestDistance)
-    //        {
-    //            nearestDistance = distance;
-    //            nearestItem = item;
-    //        }
-    //    }
-    //    return nearestItem;
-    //}
-
-    //public void OnPickupInput(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        nearestItem.OnInteract();
-    //    }
-    //}
+    ////possibly remove abstract from this and just attach this to any object ?? 
+    
 }
