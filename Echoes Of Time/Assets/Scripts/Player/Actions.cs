@@ -21,6 +21,13 @@ public class Actions : MonoBehaviour
         Bow,
         None
     }
+    public float playerMaxHealth { get; private set; } = 100.0f;
+    public float playerCurrentHealth { get;private set; }
+    public float playerAmmo { get; private set; }
+
+
+
+
     [Header("Weapon Settings")]
     public Weapons currentWeapon;
     public ActionAnims currentState;
@@ -36,6 +43,7 @@ public class Actions : MonoBehaviour
         animator = GetComponent<Animator>();
          currentWeapon = Weapons.None;
         InitialiseAttackAnims();
+        InitialisePlayer();
     }
 
     // Update is called once per frame
@@ -45,6 +53,13 @@ public class Actions : MonoBehaviour
         closestInputPickupItem =  UpdateClosestInputPickupItem();
         if(closestInputPickupItem != null)
         Debug.Log("Nearest pickup is" + closestInputPickupItem.itemData.name);
+    }
+
+    public void InitialisePlayer()
+    {
+        playerCurrentHealth = playerMaxHealth;
+        playerAmmo = 0;
+
     }
 
     public void ChangeWeapon(InputAction.CallbackContext context)
@@ -166,21 +181,32 @@ public class Actions : MonoBehaviour
     {
         if (context.performed && closestInputPickupItem != null)
         {
-            switch(closestInputPickupItem.itemData.dataType)
-            {
-                case ItemData.DataType.Weapon:
-                    Debug.Log("Picked up weapon");
-                    break;
-                case ItemData.DataType.Health:
-                    //increase health
-                    break;
-                case ItemData.DataType.Coin:
-                    Debug.Log("Picked up coin");
-                    break;
-                default:
-                    break;
-            }
+            HandlePickup(closestInputPickupItem.itemData);
             closestInputPickupItem.OnInteract();
         }
+    }
+
+    public void HandlePickup(ItemData itemData)
+    {
+        switch(itemData.dataType)
+        {
+            case ItemData.DataType.Weapon:
+                Debug.Log("Picked up weapon");
+                break;
+            case ItemData.DataType.Health:
+                AddHealth(itemData.healthValue);
+                break;
+            case ItemData.DataType.Coin:
+                Debug.Log("Picked up coin");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void AddHealth(float amount)
+    {
+        playerCurrentHealth = Mathf.Min(playerCurrentHealth + amount, playerMaxHealth);
+        Debug.Log("Player health is now " + playerCurrentHealth);
     }
 }

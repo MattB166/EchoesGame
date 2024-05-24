@@ -19,4 +19,4 @@ MonoBehaviour:
   fireRate: 0
   damage: 0
   ammoAmount: 0
-  healthValue: 0
+  healthValue: 33
