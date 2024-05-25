@@ -10,7 +10,7 @@ public abstract class BasePickupItem : BaseInteractableClass
         Collect();
         //Debug.Log("Collected " + itemData.itemName);
         PlayPickupSound();
-        Destroy(gameObject);
+       CalculationDestructionTime();
     }
 
     protected abstract void Collect();
@@ -21,6 +21,18 @@ public abstract class BasePickupItem : BaseInteractableClass
         {
             
             AudioSource.PlayClipAtPoint(itemData.pickupSound, transform.position);
+        }
+    }
+
+    private void CalculationDestructionTime()
+    {
+        if(itemData.isAnimatedOnPickup)
+        {
+            Destroy(gameObject, 0.5f);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

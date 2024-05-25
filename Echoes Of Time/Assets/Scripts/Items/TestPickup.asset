@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe4d824b464dad4380d8ba3079af48d, type: 3}
   m_Name: TestPickup
   m_EditorClassIdentifier: 
-  itemName: New Weapon
+  itemName: Health Test
   itemSprite: {fileID: 21300000, guid: 673154193b4cef344a4cad8ab38e0241, type: 3}
   pickupSound: {fileID: 0}
   dataType: 0

@@ -10,6 +10,7 @@ public class ItemDataEditor : Editor
     SerializedProperty itemSprite;
     SerializedProperty pickupSound;
     SerializedProperty dataType;
+    SerializedProperty isAnimatedOnPickup;
 
     SerializedProperty fireRate;
     SerializedProperty damage;
@@ -22,6 +23,8 @@ public class ItemDataEditor : Editor
         itemSprite = serializedObject.FindProperty("itemSprite");
         pickupSound = serializedObject.FindProperty("pickupSound");
         dataType = serializedObject.FindProperty("dataType");
+        isAnimatedOnPickup = serializedObject.FindProperty("isAnimatedOnPickup");
+        
 
         fireRate = serializedObject.FindProperty("fireRate");
         damage = serializedObject.FindProperty("damage");
@@ -37,6 +40,7 @@ public class ItemDataEditor : Editor
         EditorGUILayout.PropertyField(itemSprite);
         EditorGUILayout.PropertyField(pickupSound);
         EditorGUILayout.PropertyField(dataType);
+        EditorGUILayout.PropertyField(isAnimatedOnPickup);
 
         ItemData.DataType type = (ItemData.DataType)dataType.enumValueIndex;
 

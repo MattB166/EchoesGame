@@ -8,6 +8,7 @@ public class ItemData : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public AudioClip pickupSound;
+    public bool isAnimatedOnPickup;
     public DataType dataType;
     public float fireRate;
     public float damage;
