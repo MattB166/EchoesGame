@@ -51,8 +51,8 @@ public class Actions : MonoBehaviour
     {
         BaseAttack();
         closestInputPickupItem =  UpdateClosestInputPickupItem();
-        if(closestInputPickupItem != null)
-        Debug.Log("Nearest pickup is" + closestInputPickupItem.itemData.name);
+        //if(closestInputPickupItem != null)
+        //Debug.Log("Nearest pickup is" + closestInputPickupItem.itemData.name);
     }
 
     public void InitialisePlayer()
@@ -183,6 +183,13 @@ public class Actions : MonoBehaviour
         {
             HandlePickup(closestInputPickupItem.itemData);
             closestInputPickupItem.OnInteract();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent(out NonInputPickup item))
+        {
+            HandlePickup(item.itemData);
         }
     }
 
