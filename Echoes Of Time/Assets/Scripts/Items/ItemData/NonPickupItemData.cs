@@ -8,4 +8,5 @@ public class NonPickupItemData : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public AudioClip interactSound;
+    public Animation anim;
 }

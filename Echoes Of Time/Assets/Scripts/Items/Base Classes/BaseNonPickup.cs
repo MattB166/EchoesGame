@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseNonPickup : BaseInteractableClass
 {
-    NonPickupItemData itemData;
+    public NonPickupItemData itemData;
     public abstract override void OnInteract();
 
     protected void PlayInteractSound()

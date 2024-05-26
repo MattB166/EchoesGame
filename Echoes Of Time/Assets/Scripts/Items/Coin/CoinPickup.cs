@@ -12,7 +12,7 @@ public class CoinPickup : NonInputPickup
     protected override void Collect()
     {
         animator.Play("CoinCollection");
-
+        
     }
 }
 
