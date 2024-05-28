@@ -222,7 +222,7 @@ public class Actions : MonoBehaviour
     ///referenced by animation to get correct time to check for sword contact
     public void CheckSwordContact()  
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.6f);
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent(out DestructableObject destructableObject))
