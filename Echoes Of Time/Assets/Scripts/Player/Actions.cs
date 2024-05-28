@@ -25,7 +25,7 @@ public class Actions : MonoBehaviour
     public float playerCurrentHealth { get;private set; }
     public float playerAmmo { get; private set; }
 
-
+    public float SwordDamage { get; private set; } = 1.0f;
 
 
     [Header("Weapon Settings")]
@@ -138,6 +138,7 @@ public class Actions : MonoBehaviour
     {
         if (attackInput)
         {
+           attackInput = false;
             switch (currentWeapon)
             {
                 case Weapons.Sword:
@@ -153,6 +154,7 @@ public class Actions : MonoBehaviour
                     Debug.Log("Bow Attack");
                     break;
                 default:
+                    SetAnimationState(Weapons.None,"Player_Idle");
                     break;
             }
             
@@ -216,4 +218,19 @@ public class Actions : MonoBehaviour
         playerCurrentHealth = Mathf.Min(playerCurrentHealth + amount, playerMaxHealth);
         Debug.Log("Player health is now " + playerCurrentHealth);
     }
+
+    ///referenced by animation to get correct time to check for sword contact
+    public void CheckSwordContact()  
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent(out DestructableObject destructableObject))
+            {
+                destructableObject.TakeDamage(SwordDamage);
+            }
+        }
+
+    }
+
 }

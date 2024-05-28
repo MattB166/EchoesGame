@@ -2,44 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructableObject : BaseNonPickup, IDestructable
+public abstract class DestructableObject : BaseNonPickup, IDestructable
 {
+    public float HitPoints { get; set; }
+    public abstract override void OnInteract();
+    public abstract void Initialise();
 
-    public int HitPoints;
-    private int currentHits;
-    public bool isDestroyed { get; private set; }
-
+    protected Vector3 originalPos;
+    protected bool isShaking = false;
+    protected bool isShakingRunning = false;
     private void Start()
     {
-        currentHits = 0;
-        isDestroyed = false;
-    }
-    public void DestroyObject()
-    {
-       isDestroyed = true;
+        originalPos = gameObject.transform.position;
+        Debug.Log(originalPos);
     }
 
-    public override void OnInteract()
+    public void TakeDamage(float amount)
     {
-        PlayInteractSound();
-        currentHits++;
-        if(currentHits >= HitPoints)
+        Debug.Log("Taking damage");
+        HitPoints -= amount;
+        OnInteract();
+        isShaking = true;
+        if (HitPoints <= 0)
         {
-            DestroyObject();
+            CalculateDestruction();
         }
     }
 
-    public void TakeDamage()
+    private void Update()
     {
-        if(!isDestroyed)
+        if (isShaking && !isShakingRunning)
         {
-            currentHits++;
-            if (currentHits >= HitPoints)
-            {
-                DestroyObject();
-            }
+            StartCoroutine(ShakeItem());
+            isShakingRunning = true;
         }
     }
 
-    ////might need re work but this is the idea 
+    private IEnumerator ShakeItem()
+    {
+       
+        isShaking = true;
+        float shakeDuration = 0.1f;
+        float shakeAmount = 0.1f;
+
+        float elapsedTime = 0.0f;
+        while(elapsedTime < shakeDuration)
+        {
+           float x = Random.Range(-1, 1) * shakeAmount;
+           float y = Random.Range(-1, 1) * shakeAmount;
+            
+           transform.position = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+
+        }
+        transform.position = originalPos;
+        isShaking = false;
+        isShakingRunning = false;
+    }
+
+    public void CalculateDestruction()
+    {
+      Destroy(gameObject);
+    }
 }

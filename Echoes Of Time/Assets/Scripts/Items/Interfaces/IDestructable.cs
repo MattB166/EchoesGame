@@ -7,5 +7,6 @@ using UnityEngine;
 /// </summary>
 public interface IDestructable
 {
-    public void DestroyObject();
+   float HitPoints { get; set; }
+    void TakeDamage(float amount);
 }
