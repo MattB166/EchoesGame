@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class DestructableObject : BaseNonPickup, IDestructable
 {
     public float HitPoints { get; set; }
+    public bool markedForDeletion;
+    protected bool isDestroyed = false;
     public abstract override void OnInteract();
     public abstract void Initialise();
 
@@ -29,7 +31,7 @@ public abstract class DestructableObject : BaseNonPickup, IDestructable
         }
     }
 
-    private void Update()
+    protected void Update()
     {
         if (isShaking && !isShakingRunning)
         {
@@ -40,7 +42,7 @@ public abstract class DestructableObject : BaseNonPickup, IDestructable
 
     private IEnumerator ShakeItem()
     {
-       
+       Debug.Log("Shaking");
         isShaking = true;
         float shakeDuration = 0.1f;
         float shakeAmount = 0.1f;
@@ -63,6 +65,17 @@ public abstract class DestructableObject : BaseNonPickup, IDestructable
 
     public void CalculateDestruction()
     {
-      Destroy(gameObject);
+        if (markedForDeletion)
+        {
+            Destroy(gameObject);
+        }
+        else
+            isDestroyed = true;
+            DeleteAfterTime();
+    }
+
+    public void DeleteAfterTime()
+    {
+        Destroy(gameObject, 4.0f);
     }
 }

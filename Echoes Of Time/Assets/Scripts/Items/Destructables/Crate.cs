@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Crate : DestructableObject
 {
+    Animator animator;
     private void Start()
     {
+        animator = GetComponent<Animator>();
         HitPoints = 4;
         Initialise();
     }
@@ -18,5 +20,15 @@ public class Crate : DestructableObject
     {
         originalPos = gameObject.transform.position;
         //Debug.Log(originalPos);
+    }
+
+    private void Update()
+    {
+        base.Update();
+        if(isDestroyed)
+        {
+            animator.Play("Crate");
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 }
