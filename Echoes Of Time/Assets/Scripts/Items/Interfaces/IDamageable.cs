@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Used to mark objects that can be destroyed, such as destructable objects like the crate. 
 /// </summary>
-public interface IDestructable
+public interface IDamageable
 {
    float HitPoints { get; set; }
     void TakeDamage(float amount);

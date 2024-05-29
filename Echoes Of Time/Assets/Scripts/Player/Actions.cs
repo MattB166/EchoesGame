@@ -225,9 +225,9 @@ public class Actions : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.6f);
         foreach (var hit in hits)
         {
-            if (hit.TryGetComponent(out DestructableObject destructableObject))
+            if (hit.TryGetComponent(out IDamageable damageable))
             {
-                destructableObject.TakeDamage(SwordDamage);
+                damageable.TakeDamage(SwordDamage);
             }
         }
 

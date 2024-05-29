@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DestructableObject : BaseNonPickup, IDestructable
+public abstract class DestructableObject : BaseNonPickup, IDamageable
 {
     public float HitPoints { get; set; }
     public bool markedForDeletion;
