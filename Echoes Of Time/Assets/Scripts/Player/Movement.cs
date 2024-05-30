@@ -56,6 +56,7 @@ public class Movement : MonoBehaviour
     private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponMovementAnims = new();
     public Actions.Weapons currentWeapon;
     public AnimationStates currentState;
+    public bool isAttacking;
 
 
     private bool jumpInput;
@@ -78,6 +79,7 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
+        isAttacking = GetComponent<Actions>().isAttacking;
     }
 
     // Update is called once per frame
@@ -87,7 +89,7 @@ public class Movement : MonoBehaviour
         currentWeapon = GetComponent<Actions>().currentWeapon;
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
-
+        isAttacking = GetComponent<Actions>().isAttacking;
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -161,7 +163,7 @@ public class Movement : MonoBehaviour
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.velocity.y < 0 && !isAttacking)
         {
             SetAnimationState(currentWeapon, "Player_Fall");
         }
@@ -238,7 +240,7 @@ public class Movement : MonoBehaviour
 
     }
 
-    
+
 
 
 }

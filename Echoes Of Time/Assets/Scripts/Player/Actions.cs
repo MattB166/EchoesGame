@@ -33,6 +33,7 @@ public class Actions : MonoBehaviour
     public ActionAnims currentState;
     private Animator animator;
     private bool attackInput;
+    public bool isAttacking;
     private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
 
     private InputPickupItem closestInputPickupItem;
@@ -131,7 +132,6 @@ public class Actions : MonoBehaviour
         string state = newState.ToString();  ////cant do current check with this or it wont play it again 
         animator.Play(state);
         currentState = newState;
-
     }
 
     public void BaseAttack()
@@ -139,6 +139,7 @@ public class Actions : MonoBehaviour
         if (attackInput)
         {
            attackInput = false;
+            isAttacking = true;
             switch (currentWeapon)
             {
                 case Weapons.Sword:
@@ -157,7 +158,7 @@ public class Actions : MonoBehaviour
                     SetAnimationState(Weapons.None,"Player_Idle");
                     break;
             }
-            
+            isAttacking = false;
         }
        
         

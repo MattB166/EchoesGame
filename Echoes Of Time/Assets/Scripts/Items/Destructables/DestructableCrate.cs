@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crate : DestructableObject
+public class DestructableCrate : DestructableObject
 {
     Animator animator;
+    private Rigidbody2D rb;
+ 
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -31,4 +33,6 @@ public class Crate : DestructableObject
             GetComponent<BoxCollider2D>().enabled = false;
         }
     }
+
+   
 }
