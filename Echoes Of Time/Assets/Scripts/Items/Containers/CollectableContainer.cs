@@ -77,4 +77,10 @@ public class CollectableContainer : MonoBehaviour
         int randomIndex = Random.Range(0, spawnPool.Count);
         return spawnPool[randomIndex];
     }
+
+    public GameObject GetRandomItem()
+    {
+        int randomIndex = Random.Range(0, spawnPool.Count);
+        return spawnPool[randomIndex];
+    }
 }

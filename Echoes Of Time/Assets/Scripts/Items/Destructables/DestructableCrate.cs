@@ -6,12 +6,15 @@ public class DestructableCrate : DestructableObject
 {
     Animator animator;
     private Rigidbody2D rb;
+    private GameObject heldObject;
+   
  
     private void Start()
     {
         animator = GetComponent<Animator>();
-        HitPoints = 4;
         Initialise();
+        heldObject = CollectableContainer.instance.GetRandomItem();
+        Debug.Log(heldObject.name);
     }
     public override void OnInteract()
     {
@@ -31,6 +34,7 @@ public class DestructableCrate : DestructableObject
         {
             animator.Play("Crate");
             GetComponent<BoxCollider2D>().enabled = false;
+            
         }
     }
 

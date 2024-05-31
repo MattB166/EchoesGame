@@ -4,9 +4,17 @@ using UnityEngine;
 
 public abstract class DestructableObject : BaseNonPickup, IDamageable
 {
-    public float HitPoints { get; set; }
+    [SerializeField]
+    private float hitPoints;
+    public float HitPoints
+    {
+        get { return hitPoints; }
+        set { hitPoints = value; }
+    }
     public bool markedForDeletion;
+    public bool spawnsItem;
     protected bool isDestroyed = false;
+    private int newOrderLayer = -2;
     public abstract override void OnInteract();
     public abstract void Initialise();
 
@@ -28,6 +36,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         if (HitPoints <= 0)
         {
             CalculateDestruction();
+            GetComponent<SpriteRenderer>().sortingOrder = newOrderLayer;
         }
     }
 
@@ -72,6 +81,20 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         else
             isDestroyed = true;
             DeleteAfterTime();
+
+        if(spawnsItem)
+        {
+            GameObject go = CollectableContainer.instance.GetRandomItem();
+            Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
+            GameObject newItem = Instantiate(go, spawnPos, Quaternion.identity);
+            Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
+            if(rb != null)
+            {
+
+                Vector2 spawnForce = new Vector2(Random.Range(-1, 1), Random.Range(2, 4));
+                rb.AddForce(spawnForce, ForceMode2D.Impulse);
+            }
+        }
     }
 
     public void DeleteAfterTime()

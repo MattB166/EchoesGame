@@ -334,19 +334,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_Size.x
-      value: 1.459528
+      value: 1.3520579
       objectReference: {fileID: 0}
     - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_Size.y
-      value: 0.9436264
+      value: 0.916759
       objectReference: {fileID: 0}
     - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_Offset.x
-      value: -0.053662777
+      value: -0.062618494
       objectReference: {fileID: 0}
     - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_Offset.y
-      value: -0.0029461384
+      value: -0.016379833
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078768443694275902, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: spawnsItem
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5682150839970170673, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_LocalPosition.x
@@ -438,6 +442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 668511128}
   - component: {fileID: 668511127}
+  - component: {fileID: 668511129}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -473,6 +478,44 @@ Transform:
   - {fileID: 830622659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1839735485 &668511129
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668511126}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &687052893
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,9 +658,9 @@ GameObject:
   - component: {fileID: 830622659}
   - component: {fileID: 830622661}
   - component: {fileID: 830622660}
-  - component: {fileID: 830622662}
+  - component: {fileID: 830622663}
   m_Layer: 3
-  m_Name: Ground
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -946,31 +989,101 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 5, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 6, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 7, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 8, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 9, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 10, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 11, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 23
+  - m_RefCount: 28
     m_Data: {fileID: 11400000, guid: 0ff23cc51e185a0458a2a7307fef94fa, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 3394598be32057946862d7bee59fac23, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 49df80d85012a0c44b48d219f98544a4, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 23
+  - m_RefCount: 28
     m_Data: {fileID: -371894785065914332, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: -4510082331654646448, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: -5420887633574922480, guid: aff2e1025b3883346993693f07b2c3c5, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 25
+  - m_RefCount: 32
     m_Data:
       e00: 1
       e01: 0
@@ -989,13 +1102,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 25
+  - m_RefCount: 32
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -13, y: -7, z: 0}
-  m_Size: {x: 25, y: 7, z: 1}
+  m_Size: {x: 25, y: 12, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -1015,8 +1128,8 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!61 &830622662
-BoxCollider2D:
+--- !u!19719996 &830622663
+TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1049,18 +1162,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -1.3864632, y: -14.077}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 64.16631, y: 2.5220718}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &878530995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1368,7 @@ MonoBehaviour:
   customTimeScale: 1
   currentWeapon: 0
   currentState: 0
+  isAttacking: 0
   isGrounded: 0
   gravity: -9.4
   groundcheckDistance: 0.02
@@ -1464,6 +1570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: 0
   currentState: 0
+  isAttacking: 0
 --- !u!50 &1075418630
 Rigidbody2D:
   serializedVersion: 4
@@ -1574,6 +1681,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6028008642729629074, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
   m_PrefabInstance: {fileID: 1878908467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1251607619
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_Name
+      value: Health Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.6061475
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4768323
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
 --- !u!1 &1336748905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1930,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: f6a25775b60ceed408fb86d63948f310, type: 2}
+--- !u!1001 &1642102325
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.9323967
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.48375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354263599399263973, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7144278573680996463, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+      propertyPath: m_Name
+      value: Health Potion 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
 --- !u!1 &1716193694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2226,10 @@ MonoBehaviour:
   pickupItems:
   - itemPrefab: {fileID: 1191108527}
     spawnChancePercentage: 1
+  - itemPrefab: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+    spawnChancePercentage: 50
+  - itemPrefab: {fileID: 7144278573680996463, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
+    spawnChancePercentage: 49
 --- !u!1001 &1878908467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2229,6 +2454,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.0007073879
       objectReference: {fileID: 0}
+    - target: {fileID: 5078768443694275902, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: spawnsItem
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5682150839970170673, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.33
@@ -2278,63 +2507,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
---- !u!1001 &1192046411716252087
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_Name
-      value: Health Potion
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.576842
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.107
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6947583779301723888, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2351,4 +2523,5 @@ SceneRoots:
   - {fileID: 1878908467}
   - {fileID: 1993783617}
   - {fileID: 249793243}
-  - {fileID: 1192046411716252087}
+  - {fileID: 1251607619}
+  - {fileID: 1642102325}

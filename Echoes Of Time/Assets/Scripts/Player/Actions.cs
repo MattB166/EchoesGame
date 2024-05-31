@@ -205,6 +205,7 @@ public class Actions : MonoBehaviour
                 break;
             case ItemData.DataType.Health:
                 AddHealth(itemData.healthValue);
+                //add to inventory if health full 
                 break;
             case ItemData.DataType.Coin:
                 Debug.Log("Picked up coin");

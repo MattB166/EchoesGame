@@ -146,7 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: dbbcbf6072d0aba4aae7f814fd4560f6, type: 2}
+  hitPoints: 2
   markedForDeletion: 0
+  spawnsItem: 0
 --- !u!95 &4073359650853034550
 Animator:
   serializedVersion: 7
