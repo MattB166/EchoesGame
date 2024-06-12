@@ -245,14 +245,15 @@ MonoBehaviour:
   isCleared: 0
   isVisited: 0
   isCurrent: 0
-  width: 10
-  height: 10
+  width: 30
+  height: 15
   tilemap: {fileID: 1350066853}
   floorTile: {fileID: 11400000, guid: c2883098c42f78344821ee707df85d3a, type: 2}
   leftWallTile: {fileID: 11400000, guid: 1efafaf1f2f38734e9e92ec26ad295ef, type: 2}
   rightWallTile: {fileID: 11400000, guid: ecde0572ab4b8ae42a615fa617fe6ce2, type: 2}
   topWallTile: {fileID: 11400000, guid: 1657d461dbdd93845bcc8accbbd173b1, type: 2}
-  exits: {x: 0, y: 0}
+  bottomWallTile: {fileID: 11400000, guid: 1657d461dbdd93845bcc8accbbd173b1, type: 2}
+  exits: {x: 1, y: 1}
 --- !u!4 &878321600
 Transform:
   m_ObjectHideFlags: 0
@@ -347,7 +348,7 @@ TilemapRenderer:
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
-  m_SortOrder: 0
+  m_SortOrder: 2
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
@@ -361,15 +362,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: -3.5140225e-19
+      e01: 0
+      e02: 3.750187
+      e03: 3.750187
+      e10: 7.3e-43
+      e11: 0
+      e12: 7.3e-43
+      e13: 7.3e-43
+      e20: 1.462616e-24
+      e21: -3.8865783e+19
+      e22: -5.5594023e-19
+      e23: -3.8865783e+19
+      e30: 4.5916e-41
+      e31: 7.33e-43
+      e32: 7.3e-43
+      e33: 7.33e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 4.9188e-41, g: 4.9188e-41, b: 4.9188e-41, a: 4.9188e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Size: {x: 29, y: 8, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

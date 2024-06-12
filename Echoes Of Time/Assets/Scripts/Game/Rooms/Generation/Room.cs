@@ -24,6 +24,7 @@ public class Room : MonoBehaviour
     public TileBase leftWallTile;
     public TileBase rightWallTile;
     public TileBase topWallTile;
+    public TileBase bottomWallTile;
     public TileBase[,] tiles;
     public Vector2Int exits;
 
@@ -57,6 +58,10 @@ public class Room : MonoBehaviour
                 }
                if(y == 0)
                 {
+                    room.tiles[x, y] = bottomWallTile;
+                }
+               if(y == 1)
+                {
                     room.tiles[x, y] = floorTile;
                 }
               else if(x == room.width -1)
@@ -68,6 +73,36 @@ public class Room : MonoBehaviour
                     room.tiles[x, y] = topWallTile;
               }
               
+            }
+        }
+
+        CheckTiles(room);
+    }
+
+    private void CheckTiles(Room room)
+    {
+        for(int x = 0;x < room.width; x++)
+        {
+            for(int y = 0; y < room.height; y++)
+            {
+
+                if (room.tiles[x, y] == floorTile)
+                {
+                    bool hasBlockingNeighbour = false;
+
+                    if(y < room.height - 1 && room.tiles[x, y + 1] == floorTile)
+                    {
+                        hasBlockingNeighbour = true;
+                    }
+                    if(y> 0 && room.tiles[x, y - 1] == floorTile)
+                    {
+                        hasBlockingNeighbour = true;
+                    }
+                    if(hasBlockingNeighbour)
+                    {
+                        room.tiles[x, y] = null;
+                    }
+                }
             }
         }
     }
@@ -88,4 +123,5 @@ public class Room : MonoBehaviour
             }
         }
     }
+
 }
