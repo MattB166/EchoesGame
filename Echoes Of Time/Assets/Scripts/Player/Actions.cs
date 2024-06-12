@@ -210,6 +210,7 @@ public class Actions : MonoBehaviour
                 case ItemData.DataType.Weapon:
                     if (!availableWeapons.Contains(itemData.weaponType))
                     {
+                        ///purely for animation purposes. inventory UI etc handled elsewhere 
                         availableWeapons.Add(itemData.weaponType);
                         Debug.Log("Picked up " + itemData.weaponType);
                     }

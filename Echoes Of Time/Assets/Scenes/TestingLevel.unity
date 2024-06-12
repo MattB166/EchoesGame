@@ -2131,6 +2131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crate (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1447470398004156912, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5078768443694275902, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: spawnsItem
       value: 1
