@@ -37,6 +37,10 @@ public class Actions : MonoBehaviour
     private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
 
     private InputPickupItem closestInputPickupItem;
+    private HashSet<Weapons> availableWeapons = new();
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,25 +71,26 @@ public class Actions : MonoBehaviour
     {
         if(context.performed)
         {
-            switch(currentWeapon)
+           Weapons nextWeapon = GetNextAvailableWeapon();
+            if(nextWeapon != Weapons.None)
             {
-                case Weapons.Sword:
-                    currentWeapon = Weapons.Spear;
-                    break;
-                    case Weapons.Spear:
-                    currentWeapon = Weapons.Bow;
-                    break;
-                    case Weapons.Bow:
-                    currentWeapon = Weapons.None;
-                    break;
-                    case Weapons.None:
-                    currentWeapon = Weapons.Sword;
-                    break;
-                    default:
-                    currentWeapon = Weapons.None;
-                    break;
+                currentWeapon = nextWeapon;
+                Debug.Log("Current weapon is now " + currentWeapon);
             }
         }
+    }
+
+    private Weapons GetNextAvailableWeapon()
+    {
+        List<Weapons> availableWeaponsList = new List<Weapons>(availableWeapons);
+        if(availableWeaponsList.Count == 0)
+        {
+            return Weapons.None;
+        }
+
+        int currentIndex = availableWeaponsList.IndexOf(currentWeapon);
+        int nextIndex = (currentIndex + 1) % availableWeaponsList.Count;
+        return availableWeaponsList[nextIndex];
     }
 
     private void InitialiseAttackAnims()
@@ -198,21 +203,29 @@ public class Actions : MonoBehaviour
 
     public void HandlePickup(ItemData itemData)
     {
-        switch(itemData.dataType)
+        if(itemData != null)
         {
-            case ItemData.DataType.Weapon:
-                Debug.Log("Picked up weapon");
-                break;
-            case ItemData.DataType.Health:
-                AddHealth(itemData.healthValue);
-                //add to inventory if health full 
-                break;
-            case ItemData.DataType.Coin:
-                Debug.Log("Picked up coin");
-                break;
-            default:
-                break;
+            switch (itemData.dataType)
+            {
+                case ItemData.DataType.Weapon:
+                    if (!availableWeapons.Contains(itemData.weaponType))
+                    {
+                        availableWeapons.Add(itemData.weaponType);
+                        Debug.Log("Picked up " + itemData.weaponType);
+                    }
+                    break;
+                case ItemData.DataType.Health:
+                    AddHealth(itemData.healthValue);
+                    //add to inventory if health full 
+                    break;
+                case ItemData.DataType.Coin:
+                    Debug.Log("Picked up coin");
+                    break;
+                default:
+                    break;
+            }
         }
+        
     }
 
     public void AddHealth(float amount)

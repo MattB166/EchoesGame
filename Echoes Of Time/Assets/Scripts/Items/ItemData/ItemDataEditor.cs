@@ -7,6 +7,7 @@ using UnityEngine;
 public class ItemDataEditor : Editor
 {
     SerializedProperty itemName;
+    SerializedProperty weaponType;
     SerializedProperty itemSprite;
     SerializedProperty pickupSound;
     SerializedProperty dataType;
@@ -20,6 +21,7 @@ public class ItemDataEditor : Editor
     private void OnEnable()
     {
         itemName = serializedObject.FindProperty("itemName");
+        weaponType = serializedObject.FindProperty("weaponType");
         itemSprite = serializedObject.FindProperty("itemSprite");
         pickupSound = serializedObject.FindProperty("pickupSound");
         dataType = serializedObject.FindProperty("dataType");
@@ -50,11 +52,13 @@ public class ItemDataEditor : Editor
                 EditorGUILayout.PropertyField(healthValue);
                 break;
             case ItemData.DataType.Ammo:
-               EditorGUILayout.PropertyField(ammoAmount);
+               
                 break;
             case ItemData.DataType.Weapon:
+                EditorGUILayout.PropertyField(weaponType);
                 EditorGUILayout.PropertyField(fireRate);
                 EditorGUILayout.PropertyField(damage);
+                EditorGUILayout.PropertyField(ammoAmount);
                 break;
             case ItemData.DataType.Key:
                 EditorGUILayout.HelpBox("This item will give the player a key.", MessageType.Info);

@@ -6,22 +6,19 @@ using UnityEngine;
 [CustomEditor(typeof(WeaponData))]
 public class WeaponDataEditor : Editor
 {
-    SerializedProperty weaponName;
+    SerializedProperty weaponType;
     SerializedProperty weaponDamage;
     SerializedProperty image;
-    SerializedProperty isPrimitive;
     SerializedProperty ammoAmount;
-    SerializedProperty ammo;
     
 
     private void OnEnable()
     {
-        weaponName = serializedObject.FindProperty("weaponName");
+        weaponType = serializedObject.FindProperty("weaponType");
         image = serializedObject.FindProperty("weaponDamage");
         weaponDamage = serializedObject.FindProperty("image");
-        isPrimitive = serializedObject.FindProperty("isPrimitive");
         ammoAmount = serializedObject.FindProperty("ammoAmount");
-        ammo = serializedObject.FindProperty("ammo");
+      
        
     }
 
@@ -29,17 +26,40 @@ public class WeaponDataEditor : Editor
     {
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField(weaponName);
-        EditorGUILayout.PropertyField(weaponDamage);
-        EditorGUILayout.PropertyField(image);
-        EditorGUILayout.PropertyField(isPrimitive);
+        EditorGUILayout.PropertyField(weaponType);
+        
 
-        if(isPrimitive.boolValue == false)
+        switch((Actions.Weapons)weaponType.enumValueIndex)
         {
-            EditorGUILayout.PropertyField(ammoAmount);
-            EditorGUILayout.PropertyField(ammo);
-        }
+            case Actions.Weapons.Sword:
+                EditorGUILayout.HelpBox("This weapon is a sword", MessageType.Info);
+              
+                EditorGUILayout.PropertyField(image);
+                EditorGUILayout.PropertyField(weaponDamage);
+                break;
+            case Actions.Weapons.Spear:
+                EditorGUILayout.HelpBox("This weapon is a spear", MessageType.Info);
+               
+                EditorGUILayout.PropertyField(image);
+                EditorGUILayout.PropertyField(weaponDamage);
+                break;
+            case Actions.Weapons.Bow:
+               
+                EditorGUILayout.PropertyField(image);
+                EditorGUILayout.PropertyField(ammoAmount);
+                EditorGUILayout.PropertyField(weaponDamage);
+                break;
+            case Actions.Weapons.None:
+                EditorGUILayout.HelpBox("This weapon is not a weapon", MessageType.Info);
+                break;
+        }   
+
+        
+        
        
+        
+
+        
 
         serializedObject.ApplyModifiedProperties();
     }

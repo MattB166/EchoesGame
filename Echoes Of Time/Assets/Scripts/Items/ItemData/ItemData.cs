@@ -5,11 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemData", menuName = "Items/ItemData")]
 public class ItemData : ScriptableObject
 {
+    public DataType dataType;
+    public Actions.Weapons weaponType;
     public string itemName;
     public Sprite itemSprite;
     public AudioClip pickupSound;
     public bool isAnimatedOnPickup;
-    public DataType dataType;
     public float fireRate;
     public float damage;
     public int ammoAmount;
