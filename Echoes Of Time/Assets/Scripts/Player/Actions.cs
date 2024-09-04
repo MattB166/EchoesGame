@@ -237,7 +237,7 @@ public class Actions : MonoBehaviour
     }
 
     ///referenced by animation to get correct time to check for sword contact
-    public void CheckSwordContact()  
+    public void CheckWeaponContact()  
     {
         if(weaponDamages.ContainsKey(currentWeapon))
         {
