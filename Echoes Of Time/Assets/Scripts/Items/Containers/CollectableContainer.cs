@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Holds a list of collectable items which can be spawned at runtime and collected by the player
+/// Holds a list of items which can be spawned at runtime and collected by the player
 /// </summary>
 [System.Serializable]
 public struct ItemSpawnData
@@ -48,7 +48,8 @@ public class CollectableContainer : MonoBehaviour
 
         while(spawnPool.Count < 100)
         {
-            spawnPool.Add(pickupItems[0].itemPrefab);
+            int randomIndex = Random.Range(0, pickupItems.Count);
+            spawnPool.Add(pickupItems[randomIndex].itemPrefab);
         }
         while(spawnPool.Count > 100)
         {

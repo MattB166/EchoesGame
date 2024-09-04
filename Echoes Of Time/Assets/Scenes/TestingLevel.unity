@@ -3788,11 +3788,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupItems:
   - itemPrefab: {fileID: 1191108527}
-    spawnChancePercentage: 5
-  - itemPrefab: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
     spawnChancePercentage: 45
+  - itemPrefab: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
+    spawnChancePercentage: 5
   - itemPrefab: {fileID: 7144278573680996463, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
-    spawnChancePercentage: 50
+    spawnChancePercentage: 49
+  - itemPrefab: {fileID: 6614358742109557468, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
+    spawnChancePercentage: 1
 --- !u!1001 &1878908467
 PrefabInstance:
   m_ObjectHideFlags: 0
