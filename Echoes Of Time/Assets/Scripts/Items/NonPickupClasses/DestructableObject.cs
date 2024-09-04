@@ -11,7 +11,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         get { return hitPoints; }
         set { hitPoints = value; }
     }
-    public bool markedForDeletion;
+    public bool markedForImmediateDeletion;
     public bool spawnsItem;
     protected bool isDestroyed = false;
     private int newOrderLayer = -2;
@@ -74,7 +74,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
 
     public void CalculateDestruction()
     {
-        if (markedForDeletion)
+        if (markedForImmediateDeletion)
         {
             Destroy(gameObject);
         }

@@ -55,10 +55,27 @@ public class ItemDataEditor : Editor
                
                 break;
             case ItemData.DataType.Weapon:
+                switch((Actions.Weapons)weaponType.enumValueIndex)
+                {
+                    case Actions.Weapons.Sword:
+                        EditorGUILayout.HelpBox("This weapon is a sword", MessageType.Info);
+                        EditorGUILayout.PropertyField(damage);
+                        break;
+                    case Actions.Weapons.Spear:
+                        EditorGUILayout.HelpBox("This weapon is a spear", MessageType.Info);
+                        EditorGUILayout.PropertyField(damage);
+                        break;
+                    case Actions.Weapons.Bow:
+                        EditorGUILayout.HelpBox("This weapon is a bow", MessageType.Info);
+                        EditorGUILayout.PropertyField(fireRate);
+                        EditorGUILayout.PropertyField(damage);
+                        EditorGUILayout.PropertyField(ammoAmount);
+                        break;
+                    case Actions.Weapons.None:
+                        EditorGUILayout.HelpBox("This weapon is not a weapon", MessageType.Info);
+                        break;
+                }
                 EditorGUILayout.PropertyField(weaponType);
-                EditorGUILayout.PropertyField(fireRate);
-                EditorGUILayout.PropertyField(damage);
-                EditorGUILayout.PropertyField(ammoAmount);
                 break;
             case ItemData.DataType.Key:
                 EditorGUILayout.HelpBox("This item will give the player a key.", MessageType.Info);

@@ -25,7 +25,6 @@ public class Actions : MonoBehaviour
     public float playerCurrentHealth { get;private set; }
     public float playerAmmo { get; private set; }
 
-    public float SwordDamage { get; private set; } = 1.0f;
 
 
     [Header("Weapon Settings")]
@@ -35,6 +34,7 @@ public class Actions : MonoBehaviour
     private bool attackInput;
     public bool isAttacking;
     private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
+    private Dictionary<Weapons,float> weaponDamages = new();
 
     private InputPickupItem closestInputPickupItem;
     private HashSet<Weapons> availableWeapons = new();
@@ -212,6 +212,7 @@ public class Actions : MonoBehaviour
                     {
                         ///purely for animation purposes. inventory UI etc handled elsewhere 
                         availableWeapons.Add(itemData.weaponType);
+                        weaponDamages.Add(itemData.weaponType, itemData.damage);
                         Debug.Log("Picked up " + itemData.weaponType);
                     }
                     break;
@@ -238,13 +239,20 @@ public class Actions : MonoBehaviour
     ///referenced by animation to get correct time to check for sword contact
     public void CheckSwordContact()  
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.6f);
-        foreach (var hit in hits)
+        if(weaponDamages.ContainsKey(currentWeapon))
         {
-            if (hit.TryGetComponent(out IDamageable damageable))
+            float damage = weaponDamages[currentWeapon];
+
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.6f);
+            foreach (var hit in hits)
             {
-                damageable.TakeDamage(SwordDamage);
+                if (hit.TryGetComponent(out IDamageable damageable))
+                {
+                    damageable.TakeDamage(damage);
+                    Debug.Log("Dealt " + damage + " damage to " + hit.name);
+                }
             }
+
         }
 
     }
