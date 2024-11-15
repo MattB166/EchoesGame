@@ -53,6 +53,7 @@ public class Movement : MonoBehaviour
     public float customTimeScale;
     private Animator animator;
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     private Dictionary<Actions.Weapons, Dictionary<string, AnimationStates>> weaponMovementAnims = new();
     public Actions.Weapons currentWeapon;
     public AnimationStates currentState;
@@ -75,7 +76,8 @@ public class Movement : MonoBehaviour
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
-       groundCheck = transform.Find("groundcheck");
+        boxCollider = GetComponent<BoxCollider2D>();
+        groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
@@ -89,7 +91,9 @@ public class Movement : MonoBehaviour
         currentWeapon = GetComponent<Actions>().currentWeapon;
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
+        ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
+        Debug.Log(isGrounded);
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -148,6 +152,7 @@ public class Movement : MonoBehaviour
     public void CalculateMovementAnimationChecks()
     {
         Vector2 move = Move();
+        boxCollider.isTrigger = false;
 
         if (move.x < 0 && isGrounded)
         {
@@ -165,6 +170,16 @@ public class Movement : MonoBehaviour
         }
         if (!isGrounded && rb.velocity.y < 0 && !isAttacking)
         {
+            boxCollider.isTrigger = true;
+           
+            if (rb.velocity.x > 0)
+            {
+                boxCollider.isTrigger = false;
+            }
+            if(rb.velocity.x < 0)
+            {
+                boxCollider.isTrigger = false;
+            }
             SetAnimationState(currentWeapon, "Player_Fall");
         }
 
@@ -238,6 +253,14 @@ public class Movement : MonoBehaviour
     private void CheckWeaponForAnim()
     {
 
+    }
+
+    private void ApplyGravity()
+    {
+        if(!isGrounded)
+        {
+            rb.velocity += new Vector2(0, gravity * Time.deltaTime);
+        }
     }
 
 

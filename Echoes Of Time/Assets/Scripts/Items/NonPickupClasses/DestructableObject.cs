@@ -87,13 +87,16 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
             GameObject go = CollectableContainer.instance.GetRandomItem();
             Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
             GameObject newItem = Instantiate(go, spawnPos, Quaternion.identity);
-            Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
-            if(rb != null)
-            {
+           
+                Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
 
-                Vector2 spawnForce = new Vector2(Random.Range(-1, 1), Random.Range(2, 4));
-                rb.AddForce(spawnForce, ForceMode2D.Impulse);
-            }
+                    Vector2 spawnForce = new Vector2(Random.Range(-1, 1), Random.Range(2, 4));
+                    rb.AddForce(spawnForce, ForceMode2D.Impulse);
+                }
+            
+            
         }
     }
 
