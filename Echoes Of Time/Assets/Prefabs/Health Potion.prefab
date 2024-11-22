@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.2
+  m_PointLightInnerRadius: 0.4
   m_PointLightOuterRadius: 1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 5273948364332321595}
   - component: {fileID: 2110872172478614104}
   - component: {fileID: 7479125325210911447}
+  - component: {fileID: 7750066076798459393}
   m_Layer: 0
   m_Name: Health Potion
   m_TagString: Untagged
@@ -305,3 +306,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7750066076798459393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584742257693843578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d549ce351441a844b7bc33331c1e467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxIntensity: 10
+  MinIntensity: 1
+  SpeedToChange: 5
