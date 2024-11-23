@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca26b33ae7141d4faf50516f68dc7b3, type: 3}
   m_Name: Interactable Light
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Light
   itemSprite: {fileID: 0}
   interactSound: {fileID: 0}
