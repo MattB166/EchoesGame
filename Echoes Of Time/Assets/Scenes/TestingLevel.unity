@@ -425,6 +425,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.016379833
       objectReference: {fileID: 0}
+    - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5078768443694275902, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: hitPoints
       value: 2
@@ -4127,6 +4131,10 @@ PrefabInstance:
     - target: {fileID: 1447470398004156912, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4916045703154007996, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5078768443694275902, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: spawnsItem
