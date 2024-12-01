@@ -34,7 +34,7 @@ public enum AnimationStates
     Player_Sword_Climb,
     Player_Sword_Roll,
     Player_Sword_Die,
-   
+
 }
 
 /// <summary>
@@ -48,8 +48,8 @@ public class Movement : MonoBehaviour
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
-    [Range(1,10)] public float sprintSpeed;
-    [Range(1,10)] public float jumpForce;
+    [Range(1, 10)] public float sprintSpeed;
+    [Range(1, 10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
     private Rigidbody2D rb;
@@ -62,11 +62,13 @@ public class Movement : MonoBehaviour
 
     private bool jumpInput;
     private bool isJumping;
+    private bool doubleJumping;
+    private float initialZRotation; 
     [HideInInspector] public bool isGrounded;
     [Space(10)]
     [Header("Jump Settings")]
-    [Range(-20f,-0.05f)] public float gravity;
-    [Range(0.01f,0.5f)] public float groundcheckDistance;
+    [Range(-20f, -0.05f)] public float gravity;
+    [Range(0.01f, 0.5f)] public float groundcheckDistance;
     public float coyoteTime;
     private float coyoteCounter;
     //add jump buffer next 
@@ -75,22 +77,29 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         groundCheck = transform.Find("groundcheck");
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
         isAttacking = GetComponent<Actions>().isAttacking;
+        initialZRotation = transform.rotation.z;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
+        PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
         Debug.Log(isGrounded);
@@ -99,13 +108,13 @@ public class Movement : MonoBehaviour
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
-       
-       // Debug.Log("reading input"); 
+
+        // Debug.Log("reading input"); 
     }
 
     private Vector2 Move()
     {
-        Vector2 movement = input *walkSpeed * customTimeScale;
+        Vector2 movement = input * walkSpeed * customTimeScale;
         movement.y = rb.velocity.y;
         rb.velocity = movement;
         return movement;
@@ -115,15 +124,19 @@ public class Movement : MonoBehaviour
     {
         if (coyoteCounter > 0 && context.performed)
             jumpInput = true;
-        else if(context.canceled)
+        if(coyoteCounter > 0 && !isGrounded && context.performed)
+        {
+            doubleJumping = true;
+        }
+        else if (context.canceled)
             jumpInput = false;
     }
 
     private void Jump()
     {
-        if(jumpInput)
+        if (jumpInput)
         {
-           Debug.Log("Jumping");
+            Debug.Log("Jumping");
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             SetAnimationState(currentWeapon, "Player_Jump");
             jumpInput = false;
@@ -131,9 +144,19 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void PerformDoubleJump()
+    {
+       if(doubleJumping)
+        transform.Rotate(0, 0, 360 * 1 * Time.deltaTime);
+        if(doubleJumping && isGrounded)
+        {
+            doubleJumping = false;
+        } 
+    }
+
     private void CalculateGroundChecks()
     {
-       
+
         Jump();
         if (isGrounded)
         {
@@ -142,12 +165,11 @@ public class Movement : MonoBehaviour
         }
         else if (!isGrounded)
         {
-            
             coyoteCounter -= Time.deltaTime;
-           // Debug.Log(coyoteCounter);
+            // Debug.Log(coyoteCounter);
         }
-           
-         
+
+
     }
     public void CalculateMovementAnimationChecks()
     {
@@ -164,6 +186,15 @@ public class Movement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
             SetAnimationState(currentWeapon, "Player_Run");
         }
+        if (move.x > 0 && !isGrounded)
+        {
+
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        if (move.x < 0 && !isGrounded)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
         else if (move.x == 0 && move.y == 0)
         {
             SetAnimationState(currentWeapon, "Player_Idle");
@@ -171,16 +202,20 @@ public class Movement : MonoBehaviour
         if (!isGrounded && rb.velocity.y < 0 && !isAttacking)
         {
             boxCollider.isTrigger = true;
-           
+
             if (rb.velocity.x > 0)
             {
                 boxCollider.isTrigger = false;
             }
-            if(rb.velocity.x < 0)
+            if (rb.velocity.x < 0)
             {
                 boxCollider.isTrigger = false;
             }
             SetAnimationState(currentWeapon, "Player_Fall");
+            //rotate back to normal rotation slowly after jump flip 
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, initialZRotation), 360 * Time.deltaTime); //needs smoothing out and cleaning up 
+
+
         }
 
 
@@ -219,7 +254,7 @@ public class Movement : MonoBehaviour
             {"Player_Climb",AnimationStates.Player_Spear_Climb},
             {"Player_Roll",AnimationStates.Player_Spear_Roll},
             {"Player_Die",AnimationStates.Player_Spear_Die },
-           
+
         });
 
         weaponMovementAnims.Add(Actions.Weapons.Bow, new Dictionary<string, AnimationStates>
@@ -237,14 +272,14 @@ public class Movement : MonoBehaviour
 
     private void SetAnimationState(Actions.Weapons currentWeapon, string State)
     {
-       if(weaponMovementAnims.ContainsKey(currentWeapon) && weaponMovementAnims[currentWeapon].ContainsKey(State))
+        if (weaponMovementAnims.ContainsKey(currentWeapon) && weaponMovementAnims[currentWeapon].ContainsKey(State))
         {
             ChangeAnimationState(weaponMovementAnims[currentWeapon][State]);
         }
     }
     private void ChangeAnimationState(AnimationStates newState)
     {
-        if(currentState == newState) return;
+        if (currentState == newState) return;
         string state = newState.ToString();
         animator.Play(state);
         currentState = newState;
@@ -257,7 +292,7 @@ public class Movement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if(!isGrounded)
+        if (!isGrounded)
         {
             rb.velocity += new Vector2(0, gravity * Time.deltaTime);
         }
