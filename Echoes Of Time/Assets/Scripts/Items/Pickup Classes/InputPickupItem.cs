@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public abstract class InputPickupItem : BasePickupItem
 {
     private bool playerInRange = false;
-    private InputPickupItem nearestItem;
+   // private InputPickupItem nearestItem;
     public static List<InputPickupItem> itemsInRange = new();
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,7 @@ public abstract class InputPickupItem : BasePickupItem
         {
             playerInRange = true;
             itemsInRange.Add(this);
-            // Debug.Log("Player in range of " + itemData.name);
+            //Debug.Log("Player in range of " + itemData.name);
         }
     }
 
@@ -24,10 +24,14 @@ public abstract class InputPickupItem : BasePickupItem
         {
             playerInRange = false;
             itemsInRange.Remove(this);
-            //Debug.Log("Player out of range of " + itemData.name);
+            Debug.Log("Player out of range of " + itemData.name + " so has been removed from list");
         }
+    }
+    private void Update()
+    {
+        //Debug.Log("Items in range: " + itemsInRange.Count);
     }
 
     ////possibly remove abstract from this and just attach this to any object ?? 
-    
+
 }

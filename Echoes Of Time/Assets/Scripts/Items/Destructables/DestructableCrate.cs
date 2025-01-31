@@ -14,7 +14,7 @@ public class DestructableCrate : DestructableObject
         animator = GetComponent<Animator>();
         Initialise();
         heldObject = CollectableContainer.instance.GetRandomItem();
-        Debug.Log(heldObject.name);
+        //Debug.Log(heldObject.name);
     }
     public override void OnInteract()
     {

@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour
         PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
-        Debug.Log(isGrounded);
+       // Debug.Log(isGrounded);
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
     {
         if (jumpInput)
         {
-            Debug.Log("Jumping");
+            //Debug.Log("Jumping");
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             SetAnimationState(currentWeapon, "Player_Jump");
             jumpInput = false;
