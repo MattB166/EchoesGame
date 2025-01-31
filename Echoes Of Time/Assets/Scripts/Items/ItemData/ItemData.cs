@@ -15,7 +15,7 @@ public class ItemData : ScriptableObject
     public float damage;
     public int ammoAmount;
     public int healthValue;
-
+    //public abstract void HandlePickup(int inventory);  add this, make the class abstract and keep relevant members in derived classes of item data. 
 
     public enum DataType
     {
@@ -25,4 +25,6 @@ public class ItemData : ScriptableObject
         Key,
         Coin,
     }
+
+    ///AMEND THIS CLASS TO JUST CONTAIN AN ABSTRACT HANDLEPICKUP METHOD.... THEN DERIVE FROM THIS CLASS TO CREATE WEAPONDATACLASS, HEALTHDATA ETC 
 }
