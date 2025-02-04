@@ -49,6 +49,9 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
     [Range(1, 10)] public float sprintSpeed;
+    [Range(1, 10)] public float dashSpeed;
+    [Range(0.1f,0.5f)] public float dashDuration;
+    [Range(0.0f, 5.0f)] public float dashCooldown;
     [Range(1, 10)] public float jumpForce;
     public float customTimeScale;
     private Animator animator;
@@ -63,6 +66,9 @@ public class Movement : MonoBehaviour
     private bool jumpInput;
     private bool isJumping;
     private bool doubleJumping;
+    private bool dashInput;
+    private bool isDashing = false;
+    private bool canDash = true;
     private float initialZRotation; 
     [HideInInspector] public bool isGrounded;
     [Space(10)]
@@ -90,13 +96,14 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
+        //Dash();
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
         PerformDoubleJump();
@@ -114,8 +121,20 @@ public class Movement : MonoBehaviour
 
     private Vector2 Move()
     {
-        Vector2 movement = input * walkSpeed * customTimeScale;
-        movement.y = rb.velocity.y;
+        Vector2 movement;
+        if(input.x == 0 && isDashing)
+        {
+            Debug.Log("Dashing without movement");
+            float direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+            float newSpeed = dashSpeed;
+            movement = new Vector2(direction * newSpeed * customTimeScale, rb.velocity.y);
+        }
+        else
+        {
+            float speed = isDashing ? dashSpeed : walkSpeed;
+            movement = input * speed * customTimeScale;
+            movement.y = rb.velocity.y;
+        }
         rb.velocity = movement;
         return movement;
     }
@@ -132,6 +151,29 @@ public class Movement : MonoBehaviour
             jumpInput = false;
     }
 
+    public void OnDashInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && canDash)
+        {
+           
+            StartCoroutine(Dash());
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        canDash = false;
+        //SetAnimationState(currentWeapon, "Player_Roll");
+        yield return new WaitForSeconds(dashDuration);
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+
+    }
+
+
     private void Jump()
     {
         if (jumpInput)
@@ -147,7 +189,7 @@ public class Movement : MonoBehaviour
     private void PerformDoubleJump()
     {
        if(doubleJumping)
-        transform.Rotate(0, 0, 360 * 1 * Time.deltaTime);
+        //transform.Rotate(0, 0, 360 * 1 * Time.deltaTime);
         if(doubleJumping && isGrounded)
         {
             doubleJumping = false;
@@ -158,6 +200,7 @@ public class Movement : MonoBehaviour
     {
 
         Jump();
+        Dash();
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
@@ -176,15 +219,25 @@ public class Movement : MonoBehaviour
         Vector2 move = Move();
         boxCollider.isTrigger = false;
 
-        if (move.x < 0 && isGrounded)
+        if (move.x < 0 && isGrounded && !isDashing)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             SetAnimationState(currentWeapon, "Player_Run");
         }
-        if (move.x > 0 && isGrounded)
+        if (move.x < 0 && isGrounded && isDashing)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            SetAnimationState(currentWeapon, "Player_Roll");
+        }
+        if (move.x > 0 && isGrounded && !isDashing)
         {
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
             SetAnimationState(currentWeapon, "Player_Run");
+        }
+        if (move.x > 0 && isGrounded && isDashing)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
+            SetAnimationState(currentWeapon, "Player_Roll");
         }
         if (move.x > 0 && !isGrounded)
         {
@@ -213,7 +266,7 @@ public class Movement : MonoBehaviour
             }
             SetAnimationState(currentWeapon, "Player_Fall");
             //rotate back to normal rotation slowly after jump flip 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, initialZRotation), 360 * Time.deltaTime); //needs smoothing out and cleaning up 
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, initialZRotation), 360 * Time.deltaTime); //needs smoothing out and cleaning up 
 
 
         }
