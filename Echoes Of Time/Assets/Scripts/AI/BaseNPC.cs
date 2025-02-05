@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// base class for all NPC's. Both enemies and friendly NPC's(scope permitting) will inherit from this class. 
+/// base class for all NPC's. Enemies and non enemies will inherit from this class. 
 /// </summary>
 public class BaseNPC : MonoBehaviour
 {

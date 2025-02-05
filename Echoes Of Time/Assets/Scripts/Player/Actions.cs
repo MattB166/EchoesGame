@@ -55,7 +55,6 @@ public class Actions : MonoBehaviour, IDamageable
          currentWeapon = Weapons.None;
         InitialiseAttackAnims();
         InitialisePlayer();
-        //Debug.Log("Player health is " + HitPoints);
     }
 
     // Update is called once per frame
@@ -63,15 +62,12 @@ public class Actions : MonoBehaviour, IDamageable
     {
         BaseAttack();
         closestInputPickupItem =  UpdateClosestInputPickupItem();
-        //if(closestInputPickupItem != null)
-        //Debug.Log("Nearest pickup is" + closestInputPickupItem.itemData.name);
     }
 
     public void InitialisePlayer()
     {
-       // playerCurrentHealth = playerMaxHealth;
+        HitPoints = playerMaxHealth;
         playerAmmo = 0;
-
     }
 
     public void ChangeWeapon(InputAction.CallbackContext context)
@@ -239,8 +235,7 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void AddHealth(float amount)
     {
-       // playerCurrentHealth = Mathf.Min(playerCurrentHealth + amount, playerMaxHealth);
-       // Debug.Log("Player health is now " + playerCurrentHealth);
+      
     }
     
 
