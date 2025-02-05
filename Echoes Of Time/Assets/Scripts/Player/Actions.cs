@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Actions : MonoBehaviour
+public class Actions : MonoBehaviour, IDamageable
 {
     public enum ActionAnims
     {
@@ -21,12 +21,18 @@ public class Actions : MonoBehaviour
         Bow,
         None
     }
-    public float playerMaxHealth { get; private set; } = 100.0f;
-    public float playerCurrentHealth { get;private set; }
+
+    [Header("Player Stats")]
+    [SerializeField]
+    private float playerMaxHealth;
+    private bool canTakeDamage = true;
+    public float HitPoints
+    {
+        get { return playerMaxHealth; }
+        set { playerMaxHealth = value; }
+    }
+
     public float playerAmmo { get; private set; }
-
-
-
     [Header("Weapon Settings")]
     public Weapons currentWeapon;
     public ActionAnims currentState;
@@ -49,6 +55,7 @@ public class Actions : MonoBehaviour
          currentWeapon = Weapons.None;
         InitialiseAttackAnims();
         InitialisePlayer();
+        //Debug.Log("Player health is " + HitPoints);
     }
 
     // Update is called once per frame
@@ -62,7 +69,7 @@ public class Actions : MonoBehaviour
 
     public void InitialisePlayer()
     {
-        playerCurrentHealth = playerMaxHealth;
+       // playerCurrentHealth = playerMaxHealth;
         playerAmmo = 0;
 
     }
@@ -232,9 +239,10 @@ public class Actions : MonoBehaviour
 
     public void AddHealth(float amount)
     {
-        playerCurrentHealth = Mathf.Min(playerCurrentHealth + amount, playerMaxHealth);
-        Debug.Log("Player health is now " + playerCurrentHealth);
+       // playerCurrentHealth = Mathf.Min(playerCurrentHealth + amount, playerMaxHealth);
+       // Debug.Log("Player health is now " + playerCurrentHealth);
     }
+    
 
     ///referenced by animation to get correct time to check for sword contact
     public void CheckWeaponContact()  
@@ -257,4 +265,16 @@ public class Actions : MonoBehaviour
 
     }
 
+    public void TakeDamage(float amount)
+    {
+        if(canTakeDamage)
+        {
+            HitPoints -= amount;
+            if(HitPoints <= 0)
+            {
+                //death logic 
+            }
+        }
+        
+    }
 }

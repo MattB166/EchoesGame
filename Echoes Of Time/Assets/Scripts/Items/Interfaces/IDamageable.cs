@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Used to mark objects that can be destroyed, such as destructable objects like the crate. 
+/// Used to mark objects that can be destroyed, such as characters and destructable objects.  
 /// </summary>
 public interface IDamageable
 {
