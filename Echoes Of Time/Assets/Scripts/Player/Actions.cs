@@ -32,15 +32,15 @@ public class Actions : MonoBehaviour, IDamageable
         set { playerMaxHealth = value; }
     }
 
-    public float playerAmmo { get; private set; }
+
     [Header("Weapon Settings")]
     public Weapons currentWeapon;
     public ActionAnims currentState;
     private Animator animator;
     private bool attackInput;
     public bool isAttacking;
-    private Dictionary<Weapons,Dictionary<string,ActionAnims>> attackAnims = new();
-    private Dictionary<Weapons,float> weaponDamages = new();
+    private Dictionary<Weapons, Dictionary<string, ActionAnims>> attackAnims = new();
+    private Dictionary<Weapons, float> weaponDamages = new();
 
     private InputPickupItem closestInputPickupItem;
     private HashSet<Weapons> availableWeapons = new();
@@ -50,7 +50,7 @@ public class Actions : MonoBehaviour, IDamageable
     }
     public void AddWeapon(Weapons weapon, int damage)
     {
-       availableWeapons.Add(weapon);
+        availableWeapons.Add(weapon);
         weaponDamages[weapon] = damage;
     }
 
@@ -61,7 +61,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         attackInput = false;
         animator = GetComponent<Animator>();
-         currentWeapon = Weapons.None;
+        currentWeapon = Weapons.None;
         InitialiseAttackAnims();
         InitialisePlayer();
     }
@@ -70,21 +70,20 @@ public class Actions : MonoBehaviour, IDamageable
     void Update()
     {
         BaseAttack();
-        closestInputPickupItem =  UpdateClosestInputPickupItem();
+        closestInputPickupItem = UpdateClosestInputPickupItem();
     }
 
     public void InitialisePlayer()
     {
         HitPoints = playerMaxHealth;
-        playerAmmo = 0;
     }
 
     public void ChangeWeapon(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
-           Weapons nextWeapon = GetNextAvailableWeapon();
-            if(nextWeapon != Weapons.None)
+            Weapons nextWeapon = GetNextAvailableWeapon();
+            if (nextWeapon != Weapons.None)
             {
                 currentWeapon = nextWeapon;
                 Debug.Log("Current weapon is now " + currentWeapon);
@@ -95,7 +94,7 @@ public class Actions : MonoBehaviour, IDamageable
     private Weapons GetNextAvailableWeapon()
     {
         List<Weapons> availableWeaponsList = new List<Weapons>(availableWeapons);
-        if(availableWeaponsList.Count == 0)
+        if (availableWeaponsList.Count == 0)
         {
             return Weapons.None;
         }
@@ -155,7 +154,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         if (attackInput)
         {
-           attackInput = false;
+            attackInput = false;
             isAttacking = true;
             switch (currentWeapon)
             {
@@ -172,13 +171,13 @@ public class Actions : MonoBehaviour, IDamageable
                     Debug.Log("Bow Attack");
                     break;
                 default:
-                    SetAnimationState(Weapons.None,"Player_Idle");
+                    SetAnimationState(Weapons.None, "Player_Idle");
                     break;
             }
             isAttacking = false;
         }
-       
-        
+
+
     }
 
     public InputPickupItem UpdateClosestInputPickupItem()
@@ -207,7 +206,7 @@ public class Actions : MonoBehaviour, IDamageable
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out NonInputPickup item))
+        if (collision.TryGetComponent(out NonInputPickup item))
         {
             HandlePickup(item.itemData);
         }
@@ -220,14 +219,14 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void AddHealth(float amount)
     {
-      
+
     }
-    
+
 
     ///referenced by animation to get correct time to check for sword contact
-    public void CheckWeaponContact()  
+    public void CheckWeaponContact()
     {
-        if(weaponDamages.ContainsKey(currentWeapon))
+        if (weaponDamages.ContainsKey(currentWeapon))
         {
             float damage = weaponDamages[currentWeapon];
 
@@ -247,14 +246,14 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        if(canTakeDamage)
+        if (canTakeDamage)
         {
             HitPoints -= amount;
-            if(HitPoints <= 0)
+            if (HitPoints <= 0)
             {
                 //death logic 
             }
         }
-        
+
     }
 }
