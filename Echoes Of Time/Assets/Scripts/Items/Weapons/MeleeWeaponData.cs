@@ -14,6 +14,6 @@ public class MeleeWeaponData : ItemData //maybe change and derive into weapon da
         {
             actions.AddWeapon(weaponType,damage);
         }
-        Debug.Log("Weapon Picked Up");
+        //Debug.Log("Weapon Picked Up");
     }
 }

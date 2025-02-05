@@ -29,7 +29,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
 
     public void TakeDamage(float amount)
     {
-        Debug.Log("Taking damage");
+        //Debug.Log("Taking damage");
         HitPoints -= amount;
         OnInteract();
         isShaking = true;
@@ -51,7 +51,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
 
     private IEnumerator ShakeItem()
     {
-       Debug.Log("Shaking");
+        //Debug.Log("Shaking");
         isShaking = true;
         float shakeDuration = 0.1f;
         float shakeAmount = 0.1f;
@@ -86,17 +86,25 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         {
             GameObject go = CollectableContainer.instance.GetRandomItem();
             Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
-            GameObject newItem = Instantiate(go, spawnPos, Quaternion.identity);
-           
+            if (go != null)
+            {
+                GameObject newItem = Instantiate(go, spawnPos, Quaternion.identity);
+
                 Rigidbody2D rb = newItem.GetComponent<Rigidbody2D>();
                 if (rb != null)
                 {
 
-                    Vector2 spawnForce = new Vector2(Random.Range(-1, 1), Random.Range(2, 4));
+                    Vector2 spawnForce = new Vector2(Random.Range(-1,1), Random.Range(2, 4));
                     rb.AddForce(spawnForce, ForceMode2D.Impulse);
                 }
-            
-            
+
+            }
+            else
+            {
+                Debug.Log("No item to spawn");
+            }
+
+
         }
     }
 

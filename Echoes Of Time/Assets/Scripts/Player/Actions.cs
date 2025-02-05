@@ -86,7 +86,6 @@ public class Actions : MonoBehaviour, IDamageable
             if (nextWeapon != Weapons.None)
             {
                 currentWeapon = nextWeapon;
-                Debug.Log("Current weapon is now " + currentWeapon);
             }
         }
     }
@@ -160,15 +159,15 @@ public class Actions : MonoBehaviour, IDamageable
             {
                 case Weapons.Sword:
                     SetAnimationState(Weapons.Sword, "Player_Sword_Attack1");
-                    Debug.Log("Sword Attack");
+                    //Debug.Log("Sword Attack");
                     break;
                 case Weapons.Spear:
                     SetAnimationState(Weapons.Spear, "Player_Spear_Attack1");
-                    Debug.Log("Spear Attack");
+                    //Debug.Log("Spear Attack");
                     break;
                 case Weapons.Bow:
                     SetAnimationState(Weapons.Bow, "Player_Bow_Attack");
-                    Debug.Log("Bow Attack");
+                    //Debug.Log("Bow Attack");
                     break;
                 default:
                     SetAnimationState(Weapons.None, "Player_Idle");
@@ -235,8 +234,12 @@ public class Actions : MonoBehaviour, IDamageable
             {
                 if (hit.TryGetComponent(out IDamageable damageable))
                 {
-                    damageable.TakeDamage(damage);
-                    Debug.Log("Dealt " + damage + " damage to " + hit.name);
+                    if(hit.gameObject != this.gameObject)
+                    {
+                        damageable.TakeDamage(damage);
+                        //Debug.Log("Dealt " + damage + " damage to " + hit.name);
+                    }
+                   
                 }
             }
 

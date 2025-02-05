@@ -34,7 +34,7 @@ public abstract class BaseNonPickup : BaseInteractableClass
         {
             playerInRange = true;
             itemsInRange.Add(this);
-             Debug.Log("Player in range of " + itemData.name);
+            //Debug.Log("Player in range of " + itemData.name);
         }
     }
 
@@ -44,7 +44,7 @@ public abstract class BaseNonPickup : BaseInteractableClass
         {
             playerInRange = false;
             itemsInRange.Remove(this);
-            Debug.Log("Player out of range of " + itemData.name);
+            //Debug.Log("Player out of range of " + itemData.name);
         }
     }
 

@@ -673,7 +673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4916315901903618116, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.018
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 4916315901903618116, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3488,11 +3488,6 @@ Transform:
   - {fileID: 1729610402}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1191108527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6028008642729629074, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
-  m_PrefabInstance: {fileID: 1878908467}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1251607619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3870,14 +3865,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupItems:
-  - itemPrefab: {fileID: 1191108527}
-    spawnChancePercentage: 29
+  - itemPrefab: {fileID: 6028008642729629074, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
+    spawnChancePercentage: 40
   - itemPrefab: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
-    spawnChancePercentage: 10
+    spawnChancePercentage: 30
   - itemPrefab: {fileID: 7144278573680996463, guid: 6f55d0b7dc094ac4eafc2d2506a7ddf7, type: 3}
-    spawnChancePercentage: 50
-  - itemPrefab: {fileID: 6614358742109557468, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
-    spawnChancePercentage: 1
+    spawnChancePercentage: 30
 --- !u!1001 &1878908467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3888,11 +3881,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1402566681411730876, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.15
+      value: 5.09
       objectReference: {fileID: 0}
     - target: {fileID: 1402566681411730876, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.429
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 1402566681411730876, guid: 7dac1a349e8a2d147997d7004c57bc00, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4063,6 +4056,10 @@ PrefabInstance:
     - target: {fileID: 5682150839970170673, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744547727191333478, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
