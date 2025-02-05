@@ -24,7 +24,7 @@ public abstract class InputPickupItem : BasePickupItem
         {
             playerInRange = false;
             itemsInRange.Remove(this);
-            Debug.Log("Player out of range of " + itemData.name + " so has been removed from list");
+            //Debug.Log("Player out of range of " + itemData.name + " so has been removed from list");
         }
     }
     private void Update()

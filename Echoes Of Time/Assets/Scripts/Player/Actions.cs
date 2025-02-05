@@ -44,6 +44,15 @@ public class Actions : MonoBehaviour, IDamageable
 
     private InputPickupItem closestInputPickupItem;
     private HashSet<Weapons> availableWeapons = new();
+    public HashSet<Weapons> GetAvailableWeapons()
+    {
+        return availableWeapons;
+    }
+    public void AddWeapon(Weapons weapon, int damage)
+    {
+       availableWeapons.Add(weapon);
+        weaponDamages[weapon] = damage;
+    }
 
 
 
@@ -206,31 +215,7 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void HandlePickup(ItemData itemData)
     {
-        if(itemData != null)
-        {
-            switch (itemData.dataType)
-            {
-                case ItemData.DataType.Weapon:
-                    if (!availableWeapons.Contains(itemData.weaponType))
-                    {
-                        ///purely for animation purposes. inventory UI etc handled elsewhere 
-                        availableWeapons.Add(itemData.weaponType);
-                        weaponDamages.Add(itemData.weaponType, itemData.damage);
-                        Debug.Log("Picked up " + itemData.weaponType);
-                    }
-                    break;
-                case ItemData.DataType.Health:
-                    AddHealth(itemData.healthValue);
-                    //add to inventory if health full 
-                    break;
-                case ItemData.DataType.Coin:
-                    Debug.Log("Picked up coin");
-                    break;
-                default:
-                    break;
-            }
-        }
-        
+        itemData?.HandlePickup(this);
     }
 
     public void AddHealth(float amount)

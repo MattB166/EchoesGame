@@ -111,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 5273948364332321595, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: ea7b907df1ab0b246b21e425feda784a, type: 2}
+      objectReference: {fileID: 11400000, guid: 7ee3ee394d9d10940a39e81ca2befcd5, type: 2}
     - target: {fileID: 6584742257693843578, guid: a297493eaf328a8488a5297c31e6c43c, type: 3}
       propertyPath: m_Name
       value: Health Potion 1

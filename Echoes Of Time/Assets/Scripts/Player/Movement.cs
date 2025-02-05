@@ -209,7 +209,6 @@ public class Movement : MonoBehaviour
         else if (!isGrounded)
         {
             coyoteCounter -= Time.deltaTime;
-            // Debug.Log(coyoteCounter);
         }
 
 
@@ -265,8 +264,6 @@ public class Movement : MonoBehaviour
                 boxCollider.isTrigger = false;
             }
             SetAnimationState(currentWeapon, "Player_Fall");
-            //rotate back to normal rotation slowly after jump flip 
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, initialZRotation), 360 * Time.deltaTime); //needs smoothing out and cleaning up 
 
 
         }

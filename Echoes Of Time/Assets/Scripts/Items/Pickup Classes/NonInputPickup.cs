@@ -15,7 +15,7 @@ public class NonInputPickup : BasePickupItem
     {
         ///play particles here?? have enemy react to the pickup? 
         ///       
-        Debug.Log("This is a non input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
+        //Debug.Log("This is a non input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
        
     }
 }

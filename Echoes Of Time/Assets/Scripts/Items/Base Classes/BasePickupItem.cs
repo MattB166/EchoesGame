@@ -17,16 +17,16 @@ public abstract class BasePickupItem : BaseInteractableClass
 
   private void PlayPickupSound()
     {
-       if (itemData.pickupSound != null)
+        if (itemData.pickupSound != null)
         {
-            
+
             AudioSource.PlayClipAtPoint(itemData.pickupSound, transform.position);
         }
     }
 
     private void CalculationDestructionTime()
     {
-        if(itemData.isAnimatedOnPickup)
+        if (itemData.isAnimatedOnPickup)
         {
             Destroy(gameObject, 0.5f);
         }
