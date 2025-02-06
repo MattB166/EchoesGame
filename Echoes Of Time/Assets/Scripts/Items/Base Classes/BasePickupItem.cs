@@ -9,7 +9,7 @@ public abstract class BasePickupItem : BaseInteractableClass
     {
         Collect();
         
-        PlayPickupSound();
+       PlayPickupSound();
        CalculationDestructionTime();
     }
 

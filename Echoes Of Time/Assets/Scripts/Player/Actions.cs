@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Actions : MonoBehaviour, IDamageable
+/// <summary>
+/// This script deals with weapon animations and item pickup. inventory manages item storage and usage. 
+/// </summary>
+public class Actions : MonoBehaviour, IDamageable  
 {
     public enum ActionAnims
     {
@@ -24,7 +27,7 @@ public class Actions : MonoBehaviour, IDamageable
 
     [Header("Player Stats")]
     [SerializeField]
-    private float playerMaxHealth;
+    private float playerMaxHealth;               ///MOVE PLAYER HEALTH TO A SEPARATE SCRIPT FOR PLAYER STATS TO SEPARATE CONCERNS 
     private bool canTakeDamage = true;
     public float HitPoints
     {
@@ -149,7 +152,7 @@ public class Actions : MonoBehaviour, IDamageable
         currentState = newState;
     }
 
-    public void BaseAttack()
+    public void BaseAttack() //change to "check for item use" and have polymorphism determine what each item does. 
     {
         if (attackInput)
         {
@@ -211,15 +214,11 @@ public class Actions : MonoBehaviour, IDamageable
         }
     }
 
-    public void HandlePickup(ItemData itemData)
+    public void HandlePickup(ItemData itemData) //check whether an inventory exists before handling pickup. 
     {
         itemData?.HandlePickup(this);
     }
 
-    public void AddHealth(float amount)
-    {
-
-    }
 
 
     ///referenced by animation to get correct time to check for sword contact

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
+    public Sprite itemSprite;
     public AudioClip pickupSound;
     public bool isAnimatedOnPickup;
-    public abstract void HandlePickup(Actions actions);
+    public abstract void HandlePickup(Actions actions); //needs inclusion of inventory system. 
 
-    ///AMEND THIS CLASS TO JUST CONTAIN AN ABSTRACT HANDLEPICKUP METHOD.... THEN DERIVE FROM THIS CLASS TO CREATE WEAPONDATACLASS, HEALTHDATA ETC 
+
 }
