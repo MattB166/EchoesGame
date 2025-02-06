@@ -263,6 +263,7 @@ public class Movement : MonoBehaviour
             {
                 boxCollider.isTrigger = false;
             }
+            if(!isDashing || rb.velocity.x > 0)
             SetAnimationState(currentWeapon, "Player_Fall");
 
 
