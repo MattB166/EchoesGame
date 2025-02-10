@@ -32,6 +32,6 @@ public abstract class InputPickupItem : BasePickupItem
         //Debug.Log("Items in range: " + itemsInRange.Count);
     }
 
-    ////possibly remove abstract from this and just attach this to any object ?? 
+
 
 }

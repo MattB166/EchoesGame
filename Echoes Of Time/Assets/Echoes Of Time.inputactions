@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Change Weapon",
+                    "name": "Cycle Inventory",
                     "type": "Button",
                     "id": "f1a87f81-5fe5-4117-8b29-f354e34946ae",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "BaseAttack",
+                    "name": "Use Item",
                     "type": "Button",
                     "id": "f242c272-59d4-4359-8ebc-c155ee8f8550",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PickupItem",
+                    "name": "Pickup Item",
                     "type": "Button",
                     "id": "744883a8-ca19-4a1d-a741-ec36f45c06dc",
                     "expectedControlType": "Button",
@@ -317,7 +317,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Change Weapon",
+                    "action": "Cycle Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -328,7 +328,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BaseAttack",
+                    "action": "Use Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -339,7 +339,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PickupItem",
+                    "action": "Pickup Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BasePickupItem : BaseInteractableClass
 {
-    public ItemData itemData;
+    public ItemData itemData; //maybe remove this and just let each derived one decide their own data type. ?
     public override void OnInteract()
     {
         Collect();
@@ -14,8 +14,9 @@ public abstract class BasePickupItem : BaseInteractableClass
     }
 
     protected abstract void Collect();
+    public abstract void HandlePickup(Actions player, Inventory i);
 
-  private void PlayPickupSound()
+    private void PlayPickupSound()
     {
         if (itemData.pickupSound != null)
         {

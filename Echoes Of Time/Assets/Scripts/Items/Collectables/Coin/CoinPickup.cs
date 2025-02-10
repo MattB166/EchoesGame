@@ -17,6 +17,17 @@ public class CoinPickup : NonInputPickup
         animator.Play("CoinCollection");
         
     }
+    public override void HandlePickup(Actions player, Inventory i)
+    {
+        //Debug.Log("This is a non input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
+        CoinData coinData = itemData as CoinData;
+        if (coinData != null)
+        {
+            Item item = new Item();
+            item.Init(coinData);
+            i.AddItem(item);
+        }
+    }
 }
 
     

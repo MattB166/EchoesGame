@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Left as "UN - ABSRACT" for the purpose of having a base use for non input pickups, but can also be derived should a pickup have unique behaviour. 
 /// </summary>
-public class NonInputPickup : BasePickupItem
+public abstract class NonInputPickup : BasePickupItem
 {
     private void OnTriggerEnter2D(Collider2D other)
     {

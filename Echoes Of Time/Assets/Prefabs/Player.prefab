@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 104509520533267175}
   - component: {fileID: 1069056021855080383}
   - component: {fileID: 3500604823003575909}
+  - component: {fileID: 3617416041841136927}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -332,7 +333,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 104509520533267175}
         m_TargetAssemblyTypeName: Actions, Assembly-CSharp
-        m_MethodName: OnFireInput
+        m_MethodName: OnUseInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -360,6 +361,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 744883a8-ca19-4a1d-a741-ec36f45c06dc
     m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: OnDashInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: df82e8dd-eea2-4ae1-9dc1-6df3f80ca55a
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -378,17 +395,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {x: 0, y: 0}
-  walkSpeed: 5.04
+  walkSpeed: 5.03
   sprintSpeed: 0
-  jumpForce: 5.81
+  dashSpeed: 10
+  dashDuration: 0.5
+  dashCooldown: 0.13
+  jumpForce: 8.15
   customTimeScale: 1
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
   isGrounded: 0
-  gravity: -9.4
-  groundcheckDistance: 0.02
-  coyoteTime: 0.4
+  gravity: -9.2
+  groundcheckDistance: 0.04
+  coyoteTime: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
@@ -426,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f75c501b377a948979e793c1265bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMaxHealth: 10
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
@@ -490,7 +511,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0619545, y: 0.14161038}
+  m_Offset: {x: -0.02855891, y: 0.14161038}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -500,5 +521,18 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2298717, y: 1.6218321}
+  m_Size: {x: 0.9883959, y: 1.6218321}
   m_EdgeRadius: 0
+--- !u!114 &3617416041841136927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130b4659360759346a917c5718075cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []

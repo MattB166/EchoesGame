@@ -8,12 +8,5 @@ public class MeleeWeaponData : ItemData //maybe change and derive into weapon da
 {
     public Actions.Weapons weaponType;
     public int damage;
-    public override void HandlePickup(Actions actions) ///change to an inventory later down the line, rather than just my player actions script 
-    {
-        if (!actions.GetAvailableWeapons().Contains(weaponType))
-        {
-            actions.AddWeapon(weaponType,damage);
-        }
-        //Debug.Log("Weapon Picked Up");
-    }
+    
 }

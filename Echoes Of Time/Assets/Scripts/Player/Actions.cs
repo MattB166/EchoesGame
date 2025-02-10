@@ -72,7 +72,7 @@ public class Actions : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        BaseAttack();
+        UseItem();
         closestInputPickupItem = UpdateClosestInputPickupItem();
     }
 
@@ -81,7 +81,7 @@ public class Actions : MonoBehaviour, IDamageable
         HitPoints = playerMaxHealth;
     }
 
-    public void ChangeWeapon(InputAction.CallbackContext context)
+    public void ChangeWeapon(InputAction.CallbackContext context) //to be moved to inventory for cycling through inventory. 
     {
         if (context.performed)
         {
@@ -128,7 +128,7 @@ public class Actions : MonoBehaviour, IDamageable
         });
     }
 
-    public void OnFireInput(InputAction.CallbackContext context)
+    public void OnUseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -152,7 +152,7 @@ public class Actions : MonoBehaviour, IDamageable
         currentState = newState;
     }
 
-    public void BaseAttack() //change to "check for item use" and have polymorphism determine what each item does. 
+    public void UseItem() //change to "check for item use" and have polymorphism determine what each item does. 
     {
         if (attackInput)
         {
@@ -202,7 +202,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         if (context.performed && closestInputPickupItem != null)
         {
-            HandlePickup(closestInputPickupItem.itemData);
+            HandlePickup(closestInputPickupItem);
             closestInputPickupItem.OnInteract();
         }
     }
@@ -210,13 +210,22 @@ public class Actions : MonoBehaviour, IDamageable
     {
         if (collision.TryGetComponent(out NonInputPickup item))
         {
-            HandlePickup(item.itemData);
+            HandlePickup(item);
         }
     }
 
-    public void HandlePickup(ItemData itemData) //check whether an inventory exists before handling pickup. 
+    public void HandlePickup(BasePickupItem item)
     {
-        itemData?.HandlePickup(this);
+        Inventory inventory = TryGetComponent(out Inventory inventoryComponent) ? inventoryComponent : null;    
+        if(inventory != null)
+        {
+            item.HandlePickup(this, inventory);
+        }
+        else
+        {
+            Debug.Log("No Inventory Found");
+        }
+        //itemData?.HandlePickup(this);
     }
 
 
@@ -257,5 +266,11 @@ public class Actions : MonoBehaviour, IDamageable
             }
         }
 
+    }
+
+    public void AddHealth(float amount)
+    {
+        HitPoints += amount;
+        Debug.Log("Added " + amount + " health");
     }
 }
