@@ -202,8 +202,8 @@ public class Movement : MonoBehaviour
     private void PerformDoubleJump()
     {
         if (doubleJumping)
-            
-        if(doubleJumping && isGrounded)
+ 
+        if (doubleJumping && isGrounded)
         {
             doubleJumping = false;
         } 
