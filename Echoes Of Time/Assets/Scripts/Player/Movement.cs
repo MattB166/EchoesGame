@@ -62,7 +62,7 @@ public class Movement : MonoBehaviour
     public AnimationStates currentState;
     public bool isAttacking;
 
-
+    private float airTime = 0.0f;
     private bool jumpInput;
     private bool isJumping;
     private bool doubleJumping;
@@ -74,6 +74,7 @@ public class Movement : MonoBehaviour
     [Space(10)]
     [Header("Jump Settings")]
     [Range(-20f, -0.05f)] public float gravity;
+    private float internalGravity;
     [Range(0.01f, 0.5f)] public float groundcheckDistance;
     public float coyoteTime;
     private float coyoteCounter;
@@ -91,6 +92,7 @@ public class Movement : MonoBehaviour
         InitialiseWeaponAnims();
         isAttacking = GetComponent<Actions>().isAttacking;
         initialZRotation = transform.rotation.z;
+        internalGravity = gravity;
     }
 
     // Update is called once per frame
@@ -176,20 +178,31 @@ public class Movement : MonoBehaviour
 
     private void Jump()
     {
-        if (jumpInput)
+        if(jumpInput)
         {
-            //Debug.Log("Jumping");
+            //float airTime = 0.0f;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            airTime += Time.deltaTime;
             SetAnimationState(currentWeapon, "Player_Jump");
-            jumpInput = false;
-            
+            Debug.Log(airTime);
+            if (airTime > 0.3f)
+            {
+                jumpInput = false;
+                gravity *= 2;
+                airTime = 0.0f;
+                Debug.Log("Gravity is now" + gravity);
+            }
+
+            Debug.Log("Gravity is now" + gravity);
+
         }
+        
     }
 
     private void PerformDoubleJump()
     {
-       if(doubleJumping)
-        //transform.Rotate(0, 0, 360 * 1 * Time.deltaTime);
+        if (doubleJumping)
+            
         if(doubleJumping && isGrounded)
         {
             doubleJumping = false;
@@ -204,6 +217,9 @@ public class Movement : MonoBehaviour
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
+            airTime = 0.0f;
+            gravity = internalGravity; 
+
 
         }
         else if (!isGrounded)
