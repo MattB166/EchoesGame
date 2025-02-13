@@ -73,6 +73,7 @@ public class Movement : MonoBehaviour
     private bool climbInput;
     private bool canClimb = true;
     private bool isClimbing;
+    public float climbSpeed;
     [HideInInspector] public bool isGrounded;
     [Space(10)]
     [Header("Jump Settings")]
@@ -234,6 +235,8 @@ public class Movement : MonoBehaviour
         {
             isClimbing = true;
             SetAnimationState(currentWeapon, "Player_Climb");
+            gravity = 0;
+            rb.velocity = new Vector2(0, climbSpeed);
             //climbInput = false; 
         }
         
