@@ -46,19 +46,19 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     public void AddItem(Item newItem)
     {
-        Debug.Log("Adding item to inventory: " + newItem.itemData.name);
+        //Debug.Log("Adding item to inventory: " + newItem.itemData.name);
         //check if the item is already in the inventory
         foreach (InventoryItem inventoryItem in items)
         {
             if (inventoryItem.item.itemData.name == newItem.itemData.name)
             {
                 inventoryItem.quantity++;
-                Debug.Log("Item already in inventory, increasing quantity to " + inventoryItem.quantity);
+                //Debug.Log("Item already in inventory, increasing quantity to " + inventoryItem.quantity);
                 return;
             }
         }
         //if the item is not in the inventory, add it
-        Debug.Log("Item not in inventory, adding it");
+        //Debug.Log("Item not in inventory, adding it");
         items.Add(new InventoryItem(newItem, 1));
 
     }

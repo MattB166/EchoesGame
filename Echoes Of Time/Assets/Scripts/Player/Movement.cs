@@ -69,7 +69,10 @@ public class Movement : MonoBehaviour
     private bool dashInput;
     private bool isDashing = false;
     private bool canDash = true;
-    private float initialZRotation; 
+    private float initialZRotation;
+    private bool climbInput;
+    private bool canClimb = true;
+    private bool isClimbing;
     [HideInInspector] public bool isGrounded;
     [Space(10)]
     [Header("Jump Settings")]
@@ -126,7 +129,7 @@ public class Movement : MonoBehaviour
         Vector2 movement;
         if(input.x == 0 && isDashing)
         {
-            Debug.Log("Dashing without movement");
+            //Debug.Log("Dashing without movement");
             float direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
             float newSpeed = dashSpeed;
             movement = new Vector2(direction * newSpeed * customTimeScale, rb.velocity.y);
@@ -180,20 +183,20 @@ public class Movement : MonoBehaviour
     {
         if(jumpInput)
         {
-            //float airTime = 0.0f;
+            canClimb = false; 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             airTime += Time.deltaTime;
             SetAnimationState(currentWeapon, "Player_Jump");
-            Debug.Log(airTime);
+            //Debug.Log(airTime);
             if (airTime > 0.3f)
             {
                 jumpInput = false;
                 gravity *= 2;
                 airTime = 0.0f;
-                Debug.Log("Gravity is now" + gravity);
+                //Debug.Log("Gravity is now" + gravity);
             }
 
-            Debug.Log("Gravity is now" + gravity);
+            //Debug.Log("Gravity is now" + gravity);
 
         }
         
@@ -209,11 +212,39 @@ public class Movement : MonoBehaviour
         } 
     }
 
+    public void OnClimbInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            //Debug.Log("Climbing");
+            climbInput = true;
+        }
+        if (context.canceled)
+        {
+            climbInput = false;
+            isClimbing = false;
+        }
+        
+    }
+
+    private void Climb()
+    {
+        //Debug.Log(canClimb);
+        if(climbInput && canClimb)
+        {
+            isClimbing = true;
+            SetAnimationState(currentWeapon, "Player_Climb");
+            //climbInput = false; 
+        }
+        
+    }
+
     private void CalculateGroundChecks()
     {
 
         Jump();
         Dash();
+        Climb();
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
@@ -225,6 +256,7 @@ public class Movement : MonoBehaviour
         else if (!isGrounded)
         {
             coyoteCounter -= Time.deltaTime;
+           
         }
 
 
@@ -263,7 +295,7 @@ public class Movement : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (move.x == 0 && move.y == 0)
+        else if (move.x == 0 && move.y == 0 && !isClimbing)
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
@@ -281,8 +313,17 @@ public class Movement : MonoBehaviour
             }
             if(!isDashing || rb.velocity.x > 0)
             SetAnimationState(currentWeapon, "Player_Fall");
+            canClimb = false;
 
 
+        }
+        if(isGrounded) /// add parameter here to make sure player is within a ladder trigger. 
+        {
+            canClimb = true;
+        }
+        else if (!isGrounded && isJumping)
+        {
+            canClimb = false;
         }
 
 

@@ -20,6 +20,6 @@ public class Item : MonoBehaviour //needs derived classes for each specific item
     public virtual void Init(ItemData itemData)
     {
         this.itemData = itemData;
-        Debug.Log("Item initialized with " + itemData.name);
+        //Debug.Log("Item initialized with " + itemData.name);
     }
 }

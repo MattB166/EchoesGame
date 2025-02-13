@@ -271,6 +271,6 @@ public class Actions : MonoBehaviour, IDamageable
     public void AddHealth(float amount)
     {
         HitPoints += amount;
-        Debug.Log("Added " + amount + " health");
+        //Debug.Log("Added " + amount + " health");
     }
 }
