@@ -127,8 +127,8 @@ GameObject:
   - component: {fileID: 722848941483598485}
   - component: {fileID: 1405279816536899249}
   - component: {fileID: 8713895717359230334}
-  - component: {fileID: 945074512683496423}
   - component: {fileID: 104509520533267175}
+  - component: {fileID: 945074512683496423}
   - component: {fileID: 1069056021855080383}
   - component: {fileID: 3500604823003575909}
   - component: {fileID: 3617416041841136927}
@@ -392,7 +392,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 99c0ea2f-7481-4a43-a526-1a8d771c7a19
-    m_ActionName: 'Player/Climb[/Keyboard/w]'
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -416,18 +416,34 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.5
   dashCooldown: 0.13
-  jumpForce: 8.15
+  jumpForce: 1.2
   customTimeScale: 1
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
   isGrounded: 0
-  gravity: -9.2
+  gravity: -10.6
   groundcheckDistance: 0.04
-  coyoteTime: 0.5
+  coyoteTime: 0.3
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
+--- !u!114 &104509520533267175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f75c501b377a948979e793c1265bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaxHealth: 10
+  currentWeapon: 0
+  currentState: 0
+  isAttacking: 0
 --- !u!95 &945074512683496423
 Animator:
   serializedVersion: 7
@@ -450,22 +466,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &104509520533267175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4283457379052071060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f75c501b377a948979e793c1265bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMaxHealth: 10
-  currentWeapon: 0
-  currentState: 0
-  isAttacking: 0
 --- !u!50 &1069056021855080383
 Rigidbody2D:
   serializedVersion: 4

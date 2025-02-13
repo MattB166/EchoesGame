@@ -168,65 +168,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
-      value: 99c0ea2f-7481-4a43-a526-1a8d771c7a19
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
-      value: Player/New action
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 701340978}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClimbInput
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Movement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405279816536899249, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 4283457379052071060, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8713895717359230334, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: gravity
-      value: -10.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8713895717359230334, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: jumpForce
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8713895717359230334, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: coyoteTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8713895717359230334, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-      propertyPath: jumpBufferTime
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -996,17 +940,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &701340978 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8713895717359230334, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
-  m_PrefabInstance: {fileID: 19616392}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a1d8fe4821cf949a7fa289b6ceea3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &824745469
 GameObject:
   m_ObjectHideFlags: 0
