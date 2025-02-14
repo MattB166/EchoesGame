@@ -32,7 +32,13 @@ public class Ladder : IClimbable
             collision.TryGetComponent(out Movement player);
             if (player != null)
             {
-                
+                Bounds bounds = climbingCollider.bounds;
+                Vector2 playerPosition = player.transform.position;
+                if(playerPosition.y > bounds.max.y)
+                {
+                    Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
+                    playerRigidbody.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
+                }
             }
         }
     }
