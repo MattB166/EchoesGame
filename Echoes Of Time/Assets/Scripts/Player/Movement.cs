@@ -71,9 +71,14 @@ public class Movement : MonoBehaviour
     private bool canDash = true;
     private float initialZRotation;
     private bool climbInput;
-    private bool canClimb = true;
+    private bool canClimb = false;
     private bool isClimbing;
     public float climbSpeed;
+    private bool descendInput;
+    private bool canDescend = false;
+    public float descendSpeed;
+    private bool isDescending;
+    private bool onClimbable;
     [HideInInspector] public bool isGrounded;
     [Space(10)]
     [Header("Jump Settings")]
@@ -102,7 +107,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        
     }
 
     private void FixedUpdate()
@@ -224,8 +229,25 @@ public class Movement : MonoBehaviour
         {
             climbInput = false;
             isClimbing = false;
+            //stay on ladder logic 
+            
         }
         
+    }
+
+    public void OnDescendInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            descendInput = true;
+        }
+        if (context.canceled)
+        {
+            descendInput = false;
+            isDescending = false;
+            //stay on ladder logic 
+            
+        }
     }
 
     private void Climb()
@@ -235,11 +257,60 @@ public class Movement : MonoBehaviour
         {
             isClimbing = true;
             SetAnimationState(currentWeapon, "Player_Climb");
-            gravity = 0;
             rb.velocity = new Vector2(0, climbSpeed);
-            //climbInput = false; 
         }
-        
+
+
+    }
+
+    private void Descend()
+    {
+        if (descendInput && canDescend && !isGrounded)
+        {
+            isDescending = true;
+            SetAnimationState(currentWeapon, "Player_Climb");
+            rb.velocity = new Vector2(0, -descendSpeed);
+
+        }
+    }
+
+    private void CheckClimbing()
+    {
+        if(canClimb && canDescend && !climbInput && !descendInput && !isGrounded)
+        {
+            //freeze player in place
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            SetAnimationState(currentWeapon, "Player_Climb");
+            //set animation speed to 0. 
+            animator.speed = 0;
+        }
+        else
+        {
+            rb.gravityScale = 1;
+            animator.speed = 1;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent(out IClimbable climbable))
+        {
+            gravity = 0;
+            onClimbable = true;
+            canClimb = true;
+            canDescend = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IClimbable climbable))
+        {
+            gravity = internalGravity;
+            onClimbable = false;
+            canClimb = false;
+            canDescend = false;
+        }
     }
 
     private void CalculateGroundChecks()
@@ -247,7 +318,9 @@ public class Movement : MonoBehaviour
 
         Jump();
         Dash();
+        CheckClimbing();
         Climb();
+        Descend();
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
@@ -289,20 +362,27 @@ public class Movement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;    ////move into overarching check function. also maybe stop the player from controlling movement when jumping ? 
             SetAnimationState(currentWeapon, "Player_Roll");
         }
-        if (move.x > 0 && !isGrounded)
-        {
-
+        if (move.x > 0 && !isGrounded && !onClimbable)
+        { 
             GetComponent<SpriteRenderer>().flipX = false;
         }
-        if (move.x < 0 && !isGrounded)
+        if (move.x < 0 && !isGrounded && !onClimbable)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (move.x == 0 && move.y == 0 && !isClimbing)
+        if (move.x == 0 && move.y == 0 && !onClimbable)
         {
             SetAnimationState(currentWeapon, "Player_Idle");
         }
-        if (!isGrounded && rb.velocity.y < 0 && !isAttacking)
+        if(move.x > 0 && onClimbable && isGrounded)
+        {
+            SetAnimationState(currentWeapon, "Player_Run");
+        }
+        if(move.x == 0 && onClimbable && isGrounded)
+        {
+            SetAnimationState(currentWeapon, "Player_Idle");
+        }
+        if (!isGrounded && rb.velocity.y < 0 && !isAttacking && !onClimbable)
         {
             boxCollider.isTrigger = true;
 
@@ -316,18 +396,11 @@ public class Movement : MonoBehaviour
             }
             if(!isDashing || rb.velocity.x > 0)
             SetAnimationState(currentWeapon, "Player_Fall");
-            canClimb = false;
+            //canClimb = false;
 
 
         }
-        if(isGrounded) /// add parameter here to make sure player is within a ladder trigger. 
-        {
-            canClimb = true;
-        }
-        else if (!isGrounded && isJumping)
-        {
-            canClimb = false;
-        }
+        
 
 
     }
@@ -396,6 +469,8 @@ public class Movement : MonoBehaviour
         currentState = newState;
     }
 
+   
+
     private void CheckWeaponForAnim()
     {
 
@@ -403,7 +478,7 @@ public class Movement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (!isGrounded)
+        if (!isGrounded && !isClimbing && !isDescending)
         {
             rb.velocity += new Vector2(0, gravity * Time.deltaTime);
         }
