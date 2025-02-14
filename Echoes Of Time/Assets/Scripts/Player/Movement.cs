@@ -189,13 +189,15 @@ public class Movement : MonoBehaviour
     {
         if(jumpInput)
         {
-            canClimb = false; 
+            canClimb = false;
+            isJumping = true;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             airTime += Time.deltaTime;
             SetAnimationState(currentWeapon, "Player_Jump");
-            //Debug.Log(airTime);
+            
             if (airTime > 0.3f)
             {
+                isJumping = false;
                 jumpInput = false;
                 gravity *= 2;
                 airTime = 0.0f;
@@ -276,14 +278,15 @@ public class Movement : MonoBehaviour
 
     private void CheckClimbing()
     {
-        if(canClimb && canDescend && !climbInput && !descendInput && !isGrounded)
+        if(canClimb && canDescend && !climbInput && !descendInput && !isGrounded && !isJumping)
         {
-            //freeze player in place
-            rb.velocity = new Vector2(0, 0);
-            rb.gravityScale = 0;
-            SetAnimationState(currentWeapon, "Player_Climb");
-            //set animation speed to 0. 
-            animator.speed = 0;
+                //freeze player in place
+                rb.velocity = new Vector2(0, 0);
+                rb.gravityScale = 0;
+                SetAnimationState(currentWeapon, "Player_Climb");
+                //set animation speed to 0. 
+                animator.speed = 0;
+            
         }
         else
         {
@@ -325,6 +328,7 @@ public class Movement : MonoBehaviour
         {
             coyoteCounter = coyoteTime;
             airTime = 0.0f;
+            isJumping = false;
             gravity = internalGravity; 
 
 
