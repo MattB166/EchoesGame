@@ -37,7 +37,7 @@ public class Ladder : IClimbable
                 if(playerPosition.y > bounds.max.y)
                 {
                     Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
-                    playerRigidbody.AddForce(Vector2.up * 2, ForceMode2D.Impulse);
+                    playerRigidbody.AddForce(Vector2.up * 1.5f, ForceMode2D.Impulse);
                 }
             }
         }

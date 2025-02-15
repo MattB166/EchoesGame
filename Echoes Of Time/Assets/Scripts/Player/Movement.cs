@@ -242,6 +242,12 @@ public class Movement : MonoBehaviour
         if (context.performed)
         {
             descendInput = true;
+            RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance);
+            if (hit.collider.TryGetComponent(out ClimbableRoof roof))
+            {
+                roof.CheckDescent(descendInput);
+            }
+
         }
         if (context.canceled)
         {
