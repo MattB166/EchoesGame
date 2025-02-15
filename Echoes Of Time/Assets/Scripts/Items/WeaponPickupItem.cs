@@ -13,12 +13,12 @@ public class WeaponPickupItem : InputPickupItem
     public override void HandlePickup(Actions player, Inventory i)
     {
 
-        MeleeWeaponData weaponData = itemData as MeleeWeaponData;
+        MeleeWeaponData weaponData = itemData as MeleeWeaponData; //change to generic weapon data to reflect bow as well 
         if (weaponData != null)
         {
             if (!player.GetAvailableWeapons().Contains(weaponData.weaponType))
             {
-                player.AddWeapon(weaponData.weaponType, weaponData.damage);
+                player.AddWeapon(weaponData.weaponType, weaponData.damage); //damages not even needed as player doesnt care about the damage of the weapon. 
                 Item item = new Item();
                 item.Init(weaponData);
                 i.AddItem(item);
