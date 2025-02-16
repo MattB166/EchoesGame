@@ -94,7 +94,7 @@ AnimationClip:
   - time: 0.5
     functionName: CheckWeaponContact
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 0d2428543a138a04682b4799dfc9b6a2, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

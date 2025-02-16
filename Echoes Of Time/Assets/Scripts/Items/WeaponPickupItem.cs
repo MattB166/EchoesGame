@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,23 @@ public class WeaponPickupItem : InputPickupItem
     public override void HandlePickup(Actions player, Inventory i)
     {
 
-        MeleeWeaponData weaponData = itemData as MeleeWeaponData; //change to generic weapon data to reflect bow as well 
+        WeaponData weaponData = itemData as WeaponData; //change to generic weapon data to reflect bow as well 
         if (weaponData != null)
         {
             if (!player.GetAvailableWeapons().Contains(weaponData.weaponType))
             {
-                player.AddWeapon(weaponData.weaponType, weaponData.damage); //damages not even needed as player doesnt care about the damage of the weapon. 
-                Item item = new Item();
-                item.Init(weaponData);
-                i.AddItem(item);
+                player.AddWeapon(weaponData.weaponType/*, weaponData.damage*/); //damages not even needed as player doesnt care about the damage of the weapon. 
+
+                //create instance of the weapon
+                GameObject weapon = new GameObject(weaponData.weaponType.ToString());
+                WeaponItem item = weapon.AddComponent(CheckWeaponScriptType(weaponData)) as WeaponItem;
+
+                if(weapon != null )
+                {
+                    item.Init(weaponData,i);
+                    i.AddItem(item);
+                }
+
             }
         }
         else
@@ -30,4 +39,20 @@ public class WeaponPickupItem : InputPickupItem
         }
 
     }
+
+    public Type CheckWeaponScriptType(WeaponData weapon)
+    {
+        switch(weapon.weaponType)
+        {
+            case Actions.Weapons.Sword:
+                return typeof(SwordItem);
+            case Actions.Weapons.Bow:
+                return typeof(BowItem);
+            case Actions.Weapons.Spear:
+                return typeof(SpearItem);
+            default:
+                return null;
+        }
+    }
+   
 }

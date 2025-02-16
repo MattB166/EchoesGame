@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2419c0cd67abe7a44b3545092c13c78a, type: 3}
-  m_Name: Sword
+  m_Script: {fileID: 11500000, guid: b171814de310d6b4a88ecc0b2c17947e, type: 3}
+  m_Name: Bow
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
-  weaponType: 0
-  damage: 1
+  weaponType: 2

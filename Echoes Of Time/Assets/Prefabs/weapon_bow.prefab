@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5441369834975508237}
   - component: {fileID: 6937276929836922672}
   - component: {fileID: 7894469824102975931}
+  - component: {fileID: 5365326284790548162}
   m_Layer: 0
   m_Name: weapon_bow
   m_TagString: Untagged
@@ -178,3 +179,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.85894537, y: 1.30526}
   m_EdgeRadius: 0
+--- !u!114 &5365326284790548162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112878581887290119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0cfdedd1f267745aacffa3bad6cfdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 2a179553733e2c1419958fa574402600, type: 2}

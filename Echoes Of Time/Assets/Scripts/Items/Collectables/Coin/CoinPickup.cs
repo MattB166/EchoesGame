@@ -23,9 +23,9 @@ public class CoinPickup : NonInputPickup
         CoinData coinData = itemData as CoinData;
         if (coinData != null)
         {
-            Item item = new Item();
-            item.Init(coinData);
-            i.AddItem(item);
+            //Item item = new Item(); //derive into coin item to determine its use. also do not send to inventory as it is not needed there. make a bank class / economy. 
+            //item.Init(coinData);
+            //i.AddItem(item);
         }
     }
 }

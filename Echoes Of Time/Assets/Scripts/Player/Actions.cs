@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// This script deals with weapon animations and item pickup. inventory manages item storage and usage. 
 /// </summary>
-public class Actions : MonoBehaviour, IDamageable  
+public class Actions : MonoBehaviour, IDamageable
 {
     public enum ActionAnims
     {
@@ -40,7 +40,7 @@ public class Actions : MonoBehaviour, IDamageable
     public Weapons currentWeapon;
     public ActionAnims currentState;
     private Animator animator;
-    private bool attackInput;
+    //private bool attackInput;
     public bool isAttacking;
     private Dictionary<Weapons, Dictionary<string, ActionAnims>> attackAnims = new();
     private Dictionary<Weapons, float> weaponDamages = new();
@@ -51,28 +51,34 @@ public class Actions : MonoBehaviour, IDamageable
     {
         return availableWeapons;
     }
-    public void AddWeapon(Weapons weapon, int damage)
+    public void AddWeapon(Weapons weapon/*, int damage*/)
     {
         availableWeapons.Add(weapon);
-        weaponDamages[weapon] = damage;
+        // weaponDamages[weapon] = damage;
     }
 
-
-
+    private Inventory Inventory;
+    private MeleeWeaponItem closeRangeItem; 
     // Start is called before the first frame update
     void Start()
     {
-        attackInput = false;
+        Inventory = GetComponent<Inventory>();
+       // attackInput = false;
         animator = GetComponent<Animator>();
         currentWeapon = Weapons.None;
         InitialiseAttackAnims();
         InitialisePlayer();
+        if (Inventory != null)
+        {
+            Inventory.itemChangedCallback += ChangeWeaponAnimation;
+            Inventory.itemUsedCallback += CheckForUseItem;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        UseItem();
+        //CheckForUseItem();
         closestInputPickupItem = UpdateClosestInputPickupItem();
     }
 
@@ -81,30 +87,49 @@ public class Actions : MonoBehaviour, IDamageable
         HitPoints = playerMaxHealth;
     }
 
-    public void ChangeWeapon(InputAction.CallbackContext context) //to be moved to inventory for cycling through inventory. 
+    public void ChangeWeaponAnimation(InventoryItem item)
     {
-        if (context.performed)
+        if (item.item.itemData as WeaponData != null)
         {
-            Weapons nextWeapon = GetNextAvailableWeapon();
-            if (nextWeapon != Weapons.None)
+            Weapons weapon = (item.item.itemData as WeaponData).weaponType;
+            if(!availableWeapons.Contains(weapon))
             {
-                currentWeapon = nextWeapon;
+                //Debug.Log("Adding weapon to available weapons animations");
+                AddWeapon(weapon);
             }
-        }
-    }
+           // Debug.Log("Already have this weapon anim. Changing weapon animation to " + weapon);
+            currentWeapon = weapon;
+            if(currentWeapon == Weapons.Sword || currentWeapon == Weapons.Spear)
+            {
+                closeRangeItem = item.item as MeleeWeaponItem;
+            }
+            else
+            {
+                closeRangeItem = null;
+            }
+            
 
-    private Weapons GetNextAvailableWeapon()
-    {
-        List<Weapons> availableWeaponsList = new List<Weapons>(availableWeapons);
-        if (availableWeaponsList.Count == 0)
+
+        }
+        else
         {
-            return Weapons.None;
+            currentWeapon = Weapons.None;
+            //Debug.Log("This is not a weapon so no animation required"); 
         }
-
-        int currentIndex = availableWeaponsList.IndexOf(currentWeapon);
-        int nextIndex = (currentIndex + 1) % availableWeaponsList.Count;
-        return availableWeaponsList[nextIndex];
     }
+
+    //private Weapons GetNextAvailableWeapon()
+    //{
+    //    List<Weapons> availableWeaponsList = new List<Weapons>(availableWeapons);
+    //    if (availableWeaponsList.Count == 0)
+    //    {
+    //        return Weapons.None;
+    //    }
+
+    //    int currentIndex = availableWeaponsList.IndexOf(currentWeapon);
+    //    int nextIndex = (currentIndex + 1) % availableWeaponsList.Count;
+    //    return availableWeaponsList[nextIndex];
+    //}
 
     private void InitialiseAttackAnims()
     {
@@ -126,17 +151,19 @@ public class Actions : MonoBehaviour, IDamageable
             {"Player_Sword_Attack2",ActionAnims.Player_Sword_Attack2},
             {"Player_Sword_Attack3",ActionAnims.Player_Sword_Attack3},
         });
+
+
     }
 
-    public void OnUseInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            attackInput = true;
-        }
-        else if (context.canceled)
-            attackInput = false;
-    }
+    //public void OnUseInput(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //    {
+    //        attackInput = true;
+    //    }
+    //    else if (context.canceled)
+    //        attackInput = false;
+    //}
 
     private void SetAnimationState(Weapons currentWeapon, string State)
     {
@@ -152,32 +179,30 @@ public class Actions : MonoBehaviour, IDamageable
         currentState = newState;
     }
 
-    public void UseItem() //change to "check for item use" and have polymorphism determine what each item does. 
+    public void CheckForUseItem(InventoryItem item) //change to "check for item use" and have polymorphism determine what each item does. 
     {
-        if (attackInput)
+
+        //attackInput = false;
+        //isAttacking = true;
+        if (item.item.itemData as WeaponData != null)
         {
-            attackInput = false;
-            isAttacking = true;
-            switch (currentWeapon)
+            WeaponData weaponData = item.item.itemData as WeaponData;
+            Weapons weapon = weaponData.weaponType;
+            switch (weapon)
             {
-                case Weapons.Sword:
-                    SetAnimationState(Weapons.Sword, "Player_Sword_Attack1");
-                    //Debug.Log("Sword Attack");
+                case Weapons.Bow:
+                    SetAnimationState(Weapons.Bow, "Player_Bow_Attack");
                     break;
                 case Weapons.Spear:
                     SetAnimationState(Weapons.Spear, "Player_Spear_Attack1");
-                    //Debug.Log("Spear Attack");
                     break;
-                case Weapons.Bow:
-                    SetAnimationState(Weapons.Bow, "Player_Bow_Attack");
-                    //Debug.Log("Bow Attack");
-                    break;
-                default:
-                    SetAnimationState(Weapons.None, "Player_Idle");
+                case Weapons.Sword:
+                    SetAnimationState(Weapons.Sword, "Player_Sword_Attack1");
                     break;
             }
-            isAttacking = false;
         }
+
+
 
 
     }
@@ -216,8 +241,8 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void HandlePickup(BasePickupItem item)
     {
-        Inventory inventory = TryGetComponent(out Inventory inventoryComponent) ? inventoryComponent : null;    
-        if(inventory != null)
+        Inventory inventory = TryGetComponent(out Inventory inventoryComponent) ? inventoryComponent : null;
+        if (inventory != null)
         {
             item.HandlePickup(this, inventory);
         }
@@ -230,28 +255,17 @@ public class Actions : MonoBehaviour, IDamageable
 
 
 
-    ///referenced by animation to get correct time to check for sword contact
+    ///referenced by animation to get correct time to check for sword contact, but passed out to items to control the damage dealt. 
     public void CheckWeaponContact()
     {
-        if (weaponDamages.ContainsKey(currentWeapon))
+       if(closeRangeItem != null)
         {
-            float damage = weaponDamages[currentWeapon];
-
-            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.6f);
-            foreach (var hit in hits)
-            {
-                if (hit.TryGetComponent(out IDamageable damageable))
-                {
-                    if(hit.gameObject != this.gameObject)
-                    {
-                        damageable.TakeDamage(damage);
-                        //Debug.Log("Dealt " + damage + " damage to " + hit.name);
-                    }
-                   
-                }
-            }
-
+            closeRangeItem.CheckWeaponDamage();
         }
+    }
+
+    public void RangedProjectileTime()
+    {
 
     }
 

@@ -315,9 +315,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 104509520533267175}
-        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
-        m_MethodName: ChangeWeapon
+      - m_Target: {fileID: 3617416041841136927}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: OnCycleInventoryInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -331,9 +331,9 @@ MonoBehaviour:
     m_ActionName: Player/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 104509520533267175}
-        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
-        m_MethodName: OnUseInput
+      - m_Target: {fileID: 3617416041841136927}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: OnUseItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -393,6 +393,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 99c0ea2f-7481-4a43-a526-1a8d771c7a19
     m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: OnDescendInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f864676a-4c1d-4455-a506-820a00c2c2fc
+    m_ActionName: 'Player/Descend[/Keyboard/s]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -421,6 +437,8 @@ MonoBehaviour:
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
+  climbSpeed: 4
+  descendSpeed: 4
   isGrounded: 0
   gravity: -10.6
   groundcheckDistance: 0.04
