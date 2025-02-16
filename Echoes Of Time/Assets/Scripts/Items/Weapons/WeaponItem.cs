@@ -17,15 +17,17 @@ public abstract class WeaponItem : Item
 
     }
 
-    public override void Init(ItemData itemData, Inventory inv)
+    public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
     {
-        base.Init(itemData,inv);
+        base.Init(itemData,inv,prefab);
         weaponData = itemData as WeaponData; 
         //Debug.Log("Weapon initialized with " + weaponData.name);
 
     }
 
     public abstract override void Use(); //abstract method that will be implemented in derived classes 
-   
+
+    
+
 
 }

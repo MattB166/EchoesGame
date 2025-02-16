@@ -22,14 +22,26 @@ public class WeaponPickupItem : InputPickupItem
                 player.AddWeapon(weaponData.weaponType/*, weaponData.damage*/); //damages not even needed as player doesnt care about the damage of the weapon. 
 
                 //create instance of the weapon
-                GameObject weapon = new GameObject(weaponData.weaponType.ToString());
-                WeaponItem item = weapon.AddComponent(CheckWeaponScriptType(weaponData)) as WeaponItem;
-
-                if(weapon != null )
+                GameObject weapon = weaponData.prefab;
+                WeaponItem existingItem = weapon.GetComponent<WeaponItem>();
+                if(existingItem == null)
                 {
-                    item.Init(weaponData,i);
-                    i.AddItem(item);
+                    WeaponItem item = weapon.AddComponent(CheckWeaponScriptType(weaponData)) as WeaponItem;
+                    if (weapon != null)
+                    {
+                        item.Init(weaponData, i, weapon);
+                        i.AddItem(item);
+                    }
                 }
+                else
+                {
+                    Debug.Log("Item already exists. Not duplicating");
+                    existingItem.Init(weaponData, i, weapon);
+                    i.AddItem(existingItem);
+                }
+                
+
+               
 
             }
         }

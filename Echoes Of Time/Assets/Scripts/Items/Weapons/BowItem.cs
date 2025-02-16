@@ -21,9 +21,9 @@ public class BowItem : WeaponItem
         
     }
 
-    public override void Init(ItemData itemData, Inventory inv)
+    public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
     {
-        base.Init(itemData, inv);
+        base.Init(itemData, inv,prefab);
         weaponData = itemData as WeaponData;
         Debug.Log("Bow initialized with " + weaponData.name);
     }

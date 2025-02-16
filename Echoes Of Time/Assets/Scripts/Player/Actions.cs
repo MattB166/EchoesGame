@@ -51,10 +51,10 @@ public class Actions : MonoBehaviour, IDamageable
     {
         return availableWeapons;
     }
-    public void AddWeapon(Weapons weapon/*, int damage*/)
+    public void AddWeapon(Weapons weapon)
     {
         availableWeapons.Add(weapon);
-        // weaponDamages[weapon] = damage;
+        
     }
 
     private Inventory Inventory;
@@ -72,6 +72,8 @@ public class Actions : MonoBehaviour, IDamageable
         {
             Inventory.itemChangedCallback += ChangeWeaponAnimation;
             Inventory.itemUsedCallback += CheckForUseItem;
+            Inventory.itemSecondaryUsedCallback += CheckForSecondaryItemUse;
+            Inventory.itemDroppedCallback += RemoveWeaponAnim;
         }
     }
 
@@ -118,18 +120,23 @@ public class Actions : MonoBehaviour, IDamageable
         }
     }
 
-    //private Weapons GetNextAvailableWeapon()
-    //{
-    //    List<Weapons> availableWeaponsList = new List<Weapons>(availableWeapons);
-    //    if (availableWeaponsList.Count == 0)
-    //    {
-    //        return Weapons.None;
-    //    }
-
-    //    int currentIndex = availableWeaponsList.IndexOf(currentWeapon);
-    //    int nextIndex = (currentIndex + 1) % availableWeaponsList.Count;
-    //    return availableWeaponsList[nextIndex];
-    //}
+    public void RemoveWeaponAnim(InventoryItem item)
+    {
+        if (item.item.itemData as WeaponData != null)
+        {
+            Weapons weapon = (item.item.itemData as WeaponData).weaponType;
+            if (availableWeapons.Contains(weapon))
+            {
+                Debug.Log("Removing weapon from available weapons animations");
+                availableWeapons.Remove(weapon);
+                if(availableWeapons.Count < 1)
+                {
+                    currentWeapon = Weapons.None;
+                }
+                
+            }
+        }
+    }
 
     private void InitialiseAttackAnims()
     {
@@ -183,9 +190,10 @@ public class Actions : MonoBehaviour, IDamageable
     {
 
         //attackInput = false;
-        //isAttacking = true;
+        
         if (item.item.itemData as WeaponData != null)
         {
+            isAttacking = true;
             WeaponData weaponData = item.item.itemData as WeaponData;
             Weapons weapon = weaponData.weaponType;
             switch (weapon)
@@ -202,10 +210,29 @@ public class Actions : MonoBehaviour, IDamageable
             }
         }
 
-
-
-
     }
+
+    public void CheckForSecondaryItemUse(InventoryItem item)
+    {
+        if (item.item.itemData as WeaponData != null)
+        {
+            isAttacking = true;
+            WeaponData weaponData = item.item.itemData as WeaponData;
+            Weapons weapon = weaponData.weaponType;
+            switch (weapon)
+            {
+                case Weapons.Spear:
+                    SetAnimationState(Weapons.Spear, "Player_Spear_Throw");
+                    break;
+            }
+        }
+    }
+
+    public void EndOfAttackAnim()
+    {
+        isAttacking = false;
+    }
+
 
     public InputPickupItem UpdateClosestInputPickupItem()
     {

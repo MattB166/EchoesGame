@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6393209416857008078}
   - component: {fileID: 6873000399496813389}
   - component: {fileID: 5222152435479404286}
+  - component: {fileID: -7526875183401726503}
   m_Layer: 0
   m_Name: weapon_sword
   m_TagString: Untagged
@@ -192,3 +193,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.86, y: 0.94}
   m_EdgeRadius: 0
+--- !u!114 &-7526875183401726503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083792624925682935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2428543a138a04682b4799dfc9b6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 15248bf9c0f580a4b8079cd6941705a8, type: 2}
+  inventory: {fileID: 0}
+  prefab: {fileID: 1083792624925682935}
+  weaponData: {fileID: 11400000, guid: 15248bf9c0f580a4b8079cd6941705a8, type: 2}
+  meleeWeaponData: {fileID: 11400000, guid: 15248bf9c0f580a4b8079cd6941705a8, type: 2}

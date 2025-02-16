@@ -29,11 +29,11 @@ public abstract class BasePickupItem : BaseInteractableClass
     {
         if (itemData.isAnimatedOnPickup)
         {
-            Destroy(gameObject, 0.5f);
+            Destroy(this.gameObject, 0.5f);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -479,12 +479,12 @@ public class Movement : MonoBehaviour
         currentState = newState;
     }
 
-   
 
-    private void CheckWeaponForAnim()
-    {
 
-    }
+    //public void EndOfAttackAnim()
+    //{
+    //    isAttacking = false;
+    //}
 
     private void ApplyGravity()
     {

@@ -7,6 +7,7 @@ using UnityEngine;
 public class WeaponData : ItemData //base weapon class, melee will inherit from this as damage values required, but ranged will use this. 
 {
     public Actions.Weapons weaponType;
+    public GameObject prefab; 
     //public int damage;
     
 }

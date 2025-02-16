@@ -16,3 +16,4 @@ MonoBehaviour:
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
   weaponType: 2
+  prefab: {fileID: 112878581887290119, guid: b869d5b41badafd4aa6388c619f036ad, type: 3}

@@ -19,11 +19,16 @@ public class InventoryItem
 public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SCRIPT, FOR THE SPRITE AND THE QUANTITY AND CURRENT SELECTED ITEM. 
 {
     public List<InventoryItem> items = new List<InventoryItem>();
+    private List<InventoryItem> itemsToRemove = new List<InventoryItem>();
     private int currentItemIndex = 0;
     public delegate void ItemChanged(InventoryItem item);
     public ItemChanged itemChangedCallback;
     public delegate void ItemUsed(InventoryItem item);
     public ItemUsed itemUsedCallback;
+    public delegate void ItemSecondaryUsed(InventoryItem item);
+    public ItemSecondaryUsed itemSecondaryUsedCallback;
+    public delegate void ItemDropped(InventoryItem item);
+    public ItemDropped itemDroppedCallback;
     public GameObject player;
     public InventoryItem currentItem
     {
@@ -46,7 +51,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     // Update is called once per frame
     void Update()
     {
-        
+        ProcessItemRemovals();
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)
@@ -59,7 +64,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     public void CycleInventory()
     {
-        if(items.Count == 0)
+        if (items.Count == 0)
         {
             return;
         }
@@ -88,36 +93,65 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     }
 
-    public void RemoveItem()
+    public void DropItem()
     {
-        if (items.Count == 0)
+        GameObject droppedItem = Instantiate(currentItem.item.prefab, player.transform.position, Quaternion.identity);
+        items[currentItemIndex].quantity--;
+        if (items[currentItemIndex].quantity == 0)
         {
-            return;
+            itemDroppedCallback?.Invoke(currentItem);
+            items.RemoveAt(currentItemIndex); //delegate to inform animations than no longer have that weapon. 
+            CycleInventory();
         }
-        items.RemoveAt(currentItemIndex);
-        if(items.Count == 0)
+    }
+
+    public void RemoveItem(Item item)
+    {
+        foreach (InventoryItem inventoryItem in items)
         {
-            currentItemIndex = 0;
+            if (inventoryItem.item.itemData.name == item.itemData.name)
+            {
+                inventoryItem.quantity--;
+                if (inventoryItem.quantity == 0)
+                {
+                    itemDroppedCallback?.Invoke(inventoryItem);
+                    itemsToRemove.Add(inventoryItem);
+                    CycleInventory();
+                }
+            }
         }
-        else
-        {
-            currentItemIndex = Mathf.Clamp(currentItemIndex, 0, items.Count - 1);
-        }
-        if(items.Count > 0)
-        {
-            itemChangedCallback?.Invoke(currentItem);
-        }
-        
-        CycleInventory();
     }
 
     public void OnUseItem(InputAction.CallbackContext context)
     {
         if (context.performed && items.Count > 0)
         {
-            if(currentItem.item != null)
-            currentItem.item.Use();
+            if (currentItem.item != null)
+                currentItem.item.Use();
             itemUsedCallback?.Invoke(currentItem);
+            //DropItem();
         }
+    }
+
+    public void OnSecondaryUseItem(InputAction.CallbackContext context)
+    {
+        if (context.performed && items.Count > 0)
+        {
+            if (currentItem.item != null)
+            {
+                currentItem.item.SecondaryUse();
+                itemSecondaryUsedCallback?.Invoke(currentItem);
+            }
+
+        }
+    }
+
+    private void ProcessItemRemovals()
+    {
+        foreach (InventoryItem item in itemsToRemove)
+        {
+            items.Remove(item);
+        }
+        itemsToRemove.Clear();
     }
 }

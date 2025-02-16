@@ -17,12 +17,20 @@ public class SpearItem : MeleeWeaponItem
     }
     public override void Use()
     {
-       
+
     }
 
-    public override void Init(ItemData itemData,Inventory inv)
+    public override void SecondaryUse()
     {
-        base.Init(itemData, inv);
+        Debug.Log("Secondary use of spear");
+        //on second use spear is dropped until recollected. 
+        //GameObject spear = Instantiate(prefab, inventory.player.transform.position + inventory.player.transform.forward * 5.0f, inventory.player.transform.rotation);
+        // inventory.RemoveItem(this); do after the spear has been thrown, otherwise the item will be removed from the inventory before it is thrown and so animation will not be played.
+    }
+
+    public override void Init(ItemData itemData,Inventory inv, GameObject prefab)
+    {
+        base.Init(itemData, inv,prefab);
         meleeWeaponData = itemData as MeleeWeaponData;
         //Debug.Log("Spear initialized with " + SpearWeaponData.name);
         //Debug.Log("Spear damage: " + SpearWeaponData.damage);

@@ -6,6 +6,7 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
 {
     public ItemData itemData;
     public Inventory inventory;
+    public GameObject prefab; 
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +19,19 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
         
     }
 
-    public virtual void Init(ItemData itemData, Inventory inv)
+    public virtual void Init(ItemData itemData, Inventory inv, GameObject prefab)
     {
         this.itemData = itemData;
         this.inventory = inv;
+        this.prefab = prefab;
         //Debug.Log("Item initialized with " + itemData.name);
     }
 
     public abstract void Use();
+
+    public virtual void SecondaryUse() //virtual method that can be overridden in derived classes
+    {
+
+    }
 
 }

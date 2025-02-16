@@ -21,9 +21,9 @@ public abstract class MeleeWeaponItem : WeaponItem
         
     }
 
-    public override void Init(ItemData itemData, Inventory inv)
+    public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
     {
-        base.Init(itemData, inv);
+        base.Init(itemData, inv,prefab);
         meleeWeaponData = itemData as MeleeWeaponData;
         //Debug.Log("Melee weapon initialized with " + meleeWeaponData.name);
         //Debug.Log("Melee weapon damage: " + meleeWeaponData.damage);
