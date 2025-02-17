@@ -74,6 +74,13 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     }
 
+    public void SetCurrentItem(InventoryItem item)
+    {
+        currentItemIndex = items.IndexOf(item);
+        itemChangedCallback?.Invoke(currentItem);
+        //Debug.Log("Current item: " + currentItem.item.itemData.name);
+    }
+
     public void AddItem(Item newItem)
     {
         //Debug.Log("Adding item to inventory: " + newItem.itemData.name);
@@ -89,7 +96,11 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         }
         //if the item is not in the inventory, add it
         //Debug.Log("Item not in inventory, adding it");
-        items.Add(new InventoryItem(newItem, 1));
+        InventoryItem item = new InventoryItem(newItem, 1);
+        items.Add(item);
+        SetCurrentItem(item);
+
+
 
     }
 

@@ -214,4 +214,4 @@ MonoBehaviour:
   ThrowDamage: 4
   maxPierces: 3
   pierceCount: 0
-  throwDistance: 10
+  throwDistance: 20
