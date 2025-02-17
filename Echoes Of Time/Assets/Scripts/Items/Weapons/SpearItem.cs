@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpearItem : MeleeWeaponItem
 {
+    public bool isThrown;
+    public int ThrowDamage; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,15 +16,16 @@ public class SpearItem : MeleeWeaponItem
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(isThrown);
         if(TryGetComponent(out Rigidbody2D rb))
         {
            if(rb.velocityX > 0)
             {
-                Debug.Log("Spear is moving right");
+                //Debug.Log("Spear is moving right");
             }
             if (rb.velocityX < 0)
             {
-                Debug.Log("Spear is moving left");
+               // Debug.Log("Spear is moving left");
             }
             else if (rb.velocityX == 0 && rb.velocityY == 0)
             {
@@ -37,11 +41,10 @@ public class SpearItem : MeleeWeaponItem
 
     public override void SecondaryUse()
     {
-        Debug.Log("Secondary use of spear");
-        //on second use spear is dropped until recollected. 
-        
-        // inventory.RemoveItem(this); do after the spear has been thrown, otherwise the item will be removed from the inventory before it is thrown and so animation will not be played.
+        //unsubscribe first
+        inventory.player.GetComponent<Actions>().attackAnimFinishedCallback -= ThrowSpear;
         inventory.player.GetComponent<Actions>().attackAnimFinishedCallback += ThrowSpear;
+
     }
 
     public override void Init(ItemData itemData,Inventory inv, GameObject prefab)
@@ -59,16 +62,42 @@ public class SpearItem : MeleeWeaponItem
             float yPos = inventory.player.transform.position.y;
             Vector2 pos = new Vector2(xPos, yPos);
             GameObject spear = Instantiate(prefab, pos, inventory.player.transform.rotation);
+            if(spear != null)
+            {
+                //Debug.Log("Spear thrown");
+            }
             spear.AddComponent<Rigidbody2D>();
             Rigidbody2D rb = spear.GetComponent<Rigidbody2D>();
-            Vector2 force = new Vector2(10, 4);
+            Vector2 force = new Vector2(20, 0);
             rb.AddForce(force, ForceMode2D.Impulse);
+            spear.GetComponent<SpearItem>().isThrown = true;
+            rb.gravityScale = 0;
             inventory.player.GetComponent<Actions>().attackAnimFinishedCallback -= ThrowSpear;
             inventory.RemoveItem(this);
         }
         
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       
+        if (isThrown)
+        {
+            //Debug.Log("Spear hit something");
+            if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+            {
+                Debug.Log("Spear hit damageable");
+                damageable.TakeDamage(ThrowDamage);
+                isThrown = false;
+                Rigidbody2D spearRb = GetComponent<Rigidbody2D>();
+                Destroy(spearRb);
+
+
+            }
+            //check if interactable 
+        }
+    }
+
+
 
 }

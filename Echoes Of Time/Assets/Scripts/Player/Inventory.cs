@@ -100,7 +100,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         if (items[currentItemIndex].quantity == 0)
         {
             itemDroppedCallback?.Invoke(currentItem);
-            items.RemoveAt(currentItemIndex); //delegate to inform animations than no longer have that weapon. 
+            items.RemoveAt(currentItemIndex);
             CycleInventory();
         }
     }

@@ -32,12 +32,16 @@ public abstract class MeleeWeaponItem : WeaponItem
     public void CheckWeaponDamage()
     { 
         Vector2 checkPoint = inventory.player.transform.position;
-        Debug.Log("Checking weapon damage from weapon side");
+        //Debug.Log("Checking weapon damage from weapon side");
         Collider2D[] hits = Physics2D.OverlapCircleAll(checkPoint, 0.6f);
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent(out IDamageable damageable))
             {
+                if(hit.gameObject == inventory.player)
+                {
+                    continue;
+                }
                 damageable.TakeDamage(meleeWeaponData.damage);
                 Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
             }

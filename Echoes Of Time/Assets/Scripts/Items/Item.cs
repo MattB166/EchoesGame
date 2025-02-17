@@ -29,7 +29,7 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
 
     public abstract void Use();
 
-    public virtual void SecondaryUse() //virtual method that can be overridden in derived classes
+    public virtual void SecondaryUse() 
     {
 
     }

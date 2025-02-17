@@ -131,7 +131,7 @@ public class Actions : MonoBehaviour, IDamageable
             Weapons weapon = (item.item.itemData as WeaponData).weaponType;
             if (availableWeapons.Contains(weapon))
             {
-                Debug.Log("Removing weapon from available weapons animations");
+                //Debug.Log("Removing weapon from available weapons animations");
                 availableWeapons.Remove(weapon);
                 if(availableWeapons.Count < 1)
                 {
@@ -245,12 +245,16 @@ public class Actions : MonoBehaviour, IDamageable
         InputPickupItem nearestItem = null;
         foreach (var item in InputPickupItem.itemsInRange)
         {
-            float distance = Vector2.Distance(item.transform.position, transform.position);
-            if (distance < nearestDistance)
+            if(item != null)
             {
-                nearestDistance = distance;
-                nearestItem = item;
+                float distance = Vector2.Distance(item.transform.position, transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestItem = item;
+                }
             }
+           
         }
         return nearestItem;
     }
