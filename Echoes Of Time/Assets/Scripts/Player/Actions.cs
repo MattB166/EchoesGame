@@ -59,6 +59,10 @@ public class Actions : MonoBehaviour, IDamageable
 
     private Inventory Inventory;
     private MeleeWeaponItem closeRangeItem; 
+    public delegate void AttackAnimFinished(Weapons weapon);
+    public AttackAnimFinished attackAnimFinishedCallback;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -231,6 +235,7 @@ public class Actions : MonoBehaviour, IDamageable
     public void EndOfAttackAnim()
     {
         isAttacking = false;
+        attackAnimFinishedCallback?.Invoke(currentWeapon);
     }
 
 
