@@ -54,6 +54,7 @@ public class Movement : MonoBehaviour
     [Range(0.0f, 5.0f)] public float dashCooldown;
     [Range(1, 10)] public float jumpForce;
     public float customTimeScale;
+    public float direction;
     private Animator animator;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
@@ -133,10 +134,10 @@ public class Movement : MonoBehaviour
     private Vector2 Move()
     {
         Vector2 movement;
+        direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
         if(input.x == 0 && isDashing)
         {
             //Debug.Log("Dashing without movement");
-            float direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
             float newSpeed = dashSpeed;
             movement = new Vector2(direction * newSpeed * customTimeScale, rb.velocity.y);
         }

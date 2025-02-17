@@ -5,7 +5,14 @@ using UnityEngine;
 public class SpearItem : MeleeWeaponItem
 {
     public bool isThrown;
-    public int ThrowDamage; 
+    public int ThrowDamage;
+    public int maxPierces;
+    public int pierceCount; 
+    private bool returnToPlayer;
+    private Vector2 startPos;
+    public float throwDistance;
+    private float currentDistance;
+    //private Collider2D spearCol; 
 
     // Start is called before the first frame update
     void Start()
@@ -16,23 +23,11 @@ public class SpearItem : MeleeWeaponItem
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isThrown);
-        if(TryGetComponent(out Rigidbody2D rb))
-        {
-           if(rb.velocityX > 0)
-            {
-                //Debug.Log("Spear is moving right");
-            }
-            if (rb.velocityX < 0)
-            {
-               // Debug.Log("Spear is moving left");
-            }
-            else if (rb.velocityX == 0 && rb.velocityY == 0)
-            {
-                Rigidbody2D spearRb = GetComponent<Rigidbody2D>();
-                Destroy(spearRb);
-            }
-        }
+        //CheckDistance();
+        //if (returnToPlayer)
+        //{
+        //    ReturnToPlayer();
+        //}
     }
     public override void Use()
     {
@@ -58,17 +53,19 @@ public class SpearItem : MeleeWeaponItem
     {
         if(weapon == Actions.Weapons.Spear) //probably a better way to do this. 
         {
-            float xPos = inventory.player.transform.position.x + 2.0f;
+            float direction = inventory.player.GetComponent<Movement>().direction;
+            Debug.Log("Direction: " + direction);
+            float xOffSet = 2.0f * direction;
+            float xPos = inventory.player.transform.position.x + xOffSet;
             float yPos = inventory.player.transform.position.y;
             Vector2 pos = new Vector2(xPos, yPos);
-            GameObject spear = Instantiate(prefab, pos, inventory.player.transform.rotation);
-            if(spear != null)
-            {
-                //Debug.Log("Spear thrown");
-            }
+            Quaternion rot = direction == 1 ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
+            GameObject spear = Instantiate(prefab, pos, rot);
+            //startPos = pos;
             spear.AddComponent<Rigidbody2D>();
             Rigidbody2D rb = spear.GetComponent<Rigidbody2D>();
-            Vector2 force = new Vector2(20, 0);
+            spear.GetComponent<SpearItem>().pierceCount = 0;
+            Vector2 force = new Vector2(20 * direction, 0);
             rb.AddForce(force, ForceMode2D.Impulse);
             spear.GetComponent<SpearItem>().isThrown = true;
             rb.gravityScale = 0;
@@ -80,24 +77,81 @@ public class SpearItem : MeleeWeaponItem
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       
-        if (isThrown)
-        {
-            //Debug.Log("Spear hit something");
-            if (collision.gameObject.TryGetComponent(out IDamageable damageable))
-            {
-                Debug.Log("Spear hit damageable");
-                damageable.TakeDamage(ThrowDamage);
-                isThrown = false;
-                Rigidbody2D spearRb = GetComponent<Rigidbody2D>();
-                Destroy(spearRb);
 
-
-            }
-            //check if interactable 
-        }
+        //check if interactable object as we dont want to pierce through it. 
     }
 
 
+    private void OnTriggerEnter2D(Collider2D collision)   //seems to work better as it pierces through objects. 
+    {
+        if (isThrown)
+        {
+            if (collision.TryGetComponent(out IDamageable damageable))
+            {
+                Debug.Log("Spear hit damageable");
+                damageable.TakeDamage(ThrowDamage);
+                pierceCount++;
+                if (pierceCount >= maxPierces)
+                {
+                    isThrown = false;
+                    pierceCount = 0;
+                    Rigidbody2D spearRb = GetComponent<Rigidbody2D>();
+                    Destroy(spearRb);
+                }
+                //if(damageable.HitPoints > 0)
+                //{
+                //    //do something so spear doesnt just sit in the air. 
+                //    //maybe automatically return to inventory? or have it boomerang back to player? and automatically return to inventory when it reaches player?
+                //    returnToPlayer = true;
+                //    isThrown = false; 
+                //    pierceCount = 0;
+                //    //Invoke("DisableCollidersForReturn", 0.2f);
+                //}
+
+            }
+        }
+    }
+
+    //private void DisableCollidersForReturn()
+    //{
+    //    Collider2D[] cols = GetComponents<Collider2D>();
+    //    foreach (Collider2D col in cols)
+    //    {
+    //        col.enabled = false;
+    //    }
+    //}
+
+    //public void CheckDistance()
+    //{
+       
+    //        currentDistance = Vector2.Distance(startPos, transform.position);
+    //        if(currentDistance > throwDistance)
+    //        {
+    //        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+    //        rb.velocity = Vector2.zero;
+    //        rb.angularVelocity = 0;
+    //        returnToPlayer = true;
+    //        }
+        
+    //}
+
+    //public void ReturnToPlayer()
+    //{
+    //    //move towards player
+        
+    //    Vector2 playerPos = inventory.player.transform.position;
+    //    Vector2 spearPos = transform.position;
+    //    Vector2 direction = playerPos - spearPos;
+    //    float speed = 15.0f;
+    //    transform.position = Vector2.MoveTowards(spearPos, playerPos, speed * Time.deltaTime);
+    //    Quaternion targetRot = Quaternion.Euler(0, 0, 90);
+    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 100 * Time.deltaTime);
+    //    if (Vector2.Distance(playerPos, spearPos) < 0.4f)
+    //    { 
+    //        returnToPlayer = false;
+    //        GetComponent<WeaponPickupItem>().HandlePickup(inventory.player.GetComponent<Actions>(), inventory);
+    //        Destroy(gameObject);
+    //    }
+    //}
 
 }

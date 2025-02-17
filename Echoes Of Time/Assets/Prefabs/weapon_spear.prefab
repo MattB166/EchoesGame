@@ -210,4 +210,8 @@ MonoBehaviour:
   prefab: {fileID: 6614358742109557468}
   weaponData: {fileID: 11400000, guid: e3c86168a8ae33347aa3711dfd5b161f, type: 2}
   meleeWeaponData: {fileID: 11400000, guid: e3c86168a8ae33347aa3711dfd5b161f, type: 2}
+  isThrown: 0
   ThrowDamage: 4
+  maxPierces: 3
+  pierceCount: 0
+  throwDistance: 10
