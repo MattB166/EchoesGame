@@ -16,6 +16,6 @@ MonoBehaviour:
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 0}
-  projectileSpeed: 0
-  pickupAmount: 0
+  projectileSpeed: 1
+  pickupAmount: 1
   damage: 0
