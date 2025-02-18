@@ -68,7 +68,7 @@ public class SpearItem : MeleeWeaponItem
             Quaternion rot = direction == 1 ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
             GameObject spear = Instantiate(prefab, pos, rot);
             //startPos = pos;
-            Debug.Log(startPos);
+            //Debug.Log(startPos);
             spear.AddComponent<Rigidbody2D>();
             Rigidbody2D rb = spear.GetComponent<Rigidbody2D>();
             spear.GetComponent<SpearItem>().pierceCount = 0;
@@ -143,7 +143,7 @@ public class SpearItem : MeleeWeaponItem
     {
 
         currentDistance = Vector2.Distance(startPos, transform.position);
-        Debug.Log(currentDistance);
+        //Debug.Log(currentDistance);
 
         if (currentDistance > throwDistance && !returnToPlayer)
         {
