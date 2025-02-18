@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Items/Melee Weapon")]
 public abstract class MeleeWeaponItem : WeaponItem
 {
     public MeleeWeaponData meleeWeaponData;

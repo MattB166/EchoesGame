@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BowItem : WeaponItem
 {
-    
+    //list of stored projectile types and their ammo counts. 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class BowItem : WeaponItem
     }
     public override void Use()
     {
-        
+        //fire the current projectile. 
     }
 
     public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
@@ -26,6 +27,11 @@ public class BowItem : WeaponItem
         base.Init(itemData, inv,prefab);
         weaponData = itemData as WeaponData;
         //Debug.Log("Bow initialized with " + weaponData.name);
+    }
+
+    public override void SecondaryUse()
+    {
+        //switch to the next projectile type. 
     }
 
 }
