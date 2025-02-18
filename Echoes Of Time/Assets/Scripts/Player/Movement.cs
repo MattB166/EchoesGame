@@ -42,7 +42,7 @@ public enum AnimationStates
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class Movement : MonoBehaviour
+public class Movement : MonoBehaviour,IDistortable
 {
     [HideInInspector] public Vector2 input;
 
@@ -53,7 +53,7 @@ public class Movement : MonoBehaviour
     [Range(0.1f,0.5f)] public float dashDuration;
     [Range(0.0f, 5.0f)] public float dashCooldown;
     [Range(1, 10)] public float jumpForce;
-    public float customTimeScale;
+    
     public float direction;
     private Animator animator;
     private Rigidbody2D rb;
@@ -91,6 +91,16 @@ public class Movement : MonoBehaviour
     //add jump buffer next 
     public LayerMask groundLayer;
     private Transform groundCheck;
+
+    [SerializeField]
+    private float customTimeScale;
+    public float CustomTimeScale
+    {
+        get { return customTimeScale; }
+        set { customTimeScale = value; }
+
+            }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -198,6 +208,7 @@ public class Movement : MonoBehaviour
             
             if (airTime > 0.3f)
             {
+                Distort(0.1f, 6.0f);
                 isJumping = false;
                 jumpInput = false;
                 gravity *= 2;
@@ -495,7 +506,36 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void Distort(float timeScale)
+    {
+        CustomTimeScale = timeScale; 
+        //animator.speed = timeScale;
+    }
+    
+    public void Distort(float timeScale, float duration)
+    {
+        Distort(timeScale);
+        StartCoroutine(DistortionTime(duration));
+    }
 
+    public void Distort(float timeScale, float duration, float distortionRadius) //probably useless inside player class, much more useful in something like a grenade. 
+    {
+        Vector2 groundZero = new Vector2(transform.position.x, transform.position.y);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundZero, distortionRadius);
+        foreach(Collider2D col in colliders)
+        {
+            if(col.TryGetComponent<IDistortable>(out IDistortable distortable))
+            {
+                distortable.Distort(timeScale, duration); 
+                break;
+            }
+        }
+    }
 
+    private IEnumerator DistortionTime(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        CustomTimeScale = 1;
+    }
 
 }
