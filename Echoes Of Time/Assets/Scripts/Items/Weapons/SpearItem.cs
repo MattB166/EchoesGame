@@ -100,23 +100,34 @@ public class SpearItem : MeleeWeaponItem
                 pierceCount++;
                 if (pierceCount >= maxPierces)
                 {
-                    isThrown = false;
-                    pierceCount = 0;
-                    Rigidbody2D spearRb = GetComponent<Rigidbody2D>();
-                    Destroy(spearRb);
+                    Invoke("DelayedReturn", 0.5f);
+                    return;
+                    
                 }
                 if (damageable.HitPoints > 0)
                 {
-                    //do something so spear doesnt just sit in the air. 
-                    //maybe automatically return to inventory? or have it boomerang back to player? and automatically return to inventory when it reaches player?
+                    Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                    rb.velocity = Vector2.zero;
+                    DisableCollidersForReturn();
                     returnToPlayer = true;
                     isThrown = false;
                     pierceCount = 0;
+                    return; 
                     //Invoke("DisableCollidersForReturn", 0.2f);
                 }
 
             }
         }
+    }
+
+    private void DelayedReturn()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        DisableCollidersForReturn();
+        returnToPlayer = true;
+        isThrown = false;
+        pierceCount = 0;
     }
 
     private void DisableCollidersForReturn()
