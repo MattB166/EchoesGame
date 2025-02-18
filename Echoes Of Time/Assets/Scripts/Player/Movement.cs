@@ -208,7 +208,7 @@ public class Movement : MonoBehaviour,IDistortable
             
             if (airTime > 0.3f)
             {
-                Distort(0.1f, 6.0f);
+                //Distort(0.1f, 6.0f);
                 isJumping = false;
                 jumpInput = false;
                 gravity *= 2;
