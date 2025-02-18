@@ -43,7 +43,7 @@ public abstract class MeleeWeaponItem : WeaponItem
                     continue;
                 }
                 damageable.TakeDamage(meleeWeaponData.damage);
-                Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
+                //Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
             }
         }
     }
