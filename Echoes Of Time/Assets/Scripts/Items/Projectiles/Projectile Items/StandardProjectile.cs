@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseProjectile : MonoBehaviour //common behaviour for all projectiles fired from bow. 
+public class StandardProjectile : BaseProjectile //behaviour for the standard projectile which simply does damage. 
 {
-    public ProjectileData projectileData;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +16,8 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
         
     }
 
-    public abstract void Fire(); //maybe a float dir parameter for direction at most.
+    public override void Fire()
+    {
+        Debug.Log("Standard Projectile fired!");
+    }
 }

@@ -42,6 +42,10 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         }
     }
 
+
+    public Dictionary<ProjectileData, int> storedProjectiles = new Dictionary<ProjectileData, int>();
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +56,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     void Update()
     {
         ProcessItemRemovals();
+        
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)
@@ -164,5 +169,30 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             items.Remove(item);
         }
         itemsToRemove.Clear();
+
+    }
+
+    public void StoreProjectile(ProjectileData projectileData, int amount)
+    {
+        if(storedProjectiles.ContainsKey(projectileData))
+        {
+            storedProjectiles[projectileData] += amount;
+        }
+        else
+        {
+            storedProjectiles.Add(projectileData, amount);
+        }
+        Debug.Log("Stored " + amount + " " + projectileData.name + " in inventory");
+    }
+
+    public int GetStoredProjectileAmount(ProjectileData projectileData)
+    {
+        if(storedProjectiles.TryGetValue(projectileData, out int amount))
+        {
+            storedProjectiles.Remove(projectileData);
+            Debug.Log("Retrieved " + amount + " " + projectileData.name + " from inventory");
+            return amount; 
+        }
+        return 0;
     }
 }
