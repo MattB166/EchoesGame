@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -42,7 +43,8 @@ public class BowItem : WeaponItem
     public override void Use()
     {
         //fire the current projectile if there is any. 
-        Shoot();
+        inventory.player.GetComponent<Actions>().attackAnimFinishedCallback -= Shoot;
+        inventory.player.GetComponent<Actions>().attackAnimFinishedCallback += Shoot;
 
     }
 
@@ -63,21 +65,42 @@ public class BowItem : WeaponItem
         inv.storedProjectiles.Clear();
     }
 
-    public void Shoot()
+    public void Shoot(Actions.Weapons weapon)
     {
-       if(currentProjectile == null)
+        if(weapon == Actions.Weapons.Bow)
         {
-            return;
-        }
-            currentProjectile.projectile.Fire();
+            if (currentProjectile == null)
+            {
+                return;
+            }
+
+            float direction = inventory.player.GetComponent<Movement>().direction;
+            float xOffSet = 1.4f * direction;
+            float xPos = inventory.player.transform.position.x + xOffSet;
+            float yPos = inventory.player.transform.position.y;
+            Vector2 pos = new Vector2(xPos, yPos);
+            Quaternion rot = direction == 1 ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
+            GameObject projectile = Instantiate(currentProjectile.projectile.gameObject, pos, rot);
+            BaseProjectile bp = projectile.GetComponent<BaseProjectile>();
+            bp.InitialiseData(currentProjectile.projectile.projectileData);
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(currentProjectile.projectile.projectileData.projectileSpeed * direction, 0);
+
+
+
+
+            bp.Fire(pos);
             currentProjectile.ammoCount--;
             //Debug.Log("After Firing projectile: " + currentProjectile.projectile.projectileData.name + " : " + currentProjectile.ammoCount + " ammo left.");
             if (currentProjectile.ammoCount <= 0)
             {
                 RemoveProjectile(currentProjectile);
             }
-        
-       
+
+        }
+
+
 
     }
 
@@ -143,7 +166,7 @@ public class BowItem : WeaponItem
     }
 
 
-    public void ClearUpEmptyProjectiles()  
+    public void ClearUpEmptyProjectiles()
     {
         //Debug.Log("Checking for empty projectiles");
         for (int i = projectiles.Count - 1; i >= 0; i--)

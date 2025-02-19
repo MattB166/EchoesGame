@@ -67,6 +67,13 @@ public class SpearItem : MeleeWeaponItem
             Vector2 pos = new Vector2(xPos, yPos);
             Quaternion rot = direction == 1 ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
             GameObject spear = Instantiate(prefab, pos, rot);
+            foreach (Collider2D col in spear.GetComponents<Collider2D>())
+            {
+                if(!col.isTrigger)
+                {
+                    col.enabled = false;          /////stops spear stopping when hitting objects on travel. 
+                }
+            }
             //startPos = pos;
             //Debug.Log(startPos);
             spear.AddComponent<Rigidbody2D>();
