@@ -113,6 +113,7 @@ public class Movement : MonoBehaviour,IDistortable
         isAttacking = GetComponent<Actions>().isAttacking;
         initialZRotation = transform.rotation.z;
         internalGravity = gravity;
+        GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
     }
 
     // Update is called once per frame
@@ -132,6 +133,11 @@ public class Movement : MonoBehaviour,IDistortable
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
        // Debug.Log(isGrounded);
+    }
+
+    private void ResetAnimations(Actions.Weapons weapon) //re determines what animation should be playing after attacking
+    {
+        SetAnimationState(currentWeapon, "Player_Idle");
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
