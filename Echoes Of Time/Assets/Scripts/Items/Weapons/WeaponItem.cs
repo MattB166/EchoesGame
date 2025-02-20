@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class WeaponItem : Item
 {
     public WeaponData weaponData;
+    //protected GameObject owner;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public abstract class WeaponItem : Item
 
     }
 
-    public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
+    public override void Init(ItemData itemData, Inventory inv, GameObject prefab) //when initialising, give the character who holds the weapon as the owner.  
     {
         base.Init(itemData,inv,prefab);
         weaponData = itemData as WeaponData; 

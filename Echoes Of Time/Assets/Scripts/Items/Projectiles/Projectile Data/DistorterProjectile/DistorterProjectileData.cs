@@ -12,9 +12,18 @@ public enum DistortionType
 [CreateAssetMenu(menuName = "Items/Projectile Data/Distorter Projectile")]
 public class DistorterProjectileData : ProjectileData
 {
-
     public DistortionType distortionType;
     public float distortionValue;
     public bool timedDistortion; 
     public float distortionTime;
+
+    private void OnEnable()
+    {
+        projectileType = ProjectileType.Distorting;
+    }
+
+    private void OnValidate()
+    {
+        projectileType = ProjectileType.Distorting;
+    }
 }

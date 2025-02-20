@@ -5,5 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Projectile Data/Explosive Distorter Projectile")]
 public class ExplosiveDistorterProjectile : ExplosiveProjectileData
 {
-    public float distortionValue; 
+    public float distortionValue;
+
+    private void OnEnable()
+    {
+        projectileType = ProjectileType.ExplodingDistorting;
+    }
 }

@@ -6,4 +6,9 @@ using UnityEngine;
 public class ExplosiveDamagingProjectileData : ExplosiveProjectileData
 {
     public float explosionDamage; //the damage of the explosion 
+
+    private void OnEnable()
+    {
+        projectileType = ProjectileType.ExplodingDamaging;
+    }
 }

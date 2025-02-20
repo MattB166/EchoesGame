@@ -60,6 +60,7 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0, -10);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 90), 1 * Time.deltaTime);
+          
 
             //enable gravity and let it fall to the ground, when it hits ground explode without the effect. 
         }

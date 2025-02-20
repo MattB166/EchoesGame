@@ -30,6 +30,7 @@ public class WeaponPickupItem : InputPickupItem
                     if (weapon != null)
                     {
                         item.Init(weaponData, i, weapon);
+                        item.SetOwner(player.gameObject);
                         i.AddItem(item);
                     }
                 }
@@ -37,6 +38,7 @@ public class WeaponPickupItem : InputPickupItem
                 {
                     //Debug.Log("Item already exists. Not duplicating");
                     existingItem.Init(weaponData, i, weapon);
+                    existingItem.SetOwner(player.gameObject);
                     i.AddItem(existingItem);
                 }
                 

@@ -6,7 +6,8 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
 {
     public ItemData itemData;
     public Inventory inventory;
-    public GameObject prefab; 
+    public GameObject prefab;
+    protected GameObject ItemOwner;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,11 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
     public virtual void SecondaryUse() 
     {
 
+    }
+
+    public virtual void SetOwner(GameObject owner)
+    {
+        ItemOwner = owner; 
     }
 
 }
