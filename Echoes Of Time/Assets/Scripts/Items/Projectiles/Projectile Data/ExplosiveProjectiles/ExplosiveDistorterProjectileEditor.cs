@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
-//[CustomEditor(typeof(DistorterProjectileData))]
-public class DistorterProjectileDataEditor : ProjectileDataEditor
+//[CustomEditor(typeof(ExplosiveDistorterProjectile))]
+public class ExplosiveDistorterProjectileEditor : ProjectileDataEditor
 {
-
     SerializedProperty distortionType;
     SerializedProperty distortionValue;
     SerializedProperty timedDistortion;
     SerializedProperty distortionTime;
+    SerializedProperty explosionRadius;
+    SerializedProperty explosionForce;
+    SerializedProperty shockWaveDelay;
 
     protected override void OnEnable()
     {
@@ -20,19 +21,21 @@ public class DistorterProjectileDataEditor : ProjectileDataEditor
         distortionValue = serializedObject.FindProperty("distortionValue");
         timedDistortion = serializedObject.FindProperty("timedDistortion");
         distortionTime = serializedObject.FindProperty("distortionTime");
-    }
+        explosionRadius = serializedObject.FindProperty("explosionRadius");
+        explosionForce = serializedObject.FindProperty("explosionForce");
+        shockWaveDelay = serializedObject.FindProperty("shockWaveDelay");
 
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-        
     }
-
 
     protected override void ProjectileSpecificFields()
     {
+        base.ProjectileSpecificFields();
         EditorGUILayout.PropertyField(distortionType);
         EditorGUILayout.PropertyField(timedDistortion);
+        EditorGUILayout.PropertyField(explosionRadius);
+        EditorGUILayout.PropertyField(explosionForce);
+        EditorGUILayout.PropertyField(shockWaveDelay);
+
 
         switch (distortionType.enumValueIndex)
         {
@@ -55,12 +58,9 @@ public class DistorterProjectileDataEditor : ProjectileDataEditor
         }
 
 
-        if(timedDistortion.boolValue)
+        if (timedDistortion.boolValue)
         {
             EditorGUILayout.PropertyField(distortionTime);
         }
     }
 }
-
-    
-

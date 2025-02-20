@@ -13,10 +13,10 @@ public interface IDistortable
     {
         Distort(timeScale); //default to simple distortion if no duration is provided
     }
-    void Distort(float timeScale, float duration, float distortionRadius) //distortion with a duration and radius for things like shockwaves and explosions 
-    {
-        Distort(timeScale, duration); //default to simple distortion if no radius is provided
-    }
+    //void Distort(float timeScale, float duration, float distortionRadius) //distortion with a duration and radius for things like shockwaves and explosions 
+    //{
+    //    Distort(timeScale, duration); //default to simple distortion if no radius is provided
+    //}
 
     
 

@@ -15,7 +15,7 @@ public class DistorterProjectileData : ProjectileData
     public DistortionType distortionType;
     public float distortionValue;
     public bool timedDistortion; 
-    public float distortionTime;
+    [HideInInspector] public float distortionTime;
 
     private void OnEnable()
     {
@@ -25,5 +25,20 @@ public class DistorterProjectileData : ProjectileData
     private void OnValidate()
     {
         projectileType = ProjectileType.Distorting;
+        switch (distortionType)
+        {
+            case DistortionType.Freeze:
+                distortionValue = 0;
+                break;
+            case DistortionType.Half:
+                distortionValue = 0.5f;
+                break;
+            case DistortionType.SpeedAndAHalf:
+                distortionValue = 1.5f;
+                break;
+            case DistortionType.Double:
+                distortionValue = 2;
+                break;
+        }
     }
 }

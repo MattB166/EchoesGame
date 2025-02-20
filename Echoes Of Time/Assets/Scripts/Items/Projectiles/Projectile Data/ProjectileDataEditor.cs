@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ProjectileData))]
+//[CustomEditor(typeof(ProjectileData))]
 public class ProjectileDataEditor : Editor
 {
     SerializedProperty projectilePrefab;
@@ -24,6 +24,7 @@ public class ProjectileDataEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        
         EditorGUILayout.PropertyField(projectilePrefab);
         EditorGUILayout.PropertyField(projectileSpeed);
         EditorGUILayout.PropertyField(maxDistance);
@@ -37,4 +38,6 @@ public class ProjectileDataEditor : Editor
     {
 
     }
+
+   
 }
