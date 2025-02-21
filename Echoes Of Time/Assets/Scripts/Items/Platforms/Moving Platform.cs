@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, IDistortable
 {
     public PlatformData data;
     private Vector2 MovementCentrePoint;
@@ -11,9 +11,17 @@ public class MovingPlatform : MonoBehaviour
     private int currentTargetIndex;
     private bool canMove;
 
+    private float customTimeScale;
+    public float CustomTimeScale
+    {
+        get { return customTimeScale; }
+        set { customTimeScale = value; }
+    }
+
 
     private void Start()
     {
+        customTimeScale = 1;
         //set start position and first target
         MovementCentrePoint = transform.position;
         canMove = true;
@@ -39,7 +47,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if(canMove)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime * customTimeScale);
             if (Vector2.Distance(transform.position, targetPositions[currentTargetIndex]) < 0.1f)
             {
                 canMove = false;
@@ -71,7 +79,37 @@ public class MovingPlatform : MonoBehaviour
         Gizmos.DrawRay(transform.position, -transform.right * data.maxDistance);
     }
 
-    
 
-   
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.SetParent(transform);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.SetParent(null);
+        }
+    }
+
+    public void Distort(float timeScale)
+    {
+        customTimeScale = timeScale;
+    }
+
+    public void Distort(float timeScale, float time)
+    {
+        customTimeScale = timeScale;
+        StartCoroutine(ResetTimeScale(time));
+    }
+
+    private IEnumerator ResetTimeScale(float time)
+    {
+        yield return new WaitForSeconds(time);
+        customTimeScale = 1;
+    }
 }

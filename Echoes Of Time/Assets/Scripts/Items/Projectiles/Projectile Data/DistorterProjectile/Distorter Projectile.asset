@@ -21,6 +21,6 @@ MonoBehaviour:
   projectileType: 1
   pickupAmount: 5
   distortionType: 0
+  timedDistortion: 1
+  distortionTime: 5
   distortionValue: 0
-  timedDistortion: 0
-  distortionTime: 0

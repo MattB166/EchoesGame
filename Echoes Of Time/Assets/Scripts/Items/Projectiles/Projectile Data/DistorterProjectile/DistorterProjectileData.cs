@@ -13,9 +13,9 @@ public enum DistortionType
 public class DistorterProjectileData : ProjectileData
 {
     public DistortionType distortionType;
-    public float distortionValue;
     public bool timedDistortion; 
-    [HideInInspector] public float distortionTime;
+    public float distortionTime;
+    [HideInInspector] public float distortionValue;
 
     private void OnEnable()
     {
