@@ -22,5 +22,5 @@ MonoBehaviour:
   pickupAmount: 5
   distortionType: 0
   timedDistortion: 1
-  distortionTime: 5
+  distortionTime: 10
   distortionValue: 0
