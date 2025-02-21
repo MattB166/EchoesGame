@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3165795d61594ae45916a9e986ac9563, type: 3}
   m_Name: PlatformData
   m_EditorClassIdentifier: 
-  VerticalMovement: 0
-  speed: 1
+  VerticalMovement: 1
+  speed: 3
   maxDistance: 5
   waitTime: 2
   alwaysMoving: 1

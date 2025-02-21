@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour, IDistortable
+public class FourDirectionalMovingPlatform : MonoBehaviour, IDistortable
 {
     public PlatformData data;
     private Vector2 MovementCentrePoint;
@@ -10,6 +10,10 @@ public class MovingPlatform : MonoBehaviour, IDistortable
     public List<Vector2> targetPositions;
     private int currentTargetIndex;
     private bool canMove;
+    private Rigidbody2D rb;
+    private Vector2 lastPos;
+    private Vector2 currentVel;
+    private List<Rigidbody2D> carriedBodies = new List<Rigidbody2D>();
 
     private float customTimeScale;
     public float CustomTimeScale
@@ -22,6 +26,8 @@ public class MovingPlatform : MonoBehaviour, IDistortable
     private void Start()
     {
         customTimeScale = 1;
+        rb = GetComponent<Rigidbody2D>();
+        lastPos = rb.position;
         //set start position and first target
         MovementCentrePoint = transform.position;
         canMove = true;
@@ -40,14 +46,22 @@ public class MovingPlatform : MonoBehaviour, IDistortable
 
     private void FixedUpdate()
     {
+        currentVel = (rb.position - lastPos) / Time.fixedDeltaTime;
+        lastPos = rb.position;
         Move();
+        foreach (Rigidbody2D rb in carriedBodies)
+        {
+            rb.position += new Vector2(currentVel.x * Time.fixedDeltaTime, 0);
+        }
     }
 
     private void Move()
     {
         if(canMove)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime * customTimeScale);
+            Vector2 direction = (targetPositions[currentTargetIndex] - (Vector2)transform.position).normalized;
+            rb.MovePosition(rb.position + direction * data.speed * Time.deltaTime * customTimeScale);
+            //transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime * customTimeScale);
             if (Vector2.Distance(transform.position, targetPositions[currentTargetIndex]) < 0.1f)
             {
                 canMove = false;
@@ -84,7 +98,12 @@ public class MovingPlatform : MonoBehaviour, IDistortable
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.SetParent(transform);
+            Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
+            if(playerRB != null)
+            {
+                carriedBodies.Add(playerRB);
+            }
+            collision.gameObject.transform.SetParent(transform,true);
         }
     }
 
@@ -92,7 +111,15 @@ public class MovingPlatform : MonoBehaviour, IDistortable
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.SetParent(null);
+            if(collision.transform.parent != null && collision.transform.parent.gameObject.activeInHierarchy)
+            {
+                collision.gameObject.transform.SetParent(null);
+                Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
+                if (playerRB != null)
+                {
+                    carriedBodies.Remove(playerRB);
+                }
+            }
         }
     }
 
