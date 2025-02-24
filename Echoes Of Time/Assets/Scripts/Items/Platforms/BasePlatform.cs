@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     protected float customTimeScale;
     protected List<Rigidbody2D> carriedBodies = new List<Rigidbody2D>();
     protected Vector2 currentVel;
+    public event Action<BasePlatform,float, float> OnDistort;
+    
     public float CustomTimeScale
     {
         get { return customTimeScale; }
@@ -19,6 +22,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     public void Distort(float timeScale)
     {
         customTimeScale = timeScale;
+        OnDistort?.Invoke(this,timeScale, 0);
     }
 
     // Start is called before the first frame update
@@ -85,6 +89,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     public void Distort(float timeScale, float time)
     {
         customTimeScale = timeScale;
+        OnDistort?.Invoke(this,timeScale, time);
         StartCoroutine(ResetTimeScale(time));
     }
 
@@ -92,5 +97,8 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     {
         yield return new WaitForSeconds(time);
         customTimeScale = 1;
+
+
+
     }
 }
