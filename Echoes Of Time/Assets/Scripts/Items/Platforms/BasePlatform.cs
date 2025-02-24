@@ -30,7 +30,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     protected virtual void FixedUpdate()
     {
-        Debug.Log(carriedBodies.Count);
+        //Debug.Log(carriedBodies.Count);
         foreach (Rigidbody2D carrierRB in carriedBodies)
         {
             Debug.Log(carrierRB.gameObject.name);
@@ -73,7 +73,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
             Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
             if (playerRB != null)
             {
-                Debug.Log("Removing player");
+                //Debug.Log("Removing player");
                 carriedBodies.Remove(playerRB);
                 playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y);
                 collision.gameObject.transform.SetParent(null);
