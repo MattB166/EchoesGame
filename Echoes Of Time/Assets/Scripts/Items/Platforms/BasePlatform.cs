@@ -30,13 +30,19 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     protected virtual void FixedUpdate()
     {
+        Debug.Log(carriedBodies.Count);
         foreach (Rigidbody2D carrierRB in carriedBodies)
         {
-            carrierRB.position += new Vector2(currentVel.x * Time.fixedDeltaTime, 0);
-            if(rb.velocity.y != 0)
+            Debug.Log(carrierRB.gameObject.name);
+            //preserve existing velocity
+            Vector2 carrierVel = carrierRB.velocity;
+
+            if (carrierVel.y <= 0 || Mathf.Sign(currentVel.y) != Mathf.Sign(carrierVel.y))
             {
-                carrierRB.position += new Vector2(0, currentVel.y * Time.fixedDeltaTime);
+                carrierVel.y = currentVel.y;
             }
+
+            carrierRB.velocity = new Vector2(carrierVel.x + currentVel.x, carrierVel.y);
         }
 
     }
@@ -46,11 +52,15 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
         if (collision.gameObject.CompareTag("Player"))
         {
             Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (playerRB != null)
+            if (playerRB != null && !carriedBodies.Contains(playerRB))
             {
                 carriedBodies.Add(playerRB);
+                if (playerRB.velocity.y < 0)
+                {
+                    playerRB.velocity = new Vector2(playerRB.velocity.x, 0);
+                    collision.gameObject.transform.SetParent(transform, true);
+                }
             }
-            collision.gameObject.transform.SetParent(transform, true);
         }
     }
 
@@ -58,15 +68,17 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.transform.parent != null && collision.transform.parent.gameObject.activeInHierarchy)
+
+            //collision.gameObject.transform.SetParent(null);
+            Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRB != null)
             {
+                Debug.Log("Removing player");
+                carriedBodies.Remove(playerRB);
+                playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y);
                 collision.gameObject.transform.SetParent(null);
-                Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
-                if (playerRB != null)
-                {
-                    carriedBodies.Remove(playerRB);
-                }
             }
+
         }
     }
 

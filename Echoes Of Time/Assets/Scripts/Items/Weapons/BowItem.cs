@@ -144,14 +144,14 @@ public class BowItem : WeaponItem
             if (projectiles[i].projectile.projectileData.projectileType == projectile.projectileData.projectileType)
             {
                 projectiles[i].ammoCount += ammoCount;
-                Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name);
+                //Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name);
                 return;
             }
         }
         BaseProjectile bp = projectile;
         int count = ammoCount;
         Projectiles p = new Projectiles(bp, count);
-        Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
+        //Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
         projectiles.Add(p);
         currentProjectile = p;
     }
