@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5918858373492616793}
   - component: {fileID: 2531678591673863582}
   - component: {fileID: 8388545487874153503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5992106822464712134}
   - component: {fileID: 8022017005063254021}
   - component: {fileID: 2303581747748220302}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collapsible Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6372278189035717377}
   - component: {fileID: 7304198849240371069}
   - component: {fileID: 6773841434055245231}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

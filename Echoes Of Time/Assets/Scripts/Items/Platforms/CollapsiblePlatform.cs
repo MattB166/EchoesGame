@@ -33,24 +33,32 @@ public class CollapsiblePlatform : BasePlatform
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(hasCollapsed)
+        {
+            Vector2 collisionPos = collision.gameObject.transform.position;
+            Vector2 platformPos = transform.position;
+
+            if (collisionPos.y < platformPos.y)
+            {
+                if(collision.gameObject.TryGetComponent(out IDamageable damageable))
+                {
+                    damageable.TakeDamage(5);
+                    Debug.Log("Object hit: " + collision.gameObject.name);
+                    Destroy(gameObject,0.5f);
+                }
+            }
+        }
+    }
+
     private IEnumerator Collapse()
     {
         yield return new WaitForSeconds(collapseDelay / customTimeScale);
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 2 * customTimeScale;
         hasCollapsed = true;
-        if (hitsFloor)
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-        }
-        else
-        {
-            Collider2D[] colliders = GetComponents<Collider2D>();
-            foreach (Collider2D col in colliders)
-            {
-                col.enabled = false;
-                Destroy(gameObject, 3f); 
-            }
-        }
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 2 * customTimeScale;
+        
     }
 }

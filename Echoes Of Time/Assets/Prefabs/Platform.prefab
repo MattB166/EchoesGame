@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3598922457945774506}
   - component: {fileID: 5087594599312860265}
   - component: {fileID: 968047176158764170}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 120283267025676280}
   - component: {fileID: 4005005526734735377}
   - component: {fileID: 3532717330031777210}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 7374032319152411134}
   - component: {fileID: 5733825667800564736}
   - component: {fileID: 2108417658650813255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
