@@ -46,8 +46,9 @@ public class CollapsiblePlatform : BasePlatform
                 {
                     damageable.TakeDamage(5);
                     Debug.Log("Object hit: " + collision.gameObject.name);
-                    Destroy(gameObject,0.5f);
+                   
                 }
+                Destroy(gameObject, 0.5f);
             }
         }
     }
@@ -59,6 +60,16 @@ public class CollapsiblePlatform : BasePlatform
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 2 * customTimeScale;
-        
+
+        if (!hitsFloor)
+        {
+            Collider2D[] cols = GetComponents<Collider2D>();
+            foreach (Collider2D col in cols)
+            {
+                col.enabled = false;
+            }
+            Destroy(gameObject, 3f);
+
+        }
     }
 }

@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collapseDelay: 1
-  hitsFloor: 0
+  hitsFloor: 1
 --- !u!50 &5992106822464712134
 Rigidbody2D:
   serializedVersion: 4
