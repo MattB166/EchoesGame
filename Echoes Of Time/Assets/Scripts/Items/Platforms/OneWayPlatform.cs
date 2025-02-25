@@ -8,9 +8,11 @@ using UnityEngine;
 public enum StartDirection
 {
     Left,
-    Right
+    Right,
+    Up,
+    Down
 }
-public class OneWayPlatform : BasePlatform
+public class OneWayPlatform : BasePlatform //maybe have another interface so can control the movement using switches 
 {
     public PlatformData data;
     private Vector2 MovementStartPoint;
@@ -30,10 +32,20 @@ public class OneWayPlatform : BasePlatform
             maxPoint = new Vector2(MovementStartPoint.x - data.maxDistance, MovementStartPoint.y);
             dir = -1;
         }
-        else
+        if (startDirection == StartDirection.Right)
         {
             maxPoint = new Vector2(MovementStartPoint.x + data.maxDistance, MovementStartPoint.y);
             dir = 1;
+        }
+        if (startDirection == StartDirection.Up)
+        {
+            maxPoint = new Vector2(MovementStartPoint.x, MovementStartPoint.y + data.maxDistance);
+            dir = 1;
+        }
+        if (startDirection == StartDirection.Down)
+        {
+            maxPoint = new Vector2(MovementStartPoint.x, MovementStartPoint.y - data.maxDistance);
+            dir = -1;
         }
         currentTargetPos = maxPoint;
         canMove = true;
@@ -57,10 +69,10 @@ public class OneWayPlatform : BasePlatform
         {
             Vector2 dir = (currentTargetPos - (Vector2)transform.position).normalized;
             rb.MovePosition(rb.position + dir * data.speed * Time.deltaTime * customTimeScale);
-            isMoving = true;
+            //isMoving = true;
             if (Vector2.Distance(transform.position, currentTargetPos) < 0.1f)
             {
-                isMoving = false;
+                //isMoving = false;
                 canMove = false;
                 InvertTarget();
 
@@ -82,8 +94,8 @@ public class OneWayPlatform : BasePlatform
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.right * data.maxDistance);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawRay(transform.position, transform.right * data.maxDistance);
        
     }
 

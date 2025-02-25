@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5087594599312860265}
   - component: {fileID: 968047176158764170}
   m_Layer: 7
-  m_Name: Platform
+  m_Name: Four Way Moving Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

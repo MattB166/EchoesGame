@@ -107,7 +107,7 @@ public class SpearItem : MeleeWeaponItem
                 pierceCount++;
                 if (pierceCount >= maxPierces)
                 {
-                    Invoke("DelayedReturn", 0.5f);
+                    Invoke("DelayedReturn", 0.1f);
                     return;
                     
                 }

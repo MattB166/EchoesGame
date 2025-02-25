@@ -448,20 +448,21 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.5
   dashCooldown: 0.13
-  jumpForce: 1.2
-  customTimeScale: 1
+  jumpForce: 1.25
+  direction: 0
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
   climbSpeed: 4
   descendSpeed: 4
   isGrounded: 0
-  gravity: -10.6
+  gravity: -20
   groundcheckDistance: 0.04
-  coyoteTime: 0.3
+  coyoteTime: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
+  customTimeScale: 1
 --- !u!114 &104509520533267175
 MonoBehaviour:
   m_ObjectHideFlags: 0
