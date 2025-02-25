@@ -16,8 +16,8 @@ MonoBehaviour:
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 6026192619952894362, guid: e04f1962af2744b4286f0dab1f1f8ae9, type: 3}
-  projectileSpeed: 6.6
-  maxDistance: 4.69
+  projectileSpeed: 10
+  maxDistance: 7
   projectileType: 3
   pickupAmount: 1
   explosionRadius: 6
