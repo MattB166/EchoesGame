@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 /// <summary>
 /// A platform which can be toggled in either direction by an external switch or controller. 

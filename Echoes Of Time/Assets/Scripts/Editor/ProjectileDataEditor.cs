@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-//[CustomEditor(typeof(ProjectileData))]
+[CustomEditor(typeof(ProjectileData))]
 public class ProjectileDataEditor : Editor
 {
     SerializedProperty projectilePrefab;

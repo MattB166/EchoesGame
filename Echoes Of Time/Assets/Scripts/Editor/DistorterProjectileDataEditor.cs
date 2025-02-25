@@ -1,10 +1,9 @@
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
-//[CustomEditor(typeof(DistorterProjectileData))]
+[CustomEditor(typeof(DistorterProjectileData))]
 public class DistorterProjectileDataEditor : ProjectileDataEditor
 {
 
