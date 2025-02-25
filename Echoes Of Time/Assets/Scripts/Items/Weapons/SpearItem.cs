@@ -155,11 +155,15 @@ public class SpearItem : MeleeWeaponItem
         if (currentDistance > throwDistance && !returnToPlayer)
         {
             //Debug.Log("Distance exceeded" + currentDistance);
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0;
-            Invoke("DisableCollidersForReturn", 0.2f);
-            returnToPlayer = true;
+            if(TryGetComponent(out Rigidbody2D rb))
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0;
+                Invoke("DisableCollidersForReturn", 0.2f);
+                returnToPlayer = true;
+            }
+            //Rigidbody2D rb = TryGetComponent<Rigidbody2D>();
+            
         }
 
     }
