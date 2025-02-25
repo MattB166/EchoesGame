@@ -78,6 +78,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
             if (playerRB != null)
             {
                 //Debug.Log("Removing player");
+                //StartCoroutine(DelayedChangeOfParent(collision.gameObject));
                 carriedBodies.Remove(playerRB);
                 playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y);
                 collision.gameObject.transform.SetParent(null);
@@ -86,7 +87,19 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
         }
     }
 
-    public void Distort(float timeScale, float time)
+    private IEnumerator DelayedChangeOfParent(GameObject item)
+    {
+        yield return null;
+        Rigidbody2D itemRB = item.GetComponent<Rigidbody2D>();
+        if (itemRB != null)
+        {
+            carriedBodies.Remove(itemRB);
+            itemRB.velocity = new Vector2(itemRB.velocity.x, itemRB.velocity.y);
+           item.transform.SetParent(null);
+        }
+    }
+
+        public void Distort(float timeScale, float time)
     {
         customTimeScale = timeScale;
         OnDistort?.Invoke(this,timeScale, time);
