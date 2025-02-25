@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlatformData
   m_EditorClassIdentifier: 
   speed: 2
-  maxDistance: 4.04
+  maxDistance: 2.56
   waitTime: 2
   alwaysMoving: 1
