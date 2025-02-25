@@ -53,21 +53,17 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
     // Update is called once per frame
     void Update()
     {
-        
+        Move();
     }
 
-    protected override void FixedUpdate()
-    {
-        Move();
-        base.FixedUpdate();
-    }
+   
 
     public void Move()
     {
         if(canMove)
         {
             Vector2 dir = (currentTargetPos - (Vector2)transform.position).normalized;
-            rb.MovePosition(rb.position + dir * data.speed * Time.deltaTime * customTimeScale);
+            transform.position = Vector2.MoveTowards(transform.position, currentTargetPos, data.speed * Time.deltaTime * customTimeScale);
             //isMoving = true;
             if (Vector2.Distance(transform.position, currentTargetPos) < 0.1f)
             {

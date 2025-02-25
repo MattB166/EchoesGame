@@ -132,6 +132,7 @@ public class Movement : MonoBehaviour,IDistortable
         PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
+        
        // Debug.Log(isGrounded);
     }
 
@@ -164,6 +165,7 @@ public class Movement : MonoBehaviour,IDistortable
             movement.y = rb.velocity.y;
         }
         rb.velocity = movement;
+        //Debug.Log(movement);
         return movement;
     }
 
