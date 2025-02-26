@@ -14,7 +14,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
     public bool markedForImmediateDeletion;
     public bool spawnsItem;
     protected bool isDestroyed = false;
-    private int newOrderLayer = -2;
+    private int newOrderLayer = -1;
     public abstract override void OnInteract();
     public abstract void Initialise();
 
