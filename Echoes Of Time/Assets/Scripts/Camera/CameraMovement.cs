@@ -12,18 +12,18 @@ public struct LevelBounds
 }
 
 [System.Serializable]
-public struct BackgroundParallax
+public class BackgroundLayer
 {
     public GameObject background;
+    public int orderInLayer;
     public float parallaxScale;
-    public bool hasSpawnedLeft;
-    public bool hasSpawnedRight;
-    public BackgroundParallax(GameObject bg, float scale/*, bool LN, bool RN*/)
+    
+    public BackgroundLayer(GameObject bg, float scale, int order)
     {
         background = bg;
         parallaxScale = scale;
-        hasSpawnedLeft = false;
-        hasSpawnedRight = false;
+        orderInLayer = order;
+        
     }
 }
 /// <summary>
@@ -39,8 +39,8 @@ public class CameraMovement : MonoBehaviour
     private bool canMoveY;
     private Vector2 camBounds;
     public LevelBounds LevelBounds;
-    public List<BackgroundParallax> backgroundParallax = new List<BackgroundParallax>();
-    //private List<BackgroundParallax> backgroundsToRemove = new List<BackgroundParallax>();
+    public List<BackgroundLayer> backgroundParallax = new List<BackgroundLayer>();
+    private List<BackgroundLayer> transformsToControl = new List<BackgroundLayer>();
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +49,7 @@ public class CameraMovement : MonoBehaviour
         targetTransform = player.position + playerOffset;
         transform.position = targetTransform;
         CalculateCameraLevelBounds();
+        InitialiseCameraBackGround();
     }
 
     private void LateUpdate()
@@ -59,7 +60,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        CheckBackGroundBounds();
+       
     }
     void CamShake()
     {
@@ -105,52 +106,34 @@ public class CameraMovement : MonoBehaviour
 
     private void BackgroundMovement()
     {
-        foreach (BackgroundParallax bg in backgroundParallax)
+        foreach (BackgroundLayer bg in transformsToControl)
         {
-            Vector3 bgPos = bg.background.transform.position;
-            bgPos.x = transform.position.x * (1 - bg.parallaxScale);
-            bgPos.y = transform.position.y;
-            bg.background.transform.position = bgPos;
-        }
-    }
-
-
-    private void CheckBackGroundBounds()
-    {
-
-        for(int i = 0; i < backgroundParallax.Count; i++)
-        {
-            BackgroundParallax bg = backgroundParallax[i];
-            float bgMinX = bg.background.GetComponent<SpriteRenderer>().bounds.min.x;
-            float bgMaxX = bg.background.GetComponent<SpriteRenderer>().bounds.max.x;
-            float camMinX = transform.position.x - camBounds.x;
-            float camMaxX = transform.position.x + camBounds.x;
+            if(bg.background != null)
+            {
+                Vector3 bgPos = bg.background.transform.position;
+                bgPos.x = transform.position.x * (1 - bg.parallaxScale);
+                bgPos.y = transform.position.y;
+                bg.background.transform.position = bgPos;
+            }
             
-            if (camMinX <= bgMinX && !bg.hasSpawnedLeft)
-            {
-                Debug.Log(bg.background.name + " Camera hit left bounds");
-                bg.hasSpawnedLeft = true;
-                backgroundParallax[i] = bg;
-                //need to spawn just one more background to the left of this type, and give its "spawned" bool the value of true for the opposite side. 
-                
-
-
-            }
-            if (camMaxX >= bgMaxX && !bg.hasSpawnedRight)
-            {
-                Debug.Log(bg.background.name + " Camera hit right bounds");
-                bg.hasSpawnedRight = true;
-                backgroundParallax[i] = bg;
-                //need to spawn just one more background to the right of this type
-            }
-
         }
+
+        
     }
 
-    private void CleanupBackGrounds()
+
+   
+
+    private void InitialiseCameraBackGround()
     {
-        //check through all backgrounds in list, if they are outside of the camera bounds, destroy them, and amend their neighbours accordingly.
+        for(int i = 0; i < backgroundParallax.Count;i++)
+        {
+            BackgroundLayer bg = backgroundParallax[i];
+            GameObject newBG = Instantiate(bg.background, bg.background.transform.position, Quaternion.identity);
+            newBG.GetComponent<SpriteRenderer>().sortingOrder = bg.orderInLayer;
+            transformsToControl.Add(new BackgroundLayer(newBG, bg.parallaxScale, bg.orderInLayer));
+            Debug.Log("Backgrounds initialised");
+        }
+        
     }
-
-
 }
