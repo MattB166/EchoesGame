@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShakeType
+{
+    Weak,
+    Medium,
+    Strong
+}
+
 public class CamShake : MonoBehaviour 
 {
     //using perlin noise to create a camera shake effect 
     public bool shakeIsActive;
-    [Range(0, 1)][SerializeField] float intensity; //intensity of the shake 
-    [SerializeField] float intensityMultiplier; //multiplier for the intensity of the shake
-    [SerializeField] float intensityMagnitude; //magnitude of the shake
+    [Range(0, 1)][SerializeField] float intensity = 0.2f; //intensity of the shake 
+    [SerializeField] float intensityMultiplier = 6; //multiplier for the intensity of the shake
+    [SerializeField] float intensityMagnitude = 2; //magnitude of the shake
     [SerializeField] float intensityRotationMagnitude; //rotation magnitude of the shake
     private Vector3 initialPos;
     private GameObject player;
@@ -57,14 +64,55 @@ public class CamShake : MonoBehaviour
         }
     }
 
-   public void EnableShake()
+    public void Shake(float duration)
+    {
+        StartCoroutine(ShakeCoroutine(duration));
+    }
+
+    public void Shake(float duration, ShakeType type)
+    {
+        CalculateShakeType(type);
+        StartCoroutine(ShakeCoroutine(duration));
+    }
+
+    public void ShakePermanent()
     {
         shakeIsActive = true;
     }
 
-    public void DisableShake()
+    public void StopShake()
     {
         shakeIsActive = false;
         
+    }
+
+    IEnumerator ShakeCoroutine(float duration)
+    {
+        shakeIsActive = true;
+        yield return new WaitForSeconds(duration);
+        shakeIsActive = false;
+        //transform.position = initialPos;
+    }
+
+    private void CalculateShakeType(ShakeType type)
+    {
+        if(type == ShakeType.Weak)
+        {
+            intensity = 0.1f;
+            intensityMagnitude = 1;
+            intensityMultiplier = 4;
+        }
+        else if (type == ShakeType.Medium)
+        {
+            intensity = 0.3f;
+            intensityMagnitude = 2;
+            intensityMultiplier = 6;
+        }
+        else if (type == ShakeType.Strong)
+        {
+            intensity = 0.5f;
+            intensityMagnitude = 3;
+            intensityMultiplier = 8;
+        }
     }
 }

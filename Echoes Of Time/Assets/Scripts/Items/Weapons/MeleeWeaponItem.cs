@@ -43,6 +43,7 @@ public abstract class MeleeWeaponItem : WeaponItem
                 {
                     continue;
                 }
+                Camera.main.GetComponent<CamShake>().Shake(1.0f,ShakeType.Weak);
                 damageable.TakeDamage(meleeWeaponData.damage);
                 //Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
             }

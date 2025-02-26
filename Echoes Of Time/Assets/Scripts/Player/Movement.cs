@@ -425,7 +425,11 @@ public class Movement : MonoBehaviour,IDistortable
                 boxCollider.isTrigger = false;
             }
             if(!isDashing || rb.velocity.x > 0)
-            SetAnimationState(currentWeapon, "Player_Fall");
+            {
+                SetAnimationState(currentWeapon, "Player_Fall");
+            }
+            
+            
             //canClimb = false;
 
 
