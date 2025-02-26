@@ -11,21 +11,7 @@ public struct LevelBounds
     public float minY;
 }
 
-[System.Serializable]
-public class BackgroundLayer
-{
-    public GameObject background;
-    public int orderInLayer;
-    public float parallaxScale;
-    
-    public BackgroundLayer(GameObject bg, float scale, int order)
-    {
-        background = bg;
-        parallaxScale = scale;
-        orderInLayer = order;
-        
-    }
-}
+
 /// <summary>
 /// manages the basic movement of the camera, including perlin noise for camera shake, and camera follow for the player 
 /// </summary>
@@ -39,8 +25,7 @@ public class CameraMovement : MonoBehaviour
     private bool canMoveY;
     private Vector2 camBounds;
     public LevelBounds LevelBounds;
-    public List<BackgroundLayer> backgroundParallax = new List<BackgroundLayer>();
-    private List<BackgroundLayer> transformsToControl = new List<BackgroundLayer>();
+    
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +34,7 @@ public class CameraMovement : MonoBehaviour
         targetTransform = player.position + playerOffset;
         transform.position = targetTransform;
         CalculateCameraLevelBounds();
-        InitialiseCameraBackGround();
+        //InitialiseCameraBackGround();
     }
 
     private void LateUpdate()
@@ -78,7 +63,6 @@ public class CameraMovement : MonoBehaviour
 
         Vector3 newPos = Vector3.Slerp(transform.position, targetTransform, moveDelay * Time.deltaTime);
         transform.position = ClampPositionIntoLevel(newPos);
-        BackgroundMovement();
 
     }
 
@@ -104,36 +88,5 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(clampedX, clampedY, position.z);
     }
 
-    private void BackgroundMovement()
-    {
-        foreach (BackgroundLayer bg in transformsToControl)
-        {
-            if(bg.background != null)
-            {
-                Vector3 bgPos = bg.background.transform.position;
-                bgPos.x = transform.position.x * (1 - bg.parallaxScale);
-                bgPos.y = transform.position.y;
-                bg.background.transform.position = bgPos;
-            }
-            
-        }
-
-        
-    }
-
-
-   
-
-    private void InitialiseCameraBackGround()
-    {
-        for(int i = 0; i < backgroundParallax.Count;i++)
-        {
-            BackgroundLayer bg = backgroundParallax[i];
-            GameObject newBG = Instantiate(bg.background, bg.background.transform.position, Quaternion.identity);
-            newBG.GetComponent<SpriteRenderer>().sortingOrder = bg.orderInLayer;
-            transformsToControl.Add(new BackgroundLayer(newBG, bg.parallaxScale, bg.orderInLayer));
-            Debug.Log("Backgrounds initialised");
-        }
-        
-    }
+    
 }
