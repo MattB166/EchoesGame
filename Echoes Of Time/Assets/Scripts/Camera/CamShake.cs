@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CamShake : MonoBehaviour 
+{
+    //using perlin noise to create a camera shake effect 
+    public bool shakeIsActive;
+    [Range(0, 1)][SerializeField] float intensity; //intensity of the shake 
+    [SerializeField] float intensityMultiplier; //multiplier for the intensity of the shake
+    [SerializeField] float intensityMagnitude; //magnitude of the shake
+    [SerializeField] float intensityRotationMagnitude; //rotation magnitude of the shake
+    private Vector3 initialPos;
+    private GameObject player;
+    private Vector3 playerPos;
+
+    float counter;
+
+    float getPerlinFloat(float seed)
+    {
+        return (Mathf.PerlinNoise(seed, counter) - 0.5f) * 2;
+    }
+
+    public float Intensity
+    {
+        get { return intensity; }
+        set { intensity = Mathf.Clamp01(value); }
+    }
+
+    public Vector2 GetVec()
+    {
+        return new Vector2(getPerlinFloat(0), getPerlinFloat(1));
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        initialPos = transform.position;
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void Update()
+    {
+        initialPos = transform.position;
+        playerPos = player.transform.position;
+    }
+
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        //initialPos = transform.position;
+        if (shakeIsActive)
+        {
+            counter += Time.deltaTime * Mathf.Pow(intensity,0.3f) * intensityMultiplier;
+            Vector2 shake = GetVec() * intensityMagnitude;
+            transform.position = playerPos + new Vector3(shake.x, shake.y, transform.position.z);
+        }
+    }
+
+   public void EnableShake()
+    {
+        shakeIsActive = true;
+    }
+
+    public void DisableShake()
+    {
+        shakeIsActive = false;
+        
+    }
+}
