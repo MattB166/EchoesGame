@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6150674934596508684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2076289, y: 0.7219586, z: 0}
+  m_LocalPosition: {x: -11.220743, y: 4.895383, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portalData: {fileID: 0}
-  openPortal: 0
+  openPortal: 1
   closePortal: 0
+  portalBeingPlaced: 0
 --- !u!61 &311156462294341023
 BoxCollider2D:
   m_ObjectHideFlags: 0

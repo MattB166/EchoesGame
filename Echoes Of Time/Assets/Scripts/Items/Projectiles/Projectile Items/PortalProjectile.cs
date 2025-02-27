@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PortalProjectile : BaseProjectile
 {
@@ -26,10 +27,28 @@ public class PortalProjectile : BaseProjectile
         transform.rotation = Quaternion.Euler(0, 0, angle);
         if (distanceTravelled >= projectileData.maxDistance)
         {
-            //allow a portal to be placed at the current position.
-            GameObject portal = Instantiate(portalProjectileData.portalPrefab, transform.position, Quaternion.identity);
-            portal.GetComponent<Portal>().openPortal = true;
+            
+            CreatePortals();
             Destroy(gameObject);
+        }
+    }
+
+    public void CreatePortals()
+    {
+        //allow a portal to be placed at the current position.
+        GameObject portal = Instantiate(portalProjectileData.portalPrefab, transform.position, Quaternion.identity);
+        //initialise start of portal. 
+        if (portal.TryGetComponent(out Portal portalScript))
+        {
+            portalScript.InitialisePortal(portalProjectileData.portalData, PortalNode.Start);
+
+            GameObject EndPortal = Instantiate(portalProjectileData.portalPrefab, transform.position, Quaternion.identity);
+            if (EndPortal.TryGetComponent(out Portal endPortalScript))
+            {
+                endPortalScript.InitialisePortal(portalProjectileData.portalData, PortalNode.End);
+                
+            }
+
         }
     }
 

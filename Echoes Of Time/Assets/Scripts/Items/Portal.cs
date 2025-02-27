@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 /// <summary>
 /// Manages the behavior of the portal item. not collectable, and not interactable by input and cannot be picked up, so
 /// worth having its own individual class. 
@@ -25,6 +26,7 @@ public class Portal : MonoBehaviour
     public bool closePortal;
     private bool isClosing;
     private PortalNode portalNode;
+    public bool portalBeingPlaced;
 
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
@@ -34,10 +36,32 @@ public class Portal : MonoBehaviour
 
     }
 
+    public void InitialisePortal(PortalData data, PortalNode node)
+    {
+        portalData = data;
+        portalNode = node;
+        openPortal = true;
+        if(portalNode == PortalNode.End)
+        {
+            portalBeingPlaced = true;
+        }
+
+    }
+
+    public void OnPortalPlaceMovement(InputAction.CallbackContext context)
+    {
+        if(context.performed && portalBeingPlaced && portalNode == PortalNode.End)
+        {
+            //Debug.Log("Enter key pressed");
+            portalBeingPlaced = false;
+            
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(openPortal && !isOpening)
+        if (openPortal && !isOpening)
         {
             StartCoroutine(OpenPortal());
         }
@@ -45,9 +69,19 @@ public class Portal : MonoBehaviour
         {
             StartCoroutine(ClosePortal());
         }
+        if (portalBeingPlaced && portalNode == PortalNode.End)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            transform.position = mousePosition;
+            //Debug.Log("Portal being placed");
+            
+        }
+
+        Debug.Log("Portal being placed: " + portalBeingPlaced);
     }
 
-  
+
 
     private IEnumerator OpenPortal()
     {
@@ -59,7 +93,7 @@ public class Portal : MonoBehaviour
         while (elapsed < 0.5f)
         {
             float t = Mathf.Clamp01(elapsed / 0.5f);
-            gameObject.transform.localScale = Vector3.Lerp(startScale,endScale, t);
+            gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, t);
             gameObject.transform.localRotation = Quaternion.Euler(0, 0, 180 * t);
             elapsed += Time.deltaTime;
             yield return null;
@@ -98,14 +132,14 @@ public class Portal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-             
-            
+
+
         }
     }
 
-    
 
-   
+
+
 
     public void PerformEffects()
     {

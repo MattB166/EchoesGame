@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PortalMovement",
+                    "type": "Button",
+                    "id": "2c916830-e99d-47d7-ad53-801afbf42a38",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -411,6 +420,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SecondaryItemUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a36103b-5469-4787-a496-6e6d00c81027",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PortalMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

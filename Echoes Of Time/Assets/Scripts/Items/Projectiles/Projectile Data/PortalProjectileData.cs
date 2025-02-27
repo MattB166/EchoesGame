@@ -6,4 +6,5 @@ using UnityEngine;
 public class PortalProjectileData : ProjectileData
 {
     public GameObject portalPrefab; //the prefab of the portal
+    public PortalData portalData; //the data of the portal
 }
