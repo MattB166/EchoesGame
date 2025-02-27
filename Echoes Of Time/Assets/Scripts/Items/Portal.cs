@@ -5,11 +5,18 @@ using UnityEngine;
 /// Manages the behavior of the portal item. not collectable, and not interactable by input and cannot be picked up, so
 /// worth having its own individual class. 
 /// </summary>
+public enum PortalNode
+{
+    Start,
+    End
+}
 public class Portal : MonoBehaviour
 {
     ///needs its own data set - the portal it will teleport to, time its open for, 
     ///if applicable, and the time it will take to teleport <summary>
     /// </summary>
+    /// 
+    //CAM SHAKE AND SOUND EFFECTS WHEN NEARBY TO PORTAL. 
 
     public PortalData portalData;
     private GameObject linkedPortal;
@@ -17,12 +24,14 @@ public class Portal : MonoBehaviour
     private bool isOpening;
     public bool closePortal;
     private bool isClosing;
+    private PortalNode portalNode;
 
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
     void Start()
     {
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+
     }
 
     // Update is called once per frame
@@ -37,6 +46,8 @@ public class Portal : MonoBehaviour
             StartCoroutine(ClosePortal());
         }
     }
+
+  
 
     private IEnumerator OpenPortal()
     {
@@ -56,6 +67,7 @@ public class Portal : MonoBehaviour
         transform.localScale = new Vector3(1.5f, 1.5f, 0);
         transform.localRotation = Quaternion.Euler(0, 0, 180);
         isOpening = false;
+
         //have the scale of the portal increase gradually. 
     }
 
@@ -77,7 +89,26 @@ public class Portal : MonoBehaviour
         transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         isClosing = false;
+        //destroy the portal after it has closed. 
     }
 
     //make own animation for portal opening and closing, like spinning and glowing, expanding and contracting when teleporting items.
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+             
+            
+        }
+    }
+
+    
+
+   
+
+    public void PerformEffects()
+    {
+        //cam shake and sound effects when nearby to the portal. 
+    }
 }

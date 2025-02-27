@@ -9,5 +9,6 @@ public class PortalData : ScriptableObject
     public float timeOpen;
     public float teleportationDelay;
     public Vector3 portalScale;
+    public AudioClip portalSound;
 
 }

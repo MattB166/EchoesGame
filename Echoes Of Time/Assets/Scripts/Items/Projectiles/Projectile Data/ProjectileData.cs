@@ -9,6 +9,7 @@ public enum ProjectileType
     Distorting,
     ExplodingDamaging,
     ExplodingDistorting,
+    Portal
 
 }
 public abstract class ProjectileData : ItemData
