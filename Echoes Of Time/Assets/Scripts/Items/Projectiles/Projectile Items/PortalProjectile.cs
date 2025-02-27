@@ -46,7 +46,9 @@ public class PortalProjectile : BaseProjectile
             if (EndPortal.TryGetComponent(out Portal endPortalScript))
             {
                 endPortalScript.InitialisePortal(portalProjectileData.portalData, PortalNode.End);
-                
+                portalScript.SetLinkedPortal(EndPortal);
+                endPortalScript.SetLinkedPortal(portal);
+
             }
 
         }

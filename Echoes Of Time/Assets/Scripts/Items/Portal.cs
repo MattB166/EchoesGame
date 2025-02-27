@@ -21,19 +21,24 @@ public class Portal : MonoBehaviour
 
     public PortalData portalData;
     private GameObject linkedPortal;
+    private Portal linkedPortalScript;
     public bool openPortal;
     private bool isOpening;
     public bool closePortal;
     private bool isClosing;
-    private PortalNode portalNode;
+    [SerializeField] private PortalNode portalNode;
+    private Vector3 lastPosition;
+    private float stillTimer;
     public bool portalBeingPlaced;
+    private float portalPlacementTimer;
+    private SpriteRenderer spriteRenderer;
 
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
     void Start()
     {
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void InitialisePortal(PortalData data, PortalNode node)
@@ -41,21 +46,18 @@ public class Portal : MonoBehaviour
         portalData = data;
         portalNode = node;
         openPortal = true;
-        if(portalNode == PortalNode.End)
+        if (portalNode == PortalNode.End)
         {
             portalBeingPlaced = true;
+            portalPlacementTimer = portalData.portalPlacementTimer;
         }
 
     }
 
-    public void OnPortalPlaceMovement(InputAction.CallbackContext context)
+    public void SetLinkedPortal(GameObject portal)
     {
-        if(context.performed && portalBeingPlaced && portalNode == PortalNode.End)
-        {
-            //Debug.Log("Enter key pressed");
-            portalBeingPlaced = false;
-            
-        }
+        linkedPortal = portal;
+        linkedPortalScript = linkedPortal.TryGetComponent(out Portal portalScript) ? portalScript : null;
     }
 
     // Update is called once per frame
@@ -74,11 +76,45 @@ public class Portal : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
             transform.position = mousePosition;
-            //Debug.Log("Portal being placed");
-            
+            Vector3 startingPos = linkedPortal.transform.position;
+            if(Vector3.Distance(transform.position, startingPos) > portalData.portalPlacementDistance)
+            {
+                portalBeingPlaced = false;
+                openPortal = true;
+            }
+             //HAVE A PARTICLE SYSTEM CONNECTING THE TWO PORTALS, 
+                //WHICH GETS LESS DENSE THE FURTHER AWAY THE PORTALS ARE FROM EACH OTHER AND CLOSER TO THE MAX DISTANCE.. 
+           
+            if (Vector3.Distance(transform.position, lastPosition) < 0.1f)
+            {
+                stillTimer += Time.deltaTime;
+                if (stillTimer >= portalData.portalPlacementTimer)
+                {
+                    spriteRenderer.enabled = true;
+                    portalBeingPlaced = false;
+                    openPortal = true;
+                    stillTimer = 0;
+                }
+            }
+            else
+            {
+                stillTimer = 0;
+            }
+
+            lastPosition = transform.position;
+            ////Camera.main.orthographicSize = 8;
+            //portalPlacementTimer -= Time.deltaTime;
+            //if (portalPlacementTimer <= 0)
+            //{
+            //    //Camera.main.orthographicSize = 5;
+            //    portalBeingPlaced = false;
+            //    openPortal = true;
+            //    portalPlacementTimer = portalData.portalPlacementTimer;
+            //    //need a way to stop the player from placing the portal on top of each other, and give them a second chance to place it if required. 
+            //}
         }
 
-        Debug.Log("Portal being placed: " + portalBeingPlaced);
+
     }
 
 
@@ -102,7 +138,7 @@ public class Portal : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, 0, 180);
         isOpening = false;
 
-        //have the scale of the portal increase gradually. 
+        
     }
 
     private IEnumerator ClosePortal()
@@ -126,18 +162,29 @@ public class Portal : MonoBehaviour
         //destroy the portal after it has closed. 
     }
 
-    //make own animation for portal opening and closing, like spinning and glowing, expanding and contracting when teleporting items.
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
-
+            //perform checks for one way / two way portals.
         }
     }
 
-
+    private void CalculateTeleportType()
+    {
+        if (portalNode == PortalNode.Start)
+        {
+            //check if the linked portal is a one way portal, if so, close both portals and destroy
+            //if not, teleport the player to the linked portal, both portals remain open, but stop the player from zapping back and forth immediately.
+        }
+        else if (portalNode == PortalNode.End)
+        {
+            //check if the portal closes after two way teleportation, if so, close both portals and destroy.
+            //else check if closes after certain amount of time, if so, close both portals and destroy.
+        }
+    }
 
 
 

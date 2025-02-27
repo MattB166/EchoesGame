@@ -115,12 +115,12 @@ public class BowItem : WeaponItem
             {
                 currentProjectileIndex = 0;
                 currentProjectile = projectiles[currentProjectileIndex];
-                Debug.Log("Switched projectile due to previous one emptying.");
+                //Debug.Log("Switched projectile due to previous one emptying.");
             }
             else
             {
                 currentProjectile = null;
-                Debug.Log("No more projectiles left.");
+                //Debug.Log("No more projectiles left.");
             }
         }
     }

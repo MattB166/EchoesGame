@@ -21,3 +21,4 @@ MonoBehaviour:
   projectileType: 4
   pickupAmount: 0
   portalPrefab: {fileID: 6150674934596508684, guid: 65918cca26a87454b8ec94f11637d715, type: 3}
+  portalData: {fileID: 11400000, guid: bf0be7e3b6819d149b90f18f0794f9e9, type: 2}
