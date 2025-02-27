@@ -1,8 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateAssetMenu(menuName = "Portal Data")]
 public class PortalData : ScriptableObject
 {
-    
+    public float timeToReachFullSize;
+    public bool oneWay;
+    public float timeOpen;
+    public float teleportationDelay;
+    public Vector3 portalScale;
+
 }
