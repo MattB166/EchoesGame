@@ -48,8 +48,9 @@ public class CollapsiblePlatform : BasePlatform
                     Debug.Log("Object hit: " + collision.gameObject.name);
                    
                 }
-                Destroy(gameObject, 0.5f);
+                
             }
+            Destroy(gameObject, 0.5f);
         }
     }
 
