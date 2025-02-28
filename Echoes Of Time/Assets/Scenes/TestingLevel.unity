@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 3959257570560784167, guid: bafb39ea1d8718040b4de20a8922f9d1, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 7427666b63870ae47879abe8ee12b24b, type: 2}
+      objectReference: {fileID: 11400000, guid: d10fb59d427673f469980f92c74e7299, type: 2}
     - target: {fileID: 8244563540363913426, guid: bafb39ea1d8718040b4de20a8922f9d1, type: 3}
       propertyPath: m_Name
       value: ProjectilePickup

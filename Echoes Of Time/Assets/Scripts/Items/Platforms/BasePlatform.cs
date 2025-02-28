@@ -45,15 +45,17 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       if(!collision.gameObject.CompareTag("Platform") && !collision.gameObject.CompareTag("Ground"))
+       if(collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.transform.SetParent(transform, true);
             if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
             {
                 carriedBodies.Add(rb);
             }
-
         }
+            
+
+        
 
 
         //arriedBodies.Add(collision.gameObject.GetComponent<Rigidbody2D>());
@@ -64,7 +66,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(!collision.gameObject.CompareTag("Platform") && !collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Player"))
         {
 
             collision.gameObject.transform.SetParent(null);
