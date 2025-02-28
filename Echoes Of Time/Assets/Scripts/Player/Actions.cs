@@ -46,6 +46,7 @@ public class Actions : MonoBehaviour, IDamageable
     private Dictionary<Weapons, float> weaponDamages = new();
 
     private InputPickupItem closestInputPickupItem;
+    private BaseNonPickup closestNonPickupInteractable;
     private HashSet<Weapons> availableWeapons = new();
     public HashSet<Weapons> GetAvailableWeapons()
     {
@@ -86,6 +87,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         //CheckForUseItem();
         closestInputPickupItem = UpdateClosestInputPickupItem();
+        closestNonPickupInteractable = UpdateClosestNonPickupInteractable();
     }
 
     public void InitialisePlayer()
@@ -100,10 +102,10 @@ public class Actions : MonoBehaviour, IDamageable
             Weapons weapon = (item.item.itemData as WeaponData).weaponType;
             if(!availableWeapons.Contains(weapon))
             {
-                //Debug.Log("Adding weapon to available weapons animations");
+                
                 AddWeapon(weapon);
             }
-           // Debug.Log("Already have this weapon anim. Changing weapon animation to " + weapon);
+           
             currentWeapon = weapon;
             if(currentWeapon == Weapons.Sword || currentWeapon == Weapons.Spear)
             {
@@ -259,12 +261,38 @@ public class Actions : MonoBehaviour, IDamageable
         return nearestItem;
     }
 
+    public BaseNonPickup UpdateClosestNonPickupInteractable()
+    {
+        float nearestDistance = float.MaxValue;
+        BaseNonPickup nearestItem = null;
+        foreach (var item in BaseNonPickup.itemsInRange)
+        {
+            if (item != null)
+            {
+                float distance = Vector2.Distance(item.transform.position, transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestItem = item;
+                }
+            }
+
+        }
+        return nearestItem;
+    }
+
     public void OnPickupInput(InputAction.CallbackContext context)
     {
         if (context.performed && closestInputPickupItem != null)
         {
+            Debug.Log("Interacting with closest item");
             HandlePickup(closestInputPickupItem);
             closestInputPickupItem.OnInteract();
+        }
+        else if (context.performed && closestNonPickupInteractable != null)
+        {
+            Debug.Log("Interacting with closest non pickup item");
+            closestNonPickupInteractable.OnInteract();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

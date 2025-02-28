@@ -126,14 +126,14 @@ public class Movement : MonoBehaviour,IDistortable
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
-        //Dash();
+        
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
         PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
         
-       // Debug.Log(isGrounded);
+       
     }
 
     private void ResetAnimations(Actions.Weapons weapon) //re determines what animation should be playing after attacking
@@ -144,8 +144,6 @@ public class Movement : MonoBehaviour,IDistortable
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
-
-        // Debug.Log("reading input"); 
     }
 
     private Vector2 Move()
@@ -154,7 +152,7 @@ public class Movement : MonoBehaviour,IDistortable
         direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
         if(input.x == 0 && isDashing)
         {
-            //Debug.Log("Dashing without movement");
+            
             float newSpeed = dashSpeed;
             movement = new Vector2(direction * newSpeed * customTimeScale, rb.velocity.y);
         }
@@ -165,7 +163,7 @@ public class Movement : MonoBehaviour,IDistortable
             movement.y = rb.velocity.y;
         }
         rb.velocity = movement;
-        //Debug.Log(movement);
+        
         return movement;
     }
 
@@ -194,7 +192,6 @@ public class Movement : MonoBehaviour,IDistortable
     {
         isDashing = true;
         canDash = false;
-        //SetAnimationState(currentWeapon, "Player_Roll");
         yield return new WaitForSeconds(dashDuration);
 
         isDashing = false;
@@ -206,7 +203,7 @@ public class Movement : MonoBehaviour,IDistortable
 
     private void Jump()
     {
-        if(jumpInput)
+        if(jumpInput) ////change this so on one press it does a decent height jump, but on a hold it does a higher jump until a cut. 
         {
             canClimb = false;
             isJumping = true;
@@ -216,18 +213,14 @@ public class Movement : MonoBehaviour,IDistortable
             
             if (airTime > 0.3f)
             {
-                //Distort(0.1f, 6.0f);
+                
                 isJumping = false;
                 jumpInput = false;
                 gravity *= 2;
                 airTime = 0.0f;
-                //Debug.Log("Gravity is now" + gravity);
+                
             }
-
-            //Debug.Log("Gravity is now" + gravity);
-
         }
-        
     }
 
     private void PerformDoubleJump()
@@ -329,6 +322,7 @@ public class Movement : MonoBehaviour,IDistortable
             onClimbable = true;
             canClimb = true;
             canDescend = true;
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -339,6 +333,7 @@ public class Movement : MonoBehaviour,IDistortable
             onClimbable = false;
             canClimb = false;
             canDescend = false;
+            
         }
     }
 

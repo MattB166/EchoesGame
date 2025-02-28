@@ -15,8 +15,8 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
     private bool intensityChanged;
     public override void OnInteract()
     {
-        Debug.Log("Interacted with light");
-        //change light state here 
+        Debug.Log("Changing light intensity");
+        ChangeIntensity();
     }
 
     // Start is called before the first frame update
@@ -32,17 +32,38 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
         {
             light2D.intensity = Mathf.Lerp(currentIntensity, targetIntensity, 0.125f);
             currentIntensity = light2D.intensity;
-            intensityChanged = false;
+            if(currentIntensity == targetIntensity)
+            {
+                intensityChanged = false;
+            }
         }
     }
 
-    public void ChangeIntensity(float val)
+    public void ChangeIntensity()
     {
         //change light intensity here
         intensityChanged = true;
-        targetIntensity += val;
+        if(targetIntensity == minIntensity)
+        {
+            targetIntensity -= 1;
+        }
+        else
+        {
+            targetIntensity += 1;
+        }
+        
+
+        if(targetIntensity >= maxIntensity)
+        {
+            targetIntensity = minIntensity;
+            
+        }
+        else if (targetIntensity <= minIntensity)
+        {
+            targetIntensity = maxIntensity;
+        }
         targetIntensity = Mathf.Clamp(targetIntensity, minIntensity, maxIntensity);
-        intensityChanged = false;
+        //intensityChanged = false;
     }
 
     public void InteractWithLight(InputAction.CallbackContext context)
@@ -50,6 +71,10 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
         if (context.performed)
         {
            OnInteract();
+        }
+        if(context.canceled)
+        {
+            intensityChanged = false;
         }
     }
 }

@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 3959257570560784167, guid: bafb39ea1d8718040b4de20a8922f9d1, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: d10fb59d427673f469980f92c74e7299, type: 2}
+      objectReference: {fileID: 11400000, guid: 7427666b63870ae47879abe8ee12b24b, type: 2}
     - target: {fileID: 8244563540363913426, guid: bafb39ea1d8718040b4de20a8922f9d1, type: 3}
       propertyPath: m_Name
       value: ProjectilePickup
@@ -719,10 +719,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightTest
       objectReference: {fileID: 0}
+    - target: {fileID: 2265321484135202780, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265321484135202780, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265321484135202780, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265321484135202780, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3470386790600420550, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 873c60f2960f0d44e8677054206025f6, type: 2}
+    - target: {fileID: 3470386790600420550, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: maxIntensity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470386790600420550, guid: feb3d5055a9e8e64e90310b0b7bc3d01, type: 3}
+      propertyPath: startingIntensity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

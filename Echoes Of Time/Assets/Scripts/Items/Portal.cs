@@ -79,8 +79,8 @@ public class Portal : MonoBehaviour
             Vector3 startingPos = linkedPortal.transform.position;
             if(Vector3.Distance(transform.position, startingPos) > portalData.portalPlacementDistance)
             {
-                portalBeingPlaced = false;
-                openPortal = true;
+                stillTimer = 0;
+                Debug.Log("Portal too far away from linked portal");
             }
              //HAVE A PARTICLE SYSTEM CONNECTING THE TWO PORTALS, 
                 //WHICH GETS LESS DENSE THE FURTHER AWAY THE PORTALS ARE FROM EACH OTHER AND CLOSER TO THE MAX DISTANCE.. 
