@@ -45,6 +45,7 @@ public enum AnimationStates
 public class Movement : MonoBehaviour,IDistortable
 {
     [HideInInspector] public Vector2 input;
+    private Vector2 startPos;
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
@@ -114,6 +115,7 @@ public class Movement : MonoBehaviour,IDistortable
         initialZRotation = transform.rotation.z;
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -132,8 +134,12 @@ public class Movement : MonoBehaviour,IDistortable
         PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
-        
-       
+        if (transform.position.y < -10)
+        {
+            transform.position = startPos;
+        }
+
+
     }
 
     private void ResetAnimations(Actions.Weapons weapon) //re determines what animation should be playing after attacking

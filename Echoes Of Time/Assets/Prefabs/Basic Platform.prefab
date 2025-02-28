@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 1037120639312877459}
   m_Layer: 7
   m_Name: Basic Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,6 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2ca93e382ec7c4380b248de4bb2dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentable:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &4933456351782826176
 GameObject:
   m_ObjectHideFlags: 0

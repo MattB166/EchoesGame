@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectilePickup : NonInputPickup
 {
+    private ParticleSystem notifierParticles;
     public override void HandlePickup(Actions player, Inventory i)
     {
 
@@ -50,6 +51,6 @@ public class ProjectilePickup : NonInputPickup
     // Update is called once per frame
     void Update()
     {
-
+        ///spawn particles of the data colour so we know what we are picking up. 
     }
 }

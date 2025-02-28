@@ -35,4 +35,9 @@ public class DestructableCrossBow : DestructableObject
     {
         
     }
+    
+    public void Shoot()
+    {
+        //shoot standard projectiles 
+    }
 }

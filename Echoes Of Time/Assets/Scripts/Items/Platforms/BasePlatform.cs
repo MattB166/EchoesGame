@@ -12,6 +12,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     protected List<Rigidbody2D> carriedBodies = new List<Rigidbody2D>();
     protected Vector2 currentVel;
     public event Action<BasePlatform, float, float> OnDistort;
+    public LayerMask parentable;
 
     public float CustomTimeScale
     {
@@ -34,29 +35,36 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     public virtual void Update()
     {
-       
+
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+       if(!collision.gameObject.CompareTag("Platform") && !collision.gameObject.CompareTag("Ground"))
         {
-
             collision.gameObject.transform.SetParent(transform, true);
-            carriedBodies.Add(collision.gameObject.GetComponent<Rigidbody2D>());
-
+            if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+            {
+                carriedBodies.Add(rb);
+            }
 
         }
+
+
+        //arriedBodies.Add(collision.gameObject.GetComponent<Rigidbody2D>());
+
+
     }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(!collision.gameObject.CompareTag("Platform") && !collision.gameObject.CompareTag("Ground"))
         {
 
             collision.gameObject.transform.SetParent(null);
