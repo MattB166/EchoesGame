@@ -464,9 +464,9 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.5
   dashCooldown: 0.13
-  jumpForce: 12.47
-  doubleJumpForce: 10.23
-  fallMultiplier: 1.154
+  jumpForce: 13.66
+  doubleJumpForce: 12.54
+  fallMultiplier: 2
   direction: 0
   currentWeapon: 0
   currentState: 0
