@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7478496e2cb34d84c9e993e6998de16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalData: {fileID: 0}
+  portalData: {fileID: 11400000, guid: bf0be7e3b6819d149b90f18f0794f9e9, type: 2}
   openPortal: 1
   closePortal: 0
   portalNode: 0

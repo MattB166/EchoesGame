@@ -441,22 +441,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2c916830-e99d-47d7-ad53-801afbf42a38
     m_ActionName: 'Player/ConfirmPortalPlacement[/Keyboard/enter]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1043001829862396075, guid: 65918cca26a87454b8ec94f11637d715, type: 3}
-        m_TargetAssemblyTypeName: Portal, Assembly-CSharp
-        m_MethodName: OnPortalPlaceFinalize
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 427af4a6-9d8c-4618-ba81-3d5f1d119bab
-    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -480,7 +464,9 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.5
   dashCooldown: 0.13
-  jumpForce: 1.25
+  jumpForce: 12.47
+  doubleJumpForce: 10.23
+  fallMultiplier: 1.154
   direction: 0
   currentWeapon: 0
   currentState: 0
@@ -493,7 +479,7 @@ MonoBehaviour:
   coyoteTime: 0.5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   customTimeScale: 1
 --- !u!114 &104509520533267175
 MonoBehaviour:

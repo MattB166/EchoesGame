@@ -53,8 +53,10 @@ public class Movement : MonoBehaviour,IDistortable
     [Range(1, 10)] public float dashSpeed;
     [Range(0.1f,0.5f)] public float dashDuration;
     [Range(0.0f, 5.0f)] public float dashCooldown;
-    [Range(1, 10)] public float jumpForce;
-    
+    [Range(1, 15)] public float jumpForce;
+    [Range(1, 15)] public float doubleJumpForce;
+    [Range(1, 2)] public float fallMultiplier;
+
     public float direction;
     private Animator animator;
     private Rigidbody2D rb;
@@ -68,9 +70,14 @@ public class Movement : MonoBehaviour,IDistortable
     private bool jumpInput;
     private bool isJumping;
     private bool doubleJumping;
+
+
+
     private bool dashInput;
     private bool isDashing = false;
     private bool canDash = true;
+
+
     private float initialZRotation;
     private bool climbInput;
     private bool canClimb = false;
@@ -81,6 +88,7 @@ public class Movement : MonoBehaviour,IDistortable
     public float descendSpeed;
     private bool isDescending;
     private bool onClimbable;
+
     [HideInInspector] public bool isGrounded;
     [Space(10)]
     [Header("Jump Settings")]
@@ -175,14 +183,17 @@ public class Movement : MonoBehaviour,IDistortable
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (coyoteCounter > 0 && context.performed)
-            jumpInput = true;
-        if(coyoteCounter > 0 && !isGrounded && context.performed)
+        if (context.performed)
         {
-            doubleJumping = true;
+            if (isGrounded || coyoteCounter > 0)
+            {
+                jumpInput = true;
+            }
+            else if (!isGrounded && !doubleJumping) 
+            {
+                doubleJumping = true;
+            }
         }
-        else if (context.canceled)
-            jumpInput = false;
     }
 
     public void OnDashInput(InputAction.CallbackContext context)
@@ -209,23 +220,24 @@ public class Movement : MonoBehaviour,IDistortable
 
     private void Jump()
     {
-        if(jumpInput) ////change this so on one press it does a decent height jump, but on a hold it does a higher jump until a cut. 
+        if(jumpInput) //need a smoother double jump value i think.  
         {
             canClimb = false;
             isJumping = true;
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            airTime += Time.deltaTime;
-            SetAnimationState(currentWeapon, "Player_Jump");
-            
-            if (airTime > 0.3f)
+            if (!doubleJumping && isGrounded)
             {
-                
-                isJumping = false;
-                jumpInput = false;
-                gravity *= 2;
-                airTime = 0.0f;
-                
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                SetAnimationState(currentWeapon, "Player_Jump");
             }
+            else if (!doubleJumping && !isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
+                SetAnimationState(currentWeapon, "Player_Jump");
+                doubleJumping = false;
+
+            }
+            jumpInput = false;
+
         }
     }
 
@@ -515,7 +527,14 @@ public class Movement : MonoBehaviour,IDistortable
     {
         if (!isGrounded && !isClimbing && !isDescending)
         {
-            rb.velocity += new Vector2(0, gravity * Time.deltaTime);
+            if (rb.velocity.y > 0) 
+            {
+                rb.velocity += new Vector2(0, gravity * Time.deltaTime);
+            }
+            else 
+            {
+                rb.velocity += new Vector2(0, gravity * fallMultiplier * Time.deltaTime);
+            }
         }
     }
 
