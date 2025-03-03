@@ -27,7 +27,7 @@ public class CollectableContainer : MonoBehaviour
        else
         {
             instance = this;
-            //DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
        
        InitialiseSpawnPool();

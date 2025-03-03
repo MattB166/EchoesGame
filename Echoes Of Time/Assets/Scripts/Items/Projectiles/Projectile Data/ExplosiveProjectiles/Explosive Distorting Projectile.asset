@@ -20,6 +20,7 @@ MonoBehaviour:
   maxDistance: 7
   projectileType: 3
   pickupAmount: 1
+  notifierColour: {r: 1, g: 0, b: 0, a: 0}
   explosionRadius: 6
   explosionForce: 4
   shockWaveDelay: 0.5

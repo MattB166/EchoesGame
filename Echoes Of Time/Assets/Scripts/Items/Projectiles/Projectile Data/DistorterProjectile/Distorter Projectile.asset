@@ -20,6 +20,7 @@ MonoBehaviour:
   maxDistance: 7.8
   projectileType: 1
   pickupAmount: 5
+  notifierColour: {r: 0.46692157, g: 1, b: 0, a: 0}
   distortionType: 0
   timedDistortion: 1
   distortionTime: 10

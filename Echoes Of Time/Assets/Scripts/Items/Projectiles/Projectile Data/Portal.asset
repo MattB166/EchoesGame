@@ -20,6 +20,6 @@ MonoBehaviour:
   maxDistance: 1
   projectileType: 4
   pickupAmount: 0
-  notifierColour: {r: 0.44104815, g: 0, b: 1, a: 0}
+  notifierColour: {r: 0, g: 1, b: 0.14068007, a: 0}
   portalPrefab: {fileID: 6150674934596508684, guid: 65918cca26a87454b8ec94f11637d715, type: 3}
   portalData: {fileID: 11400000, guid: bf0be7e3b6819d149b90f18f0794f9e9, type: 2}

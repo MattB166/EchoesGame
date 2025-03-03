@@ -52,6 +52,14 @@ public class Actions : MonoBehaviour, IDamageable
     {
         return availableWeapons;
     }
+    public void SetAvailableWeapons(HashSet<Weapons> weapons)
+    {
+        availableWeapons = weapons;
+    }
+    public void SetCurrentWeapon(Weapons weapon)
+    {
+        currentWeapon = weapon;
+    }
     public void AddWeapon(Weapons weapon)
     {
         availableWeapons.Add(weapon);
@@ -70,7 +78,7 @@ public class Actions : MonoBehaviour, IDamageable
         Inventory = GetComponent<Inventory>();
        // attackInput = false;
         animator = GetComponent<Animator>();
-        currentWeapon = Weapons.None;
+        currentWeapon = Weapons.None; //set this to be set to whatever has been saved. 
         InitialiseAttackAnims();
         InitialisePlayer();
         if (Inventory != null)

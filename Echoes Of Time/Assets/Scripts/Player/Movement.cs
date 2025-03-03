@@ -124,6 +124,7 @@ public class Movement : MonoBehaviour,IDistortable
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
         startPos = transform.position;
+        //start pos needs to be latest checkpoint of latest level. 
     }
 
     // Update is called once per frame

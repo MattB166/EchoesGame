@@ -24,7 +24,8 @@ public class ProjectileContainer : MonoBehaviour
         else
         {
             instance = this;
-            
+            DontDestroyOnLoad(gameObject);
+
         }
 
         InitialiseSpawnPool();

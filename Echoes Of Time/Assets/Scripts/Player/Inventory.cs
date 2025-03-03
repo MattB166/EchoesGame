@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 {
     public List<InventoryItem> items = new List<InventoryItem>();
     private List<InventoryItem> itemsToRemove = new List<InventoryItem>();
-    private int currentItemIndex = 0;
+    public int currentItemIndex = 0;
     public delegate void ItemChanged(InventoryItem item);
     public ItemChanged itemChangedCallback;
     public delegate void ItemUsed(InventoryItem item);
