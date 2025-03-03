@@ -32,6 +32,7 @@ public class WeaponPickupItem : InputPickupItem
                         item.Init(weaponData, i, weapon);
                         item.SetOwner(player.gameObject);
                         i.AddItem(item);
+                        ///////SAVE THE DATA HERE FOR THE SAVING SYSTEM, SO THEY ARE CONSTANTLY INITIALISED. 
                     }
                 }
                 else

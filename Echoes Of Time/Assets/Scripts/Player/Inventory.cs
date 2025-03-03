@@ -81,8 +81,17 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     public void SetCurrentItem(InventoryItem item)
     {
-        currentItemIndex = items.IndexOf(item);
-        itemChangedCallback?.Invoke(currentItem);
+        if(item != null)
+        {
+            currentItemIndex = items.IndexOf(item);
+            itemChangedCallback?.Invoke(currentItem);
+        }
+        else
+        {
+            currentItemIndex = 0;
+            itemChangedCallback?.Invoke(null);
+        }
+        
         //Debug.Log("Current item: " + currentItem.item.itemData.name);
     }
 
