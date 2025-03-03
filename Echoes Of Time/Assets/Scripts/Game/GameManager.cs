@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        SavingSystem.DeleteSaveSlot(currentSaveSlot); 
+
     }
 
     // Update is called once per frame
@@ -60,11 +61,17 @@ public class GameManager : MonoBehaviour
             HashSet<Weapons> availableWeapons = new HashSet<Weapons>(playerSaveData.availableWeaponsList);
             player.GetComponent<Actions>().GetAvailableWeapons().Clear();
             player.GetComponent<Actions>().SetAvailableWeapons(availableWeapons);
-            player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
             
-            player.GetComponent<Inventory>().items = playerSaveData.inventoryItems;
+            foreach (InventoryItem item in playerSaveData.inventoryItems)
+            {
+                //get the item, initialise it and add it to the inventory.
+                item.item.Init(item.item.itemData, player.GetComponent<Inventory>(), item.item.prefab);
+                Debug.Log("item initialised with " + item.item.itemData.name);
+                player.GetComponent<Inventory>().AddItem(item.item);
+            }
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
 
+            player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
             return;
 
 

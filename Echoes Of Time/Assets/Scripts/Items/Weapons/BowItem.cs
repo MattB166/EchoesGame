@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
+[System.Serializable]
 public class Projectiles
 {
     public BaseProjectile projectile;
@@ -32,7 +32,10 @@ public class BowItem : WeaponItem
     // Start is called before the first frame update
     void Start()
     {
-
+        if(currentProjectile == null && projectiles.Count > 0)
+        {
+            currentProjectile = projectiles[currentProjectileIndex];
+        }
     }
 
     // Update is called once per frame
@@ -59,7 +62,7 @@ public class BowItem : WeaponItem
             int amount = p.Value;
             BaseProjectile projectile = projectileData.projectilePrefab.GetComponent<BaseProjectile>();
             AddProjectile(projectile, amount);
-            //Debug.Log("Projectile added: " + projectileData.name + " with amount: " + amount);
+            Debug.Log("Projectile added: " + projectileData.name + " with amount: " + amount);
         }
 
         inv.storedProjectiles.Clear();
@@ -69,7 +72,7 @@ public class BowItem : WeaponItem
     {
         if(weapon == Actions.Weapons.Bow)
         {
-            if (currentProjectile == null)
+            if (currentProjectile == null || currentProjectile.ammoCount <= 0)
             {
                 return;
             }
@@ -92,6 +95,7 @@ public class BowItem : WeaponItem
 
             bp.Fire(pos);
             currentProjectile.ammoCount--;
+            Debug.Log("Fired projectile: " + currentProjectile.projectile.projectileData.name + " : " + currentProjectile.ammoCount + " ammo left.");
             //Debug.Log("After Firing projectile: " + currentProjectile.projectile.projectileData.name + " : " + currentProjectile.ammoCount + " ammo left.");
             if (currentProjectile.ammoCount <= 0)
             {
@@ -115,7 +119,7 @@ public class BowItem : WeaponItem
             {
                 currentProjectileIndex = 0;
                 currentProjectile = projectiles[currentProjectileIndex];
-                //Debug.Log("Switched projectile due to previous one emptying.");
+                Debug.Log("Switched projectile due to previous one emptying.");
             }
             else
             {
@@ -144,14 +148,15 @@ public class BowItem : WeaponItem
             if (projectiles[i].projectile.projectileData.projectileType == projectile.projectileData.projectileType)
             {
                 projectiles[i].ammoCount += ammoCount;
-                //Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name);
+                Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name);
+                Debug.Log("Projectile now has " + projectiles[i].ammoCount + " ammo.");
                 return;
             }
         }
         BaseProjectile bp = projectile;
         int count = ammoCount;
         Projectiles p = new Projectiles(bp, count);
-        //Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
+        Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
         projectiles.Add(p);
         currentProjectile = p;
     }
