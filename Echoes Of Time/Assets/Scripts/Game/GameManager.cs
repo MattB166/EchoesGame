@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        SavingSystem.DeleteSaveSlot(currentSaveSlot); 
+       SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        
+
 
     }
 
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("item initialised with " + item.item.itemData.name);
                 player.GetComponent<Inventory>().AddItem(item.item);
             }
+
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
 
             player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
