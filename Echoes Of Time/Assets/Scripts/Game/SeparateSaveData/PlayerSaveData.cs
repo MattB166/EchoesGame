@@ -13,14 +13,20 @@ public class PlayerSaveData
     public List<InventoryItem> inventoryItems;
     public int currentInventoryItemIndex;
 
+    //projectile saving
+    public List<Projectiles> availableProjectiles;
+    public int currentProjectileIndex;
+
     //bank saving. saves coin amount
 
-    public PlayerSaveData(Actions.Weapons currentWeapon, List<Actions.Weapons> availableWeaponsList, List<InventoryItem> inventoryItems, int currentInventoryItemIndex)
+    public PlayerSaveData(Actions.Weapons currentWeapon, List<Actions.Weapons> availableWeaponsList, List<InventoryItem> inventoryItems, int currentInventoryItemIndex, List<Projectiles> availableProjectiles, int currentProjectileIndex)
     {
         this.currentWeaponIndex = currentWeapon;
         this.availableWeaponsList = availableWeaponsList;
         this.inventoryItems = inventoryItems;
         this.currentInventoryItemIndex = currentInventoryItemIndex;
+        this.availableProjectiles = availableProjectiles;
+        this.currentProjectileIndex = currentProjectileIndex;
     }
 
 }

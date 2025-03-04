@@ -25,9 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-       SavingSystem.DeleteSaveSlot(currentSaveSlot);
-        
-
+        LoadGame(currentSaveSlot);
 
     }
 
@@ -42,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         //get current save slot
         //save the game into current slot. 
-        //SaveGame(currentSaveSlot);
+        SaveGame(currentSaveSlot);
         Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
@@ -63,7 +61,11 @@ public class GameManager : MonoBehaviour
             HashSet<Weapons> availableWeapons = new HashSet<Weapons>(playerSaveData.availableWeaponsList);
             player.GetComponent<Actions>().GetAvailableWeapons().Clear();
             player.GetComponent<Actions>().SetAvailableWeapons(availableWeapons);
-            
+
+            foreach(Projectiles p in playerSaveData.availableProjectiles)
+            {
+                player.GetComponent<Inventory>().StoreProjectile(p.projectile.projectileData, p.ammoCount);
+            }
             foreach (InventoryItem item in playerSaveData.inventoryItems)
             {
                 //get the item, initialise it and add it to the inventory.
@@ -71,10 +73,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("item initialised with " + item.item.itemData.name);
                 player.GetComponent<Inventory>().AddItem(item.item);
             }
-
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
-
             player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
+
             return;
 
 
@@ -90,7 +91,19 @@ public class GameManager : MonoBehaviour
         List<Actions.Weapons> availableWeapons = new List<Actions.Weapons>(pActions.GetAvailableWeapons());
         Actions.Weapons currentWeapon = pActions.currentWeapon;
         int currentInventoryItemIndex = player.GetComponent<Inventory>().currentItemIndex;
-        PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon,availableWeapons, items,currentInventoryItemIndex);
+        //get access to bow item projectiles
+        List<Projectiles> projectiles = new List<Projectiles>();
+        foreach(InventoryItem item in items)
+        {
+            if(item.item is BowItem bow)
+            {
+                foreach (Projectiles p in bow.projectiles)
+                {
+                    projectiles.Add(p);
+                }
+            }
+        }
+        PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon,availableWeapons, items,currentInventoryItemIndex,projectiles,0);
         SavingSystem.SavePlayerData(playerSaveData, currentSaveSlot);
 
         ///game data 

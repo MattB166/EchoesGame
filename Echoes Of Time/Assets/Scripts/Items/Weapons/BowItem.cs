@@ -1,3 +1,4 @@
+using NUnit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,14 +28,12 @@ public class BowItem : WeaponItem
 
     private void Awake()
     {
-
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        projectiles.Clear(); // Reset projectiles at the start of a new run
-        currentProjectile = null;
         currentProjectileIndex = 0;
         if (currentProjectile == null && projectiles.Count > 0)
         {
@@ -59,14 +58,16 @@ public class BowItem : WeaponItem
     {
         base.Init(itemData, inv, prefab);
         weaponData = itemData as WeaponData;
-        //Debug.Log("Bow initialized with " + weaponData.name);
+        Debug.Log("Bow initialized with " + weaponData.name);
+        projectiles.Clear(); //need to actually add in the saved projectiles
+
         foreach (var p in inv.storedProjectiles)
         {
             ProjectileData projectileData = p.Key;
             int amount = p.Value;
             BaseProjectile projectile = projectileData.projectilePrefab.GetComponent<BaseProjectile>();
             AddProjectile(projectile, amount);
-            Debug.Log("Projectile added: " + projectileData.name + " with amount: " + amount);
+            Debug.Log("Projectile added from inventory: " + projectileData.name + " with amount: " + amount);
         }
 
         inv.storedProjectiles.Clear();
@@ -156,8 +157,7 @@ public class BowItem : WeaponItem
             {
                 projectiles[i].ammoCount += ammoCount;
                 int newCount = projectiles[i].ammoCount;
-                Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name + "Projectile now has: " + newCount + " ammo.");
-                Debug.Log("Projectile now has " + projectiles[i].ammoCount + " ammo.");
+                Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name + " now has: " + newCount + " ammo.");
                 return;
             }
         }
