@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        LoadGame(currentSaveSlot);
+        SavingSystem.DeleteSaveSlot(currentSaveSlot);
 
     }
 
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     {
         //get current save slot
         //save the game into current slot. 
-        SaveGame(currentSaveSlot);
-        Debug.Log("Saved game to save slot " + currentSaveSlot);
+        //SaveGame(currentSaveSlot);
+        //Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
     public void LoadGame(int currentSaveSlot)
@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
             }
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
             player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
+
+            ///GAME DATA LOADED IN HERE / CHECKPOINTS, OBJECTIVES ETC 
 
             return;
 
