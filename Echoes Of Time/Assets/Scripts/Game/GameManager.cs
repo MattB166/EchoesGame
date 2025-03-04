@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Actions;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
     private GameObject player;
     public int currentSaveSlot;
     public Transform playerPos { get { return player.transform; } }
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         //load slot 
         SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        //LoadGame(currentSaveSlot);
 
     }
 
@@ -75,12 +78,28 @@ public class GameManager : MonoBehaviour
             }
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
             player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
+        }
+        else
+        {
+            Debug.LogError("Failed to load player data from save slot " + currentSaveSlot);
+        }
 
-            ///GAME DATA LOADED IN HERE / CHECKPOINTS, OBJECTIVES ETC 
+        GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
+        if(gameSaveData != null)
+        {
+            //load the game data into the game manager and dispense to relevant sections.  
+            Debug.Log("Loaded game data from save slot " + currentSaveSlot);
+            CheckPointSystem.instance.SetLastActiveLevel(gameSaveData.levelName);
+            CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
+            CheckPointSystem.instance.achievedCheckPoints = gameSaveData.achievedCheckPoints;
+            CheckPointSystem.instance.SetCurrentCheckPoint(gameSaveData.activeCheckPoint);
+            CheckPointSystem.instance.activeCheckPoint.checkPointID = gameSaveData.checkPointID;
 
-            return;
 
-
+        }
+        else
+        {
+            Debug.LogError("Failed to load game data from save slot " + currentSaveSlot);
         }
     }
 
@@ -110,6 +129,13 @@ public class GameManager : MonoBehaviour
 
         ///game data 
 
+        string lastLevelName = SceneManager.GetActiveScene().name;
+        List<int> levelList = CheckPointSystem.instance.achievedCheckPointIDs.ToList();
+        List<CheckPoint> checkPoints = CheckPointSystem.instance.achievedCheckPoints;
+        CheckPoint checkPoint = CheckPointSystem.instance.activeCheckPoint;
+        int checkPointID = checkPoint.checkPointID;
+        GameSaveData gameSaveData = new GameSaveData(lastLevelName, levelList, checkPoints, checkPoint, checkPointID);
+        SavingSystem.SaveGameData(gameSaveData, currentSaveSlot);
 
     }
 }

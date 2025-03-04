@@ -9,6 +9,7 @@ public static class SavingSystem
     //game save data - checkpoints, general stats like enemies killed, time played, etc. 
     #region Player Save Data
     public static string playerDataPath = Application.persistentDataPath + "/playerData.json";
+    
     private static string getPlayerDataPath(int slot)
     {
         return Application.persistentDataPath + "/playerData" + slot + ".json";
@@ -42,6 +43,43 @@ public static class SavingSystem
     #endregion
 
 
+    #region game save data
+    public static string gamedataPath = Application.persistentDataPath + "/gameData.json";
+
+    private static string getGameDataPath(int slot)
+    {
+        return Application.persistentDataPath + "/gameData" + slot + ".json";
+    }
+
+    public static void SaveGameData(GameSaveData gameSaveData, int slot)
+    {
+        string path = getGameDataPath(slot);
+        string json = JsonUtility.ToJson(gameSaveData);
+        File.WriteAllText(path, json);
+        Debug.Log("Saved game data to " + path);
+    }
+
+    public static GameSaveData LoadGameData(int slot)
+    {
+        string path = getGameDataPath(slot);
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            GameSaveData gameSaveData = JsonUtility.FromJson<GameSaveData>(json);
+            Debug.Log("Loaded game data from " + path);
+            return gameSaveData;
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+            return null;
+        }
+    }
+
+    #endregion
+
+
+    #region Save Slot Management
     public static void DeleteSaveSlot(int slot)
     {
         if(File.Exists(getPlayerDataPath(slot)))
@@ -60,5 +98,5 @@ public static class SavingSystem
     {
         return File.Exists(getPlayerDataPath(slot));
     }
-
+    #endregion
 }

@@ -9,5 +9,6 @@ using UnityEngine;
 public class SaveData
 {
    public PlayerSaveData playerSaveData;
-   
+   public GameSaveData gameSaveData;
+
 }
