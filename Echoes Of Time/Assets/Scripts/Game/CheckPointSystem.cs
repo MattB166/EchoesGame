@@ -35,7 +35,7 @@ public class CheckPointSystem : MonoBehaviour
     void Start()
     {
         //bring in the saved checkpoint data, and the most recent checkpoint data.
-        LoadCheckPoint();
+       
     }
 
     // Update is called once per frame
@@ -44,17 +44,28 @@ public class CheckPointSystem : MonoBehaviour
 
     }
 
+    public void Initialise(string levelName, List<int> achievedCheckPointIDs, List<CheckPoint> achievedCheckPoints, CheckPoint activeCheckPoint, int checkPointID)
+    {
+        lastActiveLevel = levelName;
+        this.achievedCheckPointIDs = new HashSet<int>(achievedCheckPointIDs);
+        this.achievedCheckPoints = achievedCheckPoints;
+        SetCurrentCheckPoint(activeCheckPoint);
+        activeCheckPoint.checkPointID = checkPointID;
+        Debug.Log("Checkpoint system initialized with " + activeCheckPoint.checkPointID);
+    }
+
     public void SetNewCheckpoint(CheckPoint checkPoint)
     {
         achievedCheckPoints.Add(checkPoint);
         activeCheckPoint = checkPoint;
-        Debug.Log("Current Checkpoint set to " + activeCheckPoint.checkPointID);
+        Debug.Log("Unlocked checkpoint" + activeCheckPoint.checkPointID);
     }
 
     public void SetCurrentCheckPoint(CheckPoint checkPoint)
     {
         activeCheckPoint = checkPoint;
-        
+        Debug.Log("Current Checkpoint set to " + activeCheckPoint.checkPointID);
+
     }
 
     public bool CheckPointActivated(int checkPointID)

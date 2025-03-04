@@ -89,13 +89,13 @@ public class GameManager : MonoBehaviour
         {
             //load the game data into the game manager and dispense to relevant sections.  
             Debug.Log("Loaded game data from save slot " + currentSaveSlot);
-            CheckPointSystem.instance.SetLastActiveLevel(gameSaveData.levelName);
-            CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
-            CheckPointSystem.instance.achievedCheckPoints = gameSaveData.achievedCheckPoints;
-            CheckPointSystem.instance.SetCurrentCheckPoint(gameSaveData.activeCheckPoint);
-            CheckPointSystem.instance.activeCheckPoint.checkPointID = gameSaveData.checkPointID;
-
-
+            //CheckPointSystem.instance.SetLastActiveLevel(gameSaveData.levelName);
+            //CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
+            //CheckPointSystem.instance.achievedCheckPoints = gameSaveData.achievedCheckPoints;
+            //CheckPointSystem.instance.SetCurrentCheckPoint(gameSaveData.activeCheckPoint);
+            //CheckPointSystem.instance.activeCheckPoint.checkPointID = gameSaveData.checkPointID;
+            CheckPointSystem.instance.Initialise(gameSaveData.levelName, gameSaveData.achievedCheckPointIDs.ToList(), gameSaveData.achievedCheckPoints, gameSaveData.activeCheckPoint, gameSaveData.checkPointID);
+            
         }
         else
         {

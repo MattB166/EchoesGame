@@ -123,7 +123,10 @@ public class Movement : MonoBehaviour,IDistortable
         initialZRotation = transform.rotation.z;
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
-        startPos = transform.position;
+        //startPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
+        
+
+        
         //start pos needs to be latest checkpoint of latest level. 
     }
 
