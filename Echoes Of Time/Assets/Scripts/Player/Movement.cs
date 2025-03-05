@@ -124,8 +124,7 @@ public class Movement : MonoBehaviour,IDistortable
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
         //startPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
-        spawnPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
-        gameObject.transform.position = spawnPos;
+        ResetPlayerPosition();
 
         //start pos needs to be latest checkpoint of latest level. 
     }
@@ -148,7 +147,7 @@ public class Movement : MonoBehaviour,IDistortable
         isAttacking = GetComponent<Actions>().isAttacking;
         if (transform.position.y < -10)
         {
-            transform.position = CheckPointSystem.instance.activeCheckPoint.transform.position;
+            ResetPlayerPosition();
         }
 
 
@@ -572,6 +571,12 @@ public class Movement : MonoBehaviour,IDistortable
     {
         yield return new WaitForSeconds(duration);
         CustomTimeScale = 1;
+    }
+
+    public void ResetPlayerPosition()
+    {
+        spawnPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
+        gameObject.transform.position = spawnPos;
     }
 
 }

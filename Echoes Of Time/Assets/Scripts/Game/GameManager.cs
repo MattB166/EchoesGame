@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         //get current save slot
         //save the game into current slot. 
-       // SaveGame(currentSaveSlot);
+        //SaveGame(currentSaveSlot);
         //Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
                 {
                     cp.DoNotCorrectPosition();
                     CheckPointSystem.instance.activeCheckPoint = cp;
-                    playerMovement.spawnPos = cp.gameObject.transform.position;
+                    playerMovement.ResetPlayerPosition();
                     Debug.Log("Player spawned at checkpoint " + cp.gameObject.transform.position);
                     break;
                 }

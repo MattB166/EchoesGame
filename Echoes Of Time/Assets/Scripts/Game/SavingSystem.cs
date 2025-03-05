@@ -91,6 +91,17 @@ public static class SavingSystem
         {
             Debug.LogError("Save slot " + slot + " does not exist.");
         }
+
+        if(File.Exists(getGameDataPath(slot)))
+        {
+            File.Delete(getGameDataPath(slot));
+            Debug.Log("Deleted game data in save slot " + slot);
+        }
+        else
+        {
+            Debug.LogError("Game data in save slot " + slot + " does not exist.");
+        }
+
     }
 
     //check if save slot exists
