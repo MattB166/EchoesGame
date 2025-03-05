@@ -14,8 +14,8 @@ public class CheckPointSystem : MonoBehaviour
     //list of achieved checkpoints
     public List<CheckPoint> achievedCheckPoints = new List<CheckPoint>();
     public HashSet<int> achievedCheckPointIDs = new HashSet<int>();
-    public CheckPoint activeCheckPoint { get; private set; }
-    public string lastActiveLevel { get; private set; }
+    public CheckPoint activeCheckPoint;
+    public string lastActiveLevel;
     //member of most recent checkpoint
 
     private void Awake()
@@ -35,7 +35,7 @@ public class CheckPointSystem : MonoBehaviour
     void Start()
     {
         //bring in the saved checkpoint data, and the most recent checkpoint data.
-       
+
     }
 
     // Update is called once per frame
@@ -44,47 +44,18 @@ public class CheckPointSystem : MonoBehaviour
 
     }
 
-    public void Initialise(string levelName, List<int> achievedCheckPointIDs, List<CheckPoint> achievedCheckPoints, CheckPoint activeCheckPoint, int checkPointID)
+    public void SetNewCheckpoint(CheckPoint checkpoint)
     {
-        lastActiveLevel = levelName;
-        this.achievedCheckPointIDs = new HashSet<int>(achievedCheckPointIDs);
-        this.achievedCheckPoints = achievedCheckPoints;
-        SetCurrentCheckPoint(activeCheckPoint);
-        activeCheckPoint.checkPointID = checkPointID;
-        Debug.Log("Checkpoint system initialized with " + activeCheckPoint.checkPointID);
-    }
-
-    public void SetNewCheckpoint(CheckPoint checkPoint)
-    {
-        achievedCheckPoints.Add(checkPoint);
-        activeCheckPoint = checkPoint;
-        Debug.Log("Unlocked checkpoint" + activeCheckPoint.checkPointID);
-    }
-
-    public void SetCurrentCheckPoint(CheckPoint checkPoint)
-    {
-        activeCheckPoint = checkPoint;
-        Debug.Log("Current Checkpoint set to " + activeCheckPoint.checkPointID);
-
-    }
-
-    public bool CheckPointActivated(int checkPointID)
-    {
-        return achievedCheckPointIDs.Contains(checkPointID);
-    }
-
-    public void LoadCheckPoint()
-    {
-        if (!string.IsNullOrEmpty(lastActiveLevel))
+        if (!achievedCheckPointIDs.Contains(checkpoint.checkPointID))
         {
-            SceneManager.LoadScene(lastActiveLevel);
-            //load the player at the last checkpoint.
+            achievedCheckPoints.Add(checkpoint);
+            achievedCheckPointIDs.Add(checkpoint.checkPointID);
         }
+        activeCheckPoint = checkpoint;
+        lastActiveLevel = checkpoint.levelName;
 
-    }
+        //save data after checkpoint is set.
 
-    public void SetLastActiveLevel(string levelName)
-    {
-        lastActiveLevel = levelName;
+        SavingSystem.SaveGameData(new GameSaveData(lastActiveLevel, new List<int>(achievedCheckPointIDs), activeCheckPoint.checkPointID, activeCheckPoint.gameObject.transform.position),GameManager.instance.currentSaveSlot);
     }
 }

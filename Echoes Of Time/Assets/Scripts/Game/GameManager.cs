@@ -8,7 +8,7 @@ using static Actions;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
-    private GameObject player;
+    public GameObject player { get; private set; }
     public int currentSaveSlot;
     public Transform playerPos { get { return player.transform; } }
     private void Awake()
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         //get current save slot
         //save the game into current slot. 
-        //SaveGame(currentSaveSlot);
+       // SaveGame(currentSaveSlot);
         //Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
@@ -84,22 +84,34 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Failed to load player data from save slot " + currentSaveSlot);
         }
 
+        //game data loading. 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
         if(gameSaveData != null)
         {
-            //load the game data into the game manager and dispense to relevant sections.  
-            Debug.Log("Loaded game data from save slot " + currentSaveSlot);
-            //CheckPointSystem.instance.SetLastActiveLevel(gameSaveData.levelName);
-            //CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
-            //CheckPointSystem.instance.achievedCheckPoints = gameSaveData.achievedCheckPoints;
-            //CheckPointSystem.instance.SetCurrentCheckPoint(gameSaveData.activeCheckPoint);
-            //CheckPointSystem.instance.activeCheckPoint.checkPointID = gameSaveData.checkPointID;
-            CheckPointSystem.instance.Initialise(gameSaveData.levelName, gameSaveData.achievedCheckPointIDs.ToList(), gameSaveData.achievedCheckPoints, gameSaveData.activeCheckPoint, gameSaveData.checkPointID);
-            
-        }
-        else
-        {
-            Debug.LogError("Failed to load game data from save slot " + currentSaveSlot);
+            if (gameSaveData.levelName != SceneManager.GetActiveScene().name)
+            {
+                SceneManager.LoadScene(gameSaveData.levelName);
+            }
+            CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
+            CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
+            Movement playerMovement = player.GetComponent<Movement>();
+            GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+            foreach (GameObject checkpoint in checkpoints)
+            {
+                CheckPoint cp = checkpoint.GetComponent<CheckPoint>();
+                if(gameSaveData.achievedCheckPointIDs.Contains(cp.checkPointID))
+                {
+                    cp.ActivateCheckPointByTimer();
+                }
+                if (gameSaveData.checkPointID == cp.checkPointID)
+                {
+                    cp.DoNotCorrectPosition();
+                    CheckPointSystem.instance.activeCheckPoint = cp;
+                    playerMovement.spawnPos = cp.gameObject.transform.position;
+                    Debug.Log("Player spawned at checkpoint " + cp.gameObject.transform.position);
+                    break;
+                }
+            }
         }
     }
 
@@ -129,13 +141,7 @@ public class GameManager : MonoBehaviour
 
         ///game data 
 
-        string lastLevelName = SceneManager.GetActiveScene().name;
-        List<int> levelList = CheckPointSystem.instance.achievedCheckPointIDs.ToList();
-        List<CheckPoint> checkPoints = CheckPointSystem.instance.achievedCheckPoints;
-        CheckPoint checkPoint = CheckPointSystem.instance.activeCheckPoint;
-        int checkPointID = checkPoint.checkPointID;
-        GameSaveData gameSaveData = new GameSaveData(lastLevelName, levelList, checkPoints, checkPoint, checkPointID);
-        SavingSystem.SaveGameData(gameSaveData, currentSaveSlot);
+        
 
     }
 }

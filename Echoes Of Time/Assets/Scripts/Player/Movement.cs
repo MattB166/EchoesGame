@@ -45,7 +45,7 @@ public enum AnimationStates
 public class Movement : MonoBehaviour,IDistortable
 {
     [HideInInspector] public Vector2 input;
-    private Vector2 startPos;
+    public Vector2 spawnPos;
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
@@ -124,9 +124,9 @@ public class Movement : MonoBehaviour,IDistortable
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
         //startPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
-        
+        spawnPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
+        gameObject.transform.position = spawnPos;
 
-        
         //start pos needs to be latest checkpoint of latest level. 
     }
 
@@ -148,7 +148,7 @@ public class Movement : MonoBehaviour,IDistortable
         isAttacking = GetComponent<Actions>().isAttacking;
         if (transform.position.y < -10)
         {
-            transform.position = startPos;
+            transform.position = CheckPointSystem.instance.activeCheckPoint.transform.position;
         }
 
 

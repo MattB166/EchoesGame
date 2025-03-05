@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Basic checkpoint class for 
@@ -25,11 +26,13 @@ public class CheckPoint : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
-       if(CheckPointSystem.instance != null && CheckPointSystem.instance.CheckPointActivated(checkPointID))
-        {
-            ActivateCheckpoint();
-        }
-        Debug.Log("Checkpoint ID: " + checkPointID);
+        //if(CheckPointSystem.instance != null && CheckPointSystem.instance.CheckPointActivated(checkPointID))
+        // {
+        //     ActivateCheckpoint();
+        // }
+        //Debug.Log("Checkpoint ID: " + checkPointID);
+        levelName = SceneManager.GetActiveScene().name;
+        Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been created. ");
     }
 
     // Update is called once per frame
@@ -57,13 +60,30 @@ public class CheckPoint : MonoBehaviour
 
     }
 
-    private void ActivateCheckpoint()
+    public void ActivateCheckpoint()
     {
+        //small delay before it runs any further. 1 for effect, 2 for enough time for game manager to save data.
         isActivated = true;
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.49f, transform.position.z);
+        Debug.Log("Moved checkpoint up a little");
         hasCorrected = true;
         col.enabled = false;
-        
-        //tell the checkpoint manager that this checkpoint is activated.
+       
+    }
+
+    public void DoNotCorrectPosition()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.49f, transform.position.z);
+    }
+
+    private IEnumerator ActivateCheckpointRoutine()
+    {
+        yield return new WaitForSeconds(0.05f);
+        ActivateCheckpoint();
+    }
+
+    public void ActivateCheckPointByTimer()
+    {
+        StartCoroutine(ActivateCheckpointRoutine());
     }
 }
