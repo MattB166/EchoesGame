@@ -575,8 +575,17 @@ public class Movement : MonoBehaviour,IDistortable
 
     public void ResetPlayerPosition()
     {
-        spawnPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
-        gameObject.transform.position = spawnPos;
+        if(CheckPointSystem.instance.activeCheckPoint != null)
+        {
+            spawnPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
+            gameObject.transform.position = spawnPos;
+        }
+        else
+        {
+            gameObject.transform.position = new Vector2(0, 0);
+        }
+
+
     }
 
 }

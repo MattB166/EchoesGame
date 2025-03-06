@@ -21,14 +21,10 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     public List<InventoryItem> items = new List<InventoryItem>();
     private List<InventoryItem> itemsToRemove = new List<InventoryItem>();
     public int currentItemIndex = 0;
-    public delegate void ItemChanged(InventoryItem item);
-    public ItemChanged itemChangedCallback;
-    public delegate void ItemUsed(InventoryItem item);
-    public ItemUsed itemUsedCallback;
-    public delegate void ItemSecondaryUsed(InventoryItem item);
-    public ItemSecondaryUsed itemSecondaryUsedCallback;
-    public delegate void ItemDropped(InventoryItem item);
-    public ItemDropped itemDroppedCallback;
+    public GameEvent itemChanged;
+    public GameEvent onItemUsed;
+    public GameEvent onItemSecondaryUsed;
+    public GameEvent onItemDropped;
     public GameObject player;
     public InventoryItem currentItem
     {
@@ -74,22 +70,22 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             return;
         }
         currentItemIndex = (currentItemIndex + 1) % items.Count;
-        itemChangedCallback?.Invoke(currentItem);
+        itemChanged.Announce(this,currentItem);
         //Debug.Log("Current item: " + currentItem.item.itemData.name);
 
     }
 
     public void SetCurrentItem(InventoryItem item)
     {
-        if(item != null)
+        if (item != null)
         {
             currentItemIndex = items.IndexOf(item);
-            itemChangedCallback?.Invoke(currentItem);
+            itemChanged.Announce(this, item);
         }
         else
         {
             currentItemIndex = 0;
-            itemChangedCallback?.Invoke(null);
+            itemChanged.Announce(this, currentItem);
         }
         
         //Debug.Log("Current item: " + currentItem.item.itemData.name);
@@ -124,7 +120,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         items[currentItemIndex].quantity--;
         if (items[currentItemIndex].quantity == 0)
         {
-            itemDroppedCallback?.Invoke(currentItem);
+            onItemDropped.Announce(this, currentItem);
             items.RemoveAt(currentItemIndex);
             CycleInventory();
         }
@@ -139,7 +135,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
                 inventoryItem.quantity--;
                 if (inventoryItem.quantity == 0)
                 {
-                    itemDroppedCallback?.Invoke(inventoryItem);
+                    onItemDropped.Announce(this, inventoryItem);
                     itemsToRemove.Add(inventoryItem);
                     CycleInventory();
                 }
@@ -153,7 +149,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         {
             if (currentItem.item != null)
                 currentItem.item.Use();
-            itemUsedCallback?.Invoke(currentItem);
+            onItemUsed.Announce(this, currentItem);
             //DropItem();
         }
     }
@@ -165,7 +161,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             if (currentItem.item != null)
             {
                 currentItem.item.SecondaryUse();
-                itemSecondaryUsedCallback?.Invoke(currentItem);
+                onItemSecondaryUsed.Announce(this, currentItem);
             }
 
         }

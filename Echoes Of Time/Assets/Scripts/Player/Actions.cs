@@ -66,32 +66,23 @@ public class Actions : MonoBehaviour, IDamageable
         
     }
 
-    private Inventory Inventory;
     private MeleeWeaponItem closeRangeItem; 
     public delegate void AttackAnimFinished(Weapons weapon);
     public AttackAnimFinished attackAnimFinishedCallback;
     [Header("Events")]
-    public GameEvent onItemPickup;
-    public GameEvent onItemUse;
+    
     public GameEvent onHealthChange;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Inventory = GetComponent<Inventory>();
+       
        // attackInput = false;
         animator = GetComponent<Animator>();
         currentWeapon = Weapons.None; //set this to be set to whatever has been saved. 
         InitialiseAttackAnims();
         InitialisePlayer();
-        if (Inventory != null)
-        {
-            Inventory.itemChangedCallback += ChangeWeaponAnimation;
-            Inventory.itemUsedCallback += CheckForUseItem;
-            Inventory.itemSecondaryUsedCallback += CheckForSecondaryItemUse;
-            Inventory.itemDroppedCallback += RemoveWeaponAnim;
-        }
     }
 
     // Update is called once per frame
@@ -107,53 +98,71 @@ public class Actions : MonoBehaviour, IDamageable
         HitPoints = playerMaxHealth;
     }
 
-    public void ChangeWeaponAnimation(InventoryItem item)
+    public void ChangeWeaponAnimation(Component sender, object data)
     {
-        if (item.item.itemData as WeaponData != null)
+        if(data is object[] dataArray && dataArray.Length > 0)
         {
-            Weapons weapon = (item.item.itemData as WeaponData).weaponType;
-            if(!availableWeapons.Contains(weapon))
+            data = dataArray[0];
+        }
+        if (data is InventoryItem item)
+        {
+            Debug.Log("Changing weapon animation");
+            if (item.item.itemData as WeaponData != null)
             {
-                
-                AddWeapon(weapon);
-            }
-           
-            currentWeapon = weapon;
-            if(currentWeapon == Weapons.Sword || currentWeapon == Weapons.Spear)
-            {
-                closeRangeItem = item.item as MeleeWeaponItem;
+                Weapons weapon = (item.item.itemData as WeaponData).weaponType;
+                if (!availableWeapons.Contains(weapon))
+                {
+
+                    AddWeapon(weapon);
+                    Debug.Log("Adding weapon to available weapons animations");
+                }
+
+                currentWeapon = weapon;
+                if (currentWeapon == Weapons.Sword || currentWeapon == Weapons.Spear)
+                {
+                    closeRangeItem = item.item as MeleeWeaponItem;
+                }
+                else
+                {
+                    closeRangeItem = null;
+                }
+
+
+
             }
             else
             {
-                closeRangeItem = null;
+                currentWeapon = Weapons.None;
+                //Debug.Log("This is not a weapon so no animation required"); 
             }
-            
-
-
         }
-        else
-        {
-            currentWeapon = Weapons.None;
-            //Debug.Log("This is not a weapon so no animation required"); 
-        }
+       
     }
 
-    public void RemoveWeaponAnim(InventoryItem item)
+    public void RemoveWeaponAnim(Component sender, object data)
     {
-        if (item.item.itemData as WeaponData != null)
+        if (data is object[] dataArray && dataArray.Length > 0)
         {
-            Weapons weapon = (item.item.itemData as WeaponData).weaponType;
-            if (availableWeapons.Contains(weapon))
+            data = dataArray[0];
+        }
+        if (data is InventoryItem item)
+        {
+            if (item.item.itemData as WeaponData != null)
             {
-                //Debug.Log("Removing weapon from available weapons animations");
-                availableWeapons.Remove(weapon);
-                if(availableWeapons.Count < 1)
+                Weapons weapon = (item.item.itemData as WeaponData).weaponType;
+                if (availableWeapons.Contains(weapon))
                 {
-                    currentWeapon = Weapons.None;
+                    //Debug.Log("Removing weapon from available weapons animations");
+                    availableWeapons.Remove(weapon);
+                    if (availableWeapons.Count < 1)
+                    {
+                        currentWeapon = Weapons.None;
+                    }
+
                 }
-                
             }
         }
+        
     }
 
     private void InitialiseAttackAnims()
@@ -204,46 +213,60 @@ public class Actions : MonoBehaviour, IDamageable
         currentState = newState;
     }
 
-    public void CheckForUseItem(InventoryItem item) //change to "check for item use" and have polymorphism determine what each item does. 
+    public void CheckForUseItem(Component sender, object data) //change to "check for item use" and have polymorphism determine what each item does. 
     {
-
-        //attackInput = false;
-        
-        if (item.item.itemData as WeaponData != null)
+        if (data is object[] dataArray && dataArray.Length > 0)
         {
-            isAttacking = true;
-            WeaponData weaponData = item.item.itemData as WeaponData;
-            Weapons weapon = weaponData.weaponType;
-            switch (weapon)
+            data = dataArray[0];
+        }
+        //attackInput = false;
+        if (data is InventoryItem item)
+        {
+            if (item.item.itemData as WeaponData != null)
             {
-                case Weapons.Bow:
-                    SetAnimationState(Weapons.Bow, "Player_Bow_Attack");
-                    break;
-                case Weapons.Spear:
-                    SetAnimationState(Weapons.Spear, "Player_Spear_Attack1");
-                    break;
-                case Weapons.Sword:
-                    SetAnimationState(Weapons.Sword, "Player_Sword_Attack1");
-                    break;
+                isAttacking = true;
+                WeaponData weaponData = item.item.itemData as WeaponData;
+                Weapons weapon = weaponData.weaponType;
+                switch (weapon)
+                {
+                    case Weapons.Bow:
+                        SetAnimationState(Weapons.Bow, "Player_Bow_Attack");
+                        break;
+                    case Weapons.Spear:
+                        SetAnimationState(Weapons.Spear, "Player_Spear_Attack1");
+                        break;
+                    case Weapons.Sword:
+                        SetAnimationState(Weapons.Sword, "Player_Sword_Attack1");
+                        break;
+                }
             }
         }
+        
 
     }
 
-    public void CheckForSecondaryItemUse(InventoryItem item)
+    public void CheckForSecondaryItemUse(Component sender, object data)
     {
-        if (item.item.itemData as WeaponData != null)
+        if (data is object[] dataArray && dataArray.Length > 0)
         {
-            isAttacking = true;
-            WeaponData weaponData = item.item.itemData as WeaponData;
-            Weapons weapon = weaponData.weaponType;
-            switch (weapon)
+            data = dataArray[0];
+        }
+        if (data is InventoryItem item)
+        {
+            if (item.item.itemData as WeaponData != null)
             {
-                case Weapons.Spear:
-                    SetAnimationState(Weapons.Spear, "Player_Spear_Throw");
-                    break;
+                isAttacking = true;
+                WeaponData weaponData = item.item.itemData as WeaponData;
+                Weapons weapon = weaponData.weaponType;
+                switch (weapon)
+                {
+                    case Weapons.Spear:
+                        SetAnimationState(Weapons.Spear, "Player_Spear_Throw");
+                        break;
+                }
             }
         }
+         
     }
 
     public void EndOfAttackAnim()

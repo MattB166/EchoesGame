@@ -132,6 +132,10 @@ GameObject:
   - component: {fileID: 1069056021855080383}
   - component: {fileID: 3500604823003575909}
   - component: {fileID: 3617416041841136927}
+  - component: {fileID: 8728769512108674545}
+  - component: {fileID: 9011532051258219560}
+  - component: {fileID: 5497611484853813979}
+  - component: {fileID: 3767579487116102766}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -498,8 +502,6 @@ MonoBehaviour:
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
-  onItemPickup: {fileID: 0}
-  onItemUse: {fileID: 0}
   onHealthChange: {fileID: 11400000, guid: b08515e11ef9fe84fbcaab66c6b297a7, type: 2}
 --- !u!95 &945074512683496423
 Animator:
@@ -610,4 +612,120 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   currentItemIndex: 0
+  itemChanged: {fileID: 11400000, guid: 4fc593795353f71408994ba6323f6cc7, type: 2}
+  onItemUsed: {fileID: 11400000, guid: 939695f443281cd41ac157deba12eef9, type: 2}
+  onItemSecondaryUsed: {fileID: 11400000, guid: 8b2d6500afa29ca4e80d6f8a8d4895c4, type: 2}
+  onItemDropped: {fileID: 11400000, guid: a0c3521c0d4fdcc4c8b6abd6ee2105e5, type: 2}
   player: {fileID: 0}
+--- !u!114 &8728769512108674545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4fc593795353f71408994ba6323f6cc7, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104509520533267175}
+        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
+        m_MethodName: ChangeWeaponAnimation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9011532051258219560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 939695f443281cd41ac157deba12eef9, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104509520533267175}
+        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
+        m_MethodName: CheckForUseItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5497611484853813979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8b2d6500afa29ca4e80d6f8a8d4895c4, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104509520533267175}
+        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
+        m_MethodName: CheckForSecondaryItemUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3767579487116102766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a0c3521c0d4fdcc4c8b6abd6ee2105e5, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104509520533267175}
+        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
+        m_MethodName: RemoveWeaponAnim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
