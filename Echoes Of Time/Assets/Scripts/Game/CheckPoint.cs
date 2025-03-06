@@ -8,18 +8,22 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class CheckPoint : MonoBehaviour
 {
-    public static int nextCheckPointID = 0;
+    //public static int nextCheckPointID = 0;
     private Animator anim;
     public bool isActivated = false;
     private bool hasCorrected = false;
     private Collider2D col;
 
     public string levelName;
-    public int checkPointID;
+    [SerializeField] private int persistentCheckPointID;
+    public int checkPointID => persistentCheckPointID;
 
     private void Awake()
     {
-        checkPointID = nextCheckPointID++;
+        if(persistentCheckPointID == 0)
+        {
+            Debug.LogError("Checkpoint ID is not set for checkpoint in level: " + SceneManager.GetActiveScene().name);
+        }
     }
     // Start is called before the first frame update
     void Start()

@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public GameObject player { get; private set; }
     public int currentSaveSlot;
     public Transform playerPos { get { return player.transform; } }
+
+    private bool hasLoaded = false;
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(this);
         }
@@ -27,8 +29,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        SavingSystem.DeleteSaveSlot(currentSaveSlot);
-        //LoadGame(currentSaveSlot);
+        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        if (!hasLoaded)
+        {
+            LoadGame(currentSaveSlot);
+            hasLoaded = true;
+        }
+
 
     }
 
@@ -36,28 +43,28 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         playerPos.position = player.transform.position;
-        
+
     }
 
     private void OnApplicationQuit()
     {
         //get current save slot
         //save the game into current slot. 
-        //SaveGame(currentSaveSlot);
+        SaveGame(currentSaveSlot);
         //Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
     public void LoadGame(int currentSaveSlot)
     {
         //check if the save slot exists
-        if(!SavingSystem.SaveSlotExists(currentSaveSlot))
+        if (!SavingSystem.SaveSlotExists(currentSaveSlot))
         {
             Debug.LogError("Save slot " + currentSaveSlot + " does not exist.");
             player.GetComponent<Actions>().SetCurrentWeapon(Weapons.None);
             return;
         }
         PlayerSaveData playerSaveData = SavingSystem.LoadPlayerData(currentSaveSlot);
-        if(playerSaveData != null )
+        if (playerSaveData != null)
         {
             //load the player data into their classes. 
             Debug.Log("Loaded player data from save slot " + currentSaveSlot);
@@ -65,7 +72,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<Actions>().GetAvailableWeapons().Clear();
             player.GetComponent<Actions>().SetAvailableWeapons(availableWeapons);
 
-            foreach(Projectiles p in playerSaveData.availableProjectiles)
+            foreach (Projectiles p in playerSaveData.availableProjectiles)
             {
                 player.GetComponent<Inventory>().StoreProjectile(p.projectile.projectileData, p.ammoCount);
             }
@@ -86,33 +93,49 @@ public class GameManager : MonoBehaviour
 
         //game data loading. 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
-        if(gameSaveData != null)
+        if (gameSaveData != null)
         {
-            if (gameSaveData.levelName != SceneManager.GetActiveScene().name)
+            if(SceneManager.GetActiveScene().name != gameSaveData.levelName)
             {
-                SceneManager.LoadScene(gameSaveData.levelName);
+                CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                SceneManager.LoadScene(CheckPointSystem.instance.lastActiveLevel);
             }
-            CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
-            CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
-            Movement playerMovement = player.GetComponent<Movement>();
-            GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
-            foreach (GameObject checkpoint in checkpoints)
+            else
             {
-                CheckPoint cp = checkpoint.GetComponent<CheckPoint>();
-                if(gameSaveData.achievedCheckPointIDs.Contains(cp.checkPointID))
-                {
-                    cp.ActivateCheckPointByTimer();
-                }
-                if (gameSaveData.checkPointID == cp.checkPointID)
-                {
-                    cp.DoNotCorrectPosition();
-                    CheckPointSystem.instance.activeCheckPoint = cp;
-                    playerMovement.ResetPlayerPosition();
-                    Debug.Log("Player spawned at checkpoint " + cp.gameObject.transform.position);
-                    break;
-                }
+                OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+            }
+            
+            
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
+        if (gameSaveData == null) return;
+        CheckPointSystem.instance.achievedCheckPointIDs = new HashSet<int>(gameSaveData.achievedCheckPointIDs);
+        Movement playerMovement = player.GetComponent<Movement>();
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        foreach (GameObject checkpoint in checkpoints)
+        {
+            CheckPoint cp = checkpoint.GetComponent<CheckPoint>();
+            if (gameSaveData.achievedCheckPointIDs.Contains(cp.checkPointID))
+            {
+                cp.ActivateCheckPointByTimer();
+            }
+            if (gameSaveData.checkPointID == cp.checkPointID)
+            {
+                cp.DoNotCorrectPosition();
+                CheckPointSystem.instance.activeCheckPoint = cp;
+                playerMovement.ResetPlayerPosition();
+                Debug.Log("Player spawned at checkpoint " + cp.gameObject.transform.position);
+                break;
             }
         }
+
     }
 
 
@@ -126,9 +149,9 @@ public class GameManager : MonoBehaviour
         int currentInventoryItemIndex = player.GetComponent<Inventory>().currentItemIndex;
         //get access to bow item projectiles
         List<Projectiles> projectiles = new List<Projectiles>();
-        foreach(InventoryItem item in items)
+        foreach (InventoryItem item in items)
         {
-            if(item.item is BowItem bow)
+            if (item.item is BowItem bow)
             {
                 foreach (Projectiles p in bow.projectiles)
                 {
@@ -136,12 +159,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon,availableWeapons, items,currentInventoryItemIndex,projectiles,0);
+        PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon, availableWeapons, items, currentInventoryItemIndex, projectiles, 0);
         SavingSystem.SavePlayerData(playerSaveData, currentSaveSlot);
 
         ///game data 
 
-        
+
 
     }
 }
