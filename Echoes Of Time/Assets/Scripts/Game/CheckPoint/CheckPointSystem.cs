@@ -16,6 +16,7 @@ public class CheckPointSystem : MonoBehaviour
     public HashSet<int> achievedCheckPointIDs = new HashSet<int>();
     public CheckPoint activeCheckPoint;
     public string lastActiveLevel;
+    public GameEvent OnNewCheckPoint;
     //member of most recent checkpoint
 
     private void Awake()
@@ -55,7 +56,7 @@ public class CheckPointSystem : MonoBehaviour
         lastActiveLevel = checkpoint.levelName;
 
         //save data after checkpoint is set.
-
+        OnNewCheckPoint.Announce(this,checkpoint);
         SavingSystem.SaveGameData(new GameSaveData(lastActiveLevel, new List<int>(achievedCheckPointIDs), activeCheckPoint.checkPointID, activeCheckPoint.gameObject.transform.position),GameManager.instance.currentSaveSlot);
     }
 }

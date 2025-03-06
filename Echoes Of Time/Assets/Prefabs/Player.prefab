@@ -459,6 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {x: 0, y: 0}
+  spawnPos: {x: 0, y: 0}
   walkSpeed: 5.03
   sprintSpeed: 0
   dashSpeed: 10
@@ -497,6 +498,9 @@ MonoBehaviour:
   currentWeapon: 0
   currentState: 0
   isAttacking: 0
+  onItemPickup: {fileID: 0}
+  onItemUse: {fileID: 0}
+  onHealthChange: {fileID: 11400000, guid: b08515e11ef9fe84fbcaab66c6b297a7, type: 2}
 --- !u!95 &945074512683496423
 Animator:
   serializedVersion: 7
@@ -605,4 +609,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  currentItemIndex: 0
   player: {fileID: 0}

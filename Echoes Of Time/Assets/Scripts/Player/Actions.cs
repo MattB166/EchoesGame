@@ -70,6 +70,10 @@ public class Actions : MonoBehaviour, IDamageable
     private MeleeWeaponItem closeRangeItem; 
     public delegate void AttackAnimFinished(Weapons weapon);
     public AttackAnimFinished attackAnimFinishedCallback;
+    [Header("Events")]
+    public GameEvent onItemPickup;
+    public GameEvent onItemUse;
+    public GameEvent onHealthChange;
 
 
     // Start is called before the first frame update
@@ -346,6 +350,7 @@ public class Actions : MonoBehaviour, IDamageable
         if (canTakeDamage)
         {
             HitPoints -= amount;
+            onHealthChange.Announce(this,HitPoints);
             if (HitPoints <= 0)
             {
                 //death logic 
