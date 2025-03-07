@@ -10,8 +10,7 @@ public abstract class BaseObjective : MonoBehaviour
 {
     public ObjectiveData objectiveData;
     public bool isCompleted { get; protected set; } = false;
-
-    public GameEvent OnObjectiveComplete;
+    public float currentProgress; //percentage of completion
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +19,17 @@ public abstract class BaseObjective : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    protected virtual void Update()
     {
-        if (!isCompleted && CheckObjectiveCompletion())
+        if(!isCompleted && CheckObjectiveCompletion())
         {
             CompleteObjective();
         }
+    }
+
+    public virtual void Activate()
+    {
+        
     }
 
     protected void CompleteObjective()
@@ -33,8 +37,10 @@ public abstract class BaseObjective : MonoBehaviour
         if (!isCompleted)
         {
             isCompleted = true;
-            OnObjectiveComplete.Announce(this,objectiveData);
-
+            
+            ObjectiveManager.instance.CompleteObjective(this);
+            gameObject.SetActive(false);
+            Debug.Log("Objective Complete: " + objectiveData.objectiveName);
         }
     }
 
