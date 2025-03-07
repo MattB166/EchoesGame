@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1954976184008659172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2623182974657706774}
+  - component: {fileID: 8764414886453420871}
+  m_Layer: 0
+  m_Name: ObjectiveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2623182974657706774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954976184008659172}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.185812, y: 5.305811, z: -0.68493193}
+  m_LocalScale: {x: 1.4285713, y: 1.4285713, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 728127838265540331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8764414886453420871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954976184008659172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf1c598e91800a43adbfa6955b5ef07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainObjective: {fileID: 0}
+  sideObjectivePool:
+  - {fileID: 0}
+  activeSideObjectives: []
+  completedObjectives: []
+  completedSideObjectives: []
+  maxSideObjectives: 3
+  OnMainObjectiveUpdated: {fileID: 11400000, guid: 3cb5fa048b40e4f439d88006616ac983, type: 2}
+  OnMainObjectiveComplete: {fileID: 11400000, guid: 83eb4d628674feb4585bbda74423bbc3, type: 2}
+  OnSideObjectiveUpdated: {fileID: 11400000, guid: 8d2f3d5aeb6d817409bf41033640d609, type: 2}
+  OnSideObjectiveComplete: {fileID: 11400000, guid: 9b4f6d9bde95a64478da14bf3bcee63d, type: 2}
 --- !u!1 &2354046891148666225
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +213,7 @@ Transform:
   m_Children:
   - {fileID: 5632370904493138496}
   - {fileID: 7945597397697328256}
+  - {fileID: 2623182974657706774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &722848941483598485
@@ -468,7 +524,7 @@ MonoBehaviour:
   sprintSpeed: 0
   dashSpeed: 10
   dashDuration: 0.5
-  dashCooldown: 0.13
+  dashCooldown: 0.45
   jumpForce: 13.66
   doubleJumpForce: 12.54
   fallMultiplier: 2

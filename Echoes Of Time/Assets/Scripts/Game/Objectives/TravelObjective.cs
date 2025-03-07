@@ -54,7 +54,8 @@ public class TravelObjective : BaseObjective
         if (distanceToTarget <= completionRadius)
         {
             currentProgress = 1;
-            Debug.Log("Travel Objective Complete");
+            gameObject.transform.SetParent(null);
+            Destroy(targetTransform.gameObject);
             return true;
         }
         return false;

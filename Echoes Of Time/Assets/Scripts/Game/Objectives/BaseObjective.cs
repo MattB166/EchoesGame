@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Base Objective class for all objectives in the game
 /// </summary>
+[System.Serializable]
 public abstract class BaseObjective : MonoBehaviour
 {
     public ObjectiveData objectiveData;

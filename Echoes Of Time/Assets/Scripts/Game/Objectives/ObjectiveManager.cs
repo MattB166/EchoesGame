@@ -7,7 +7,7 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager instance { get; private set; }
 
     public BaseObjective mainObjective;
-    public List<BaseObjective> sideObjectivePool = new List<BaseObjective>();
+    public List<GameObject> sideObjectivePool = new List<GameObject>(); //so it doesnt have to be in the scene
     public List<BaseObjective> activeSideObjectives = new List<BaseObjective>();
     public List<BaseObjective> completedObjectives = new List<BaseObjective>();
     public List<BaseObjective> completedSideObjectives = new List<BaseObjective>();
@@ -49,9 +49,13 @@ public class ObjectiveManager : MonoBehaviour
 
     public void SetMainObjective(BaseObjective objective)
     {
-        mainObjective = objective;
-        OnMainObjectiveUpdated.Announce(this, mainObjective);
-        objective.Activate();
+        if (!completedObjectives.Contains(objective) && objective != mainObjective)
+        {
+            mainObjective = objective;
+            OnMainObjectiveUpdated.Announce(this, mainObjective);
+            objective.Activate();
+        }
+       
     }
 
     public void CompleteObjective(BaseObjective objective)
@@ -72,6 +76,7 @@ public class ObjectiveManager : MonoBehaviour
             OnSideObjectiveComplete.Announce(this, objective);
         }
 
+        ////SAVE OBJECTIVE TO GAME DATA HERE THEN DELETE THE OBJECT TO PREVENT IT HANGING AROUND IN SCENE. 
 
     }
 
@@ -111,12 +116,13 @@ public class ObjectiveManager : MonoBehaviour
 
         for (int i = 0; i < Random.Range(1, maxSideObjectives); i++)
         {
-            BaseObjective objective = sideObjectivePool[Random.Range(0, sideObjectivePool.Count)];
-            if (!activeSideObjectives.Contains(objective))
+            GameObject objective = sideObjectivePool[Random.Range(0, sideObjectivePool.Count)];
+            BaseObjective objectiveComponent = objective.GetComponent<BaseObjective>();
+            if (!activeSideObjectives.Contains(objectiveComponent))
             {
-                activeSideObjectives.Add(objective);
+                activeSideObjectives.Add(objectiveComponent);
                 OnSideObjectiveUpdated.Announce(this, objective);
-                objective.Activate();
+                objectiveComponent.Activate();
             }
         }
     }
