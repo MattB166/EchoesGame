@@ -102,7 +102,8 @@ public class CameraMovement : MonoBehaviour
         temporaryDifferentTarget.Announce(this, delayForTargetReset);
         Debug.Log(sender.gameObject.transform.position);
         targetChanged = true;
-        targetVector3 = sender.gameObject.transform.position + playerOffset;
+        Vector3 newOffset = new Vector3(0,0, playerOffset.z);
+        targetVector3 = sender.gameObject.transform.position + newOffset;
 
         StartCoroutine(ResetTarget(delayForTargetReset));
     }
