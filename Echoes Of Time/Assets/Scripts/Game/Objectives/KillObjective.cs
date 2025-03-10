@@ -11,7 +11,7 @@ public class KillObjective : BaseObjective
     public override void Activate()
     {
         base.Activate();
-        Debug.Log("Kill Objective Activated");
+        //Debug.Log("Kill Objective Activated");
     }
     // Start is called before the first frame update
     void Start()

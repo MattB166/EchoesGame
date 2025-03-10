@@ -9022,6 +9022,7 @@ GameObject:
   - component: {fileID: 878531003}
   - component: {fileID: 878531005}
   - component: {fileID: 878531004}
+  - component: {fileID: 878531006}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9161,12 +9162,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDelay: 2.5
+  delayForTargetReset: 4
+  directionFacingOffset: 2.5
   playerOffset: {x: 0, y: 1, z: -1}
   LevelBounds:
     minX: -100
     maxX: 100
     maxY: 30
     minY: -5
+  temporaryDifferentTarget: {fileID: 11400000, guid: b85df59177e7ba64380b4a10879a32db, type: 2}
+  playerTargetAgain: {fileID: 11400000, guid: e339eabc5a83d0245b4f90be3eb04648, type: 2}
 --- !u!114 &878531001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9287,6 +9292,34 @@ MonoBehaviour:
       - m_Target: {fileID: 878531000}
         m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
         m_MethodName: LedgeOffset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &878531006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878530995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 55388319d77fcd74aa69971a047f689d, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 878531000}
+        m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+        m_MethodName: InvertFacingOffset
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

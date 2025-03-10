@@ -22,7 +22,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(persistentCheckPointID == 0)
         {
-            Debug.LogError("Checkpoint ID is not set for checkpoint in level: " + SceneManager.GetActiveScene().name);
+            //Debug.LogError("Checkpoint ID is not set for checkpoint in level: " + SceneManager.GetActiveScene().name);
         }
     }
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class CheckPoint : MonoBehaviour
         // }
         //Debug.Log("Checkpoint ID: " + checkPointID);
         levelName = SceneManager.GetActiveScene().name;
-        Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been created. ");
+        //Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been created. ");
     }
 
     // Update is called once per frame

@@ -46,6 +46,7 @@ public class Movement : MonoBehaviour,IDistortable
 {
     [HideInInspector] public Vector2 input;
     public Vector2 spawnPos;
+    public GameEvent OnPlayerDirectionFacing;
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
@@ -176,8 +177,14 @@ public class Movement : MonoBehaviour,IDistortable
     private Vector2 Move()
     {
         Vector2 movement;
+        float oldDirection = direction;
         direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
-        if(input.x == 0 && isDashing)
+        if (oldDirection != direction)
+        {
+            OnPlayerDirectionFacing.Announce(this, direction); 
+            //Debug.Log("Direction change event sent");
+        }
+        if (input.x == 0 && isDashing)
         {
             
             float newSpeed = dashSpeed;
@@ -388,7 +395,7 @@ public class Movement : MonoBehaviour,IDistortable
             if (isOnLedge && !ledgeEventSent)
             {
                 //pump one event to camera to move to ledge position.
-                Debug.Log("Ledge event sent");
+                //Debug.Log("Ledge event sent");
                 OnPlayerLedging.Announce(this, null);
                 ledgeEventSent = true;
                 endOfLedgeEventSent = false;
@@ -397,7 +404,7 @@ public class Movement : MonoBehaviour,IDistortable
             {
                 //reset ledge event sent and ask for normal camera follow.
                 OnEndOfLedging.Announce(this, null);
-                Debug.Log("End of ledge event sent");
+                //Debug.Log("End of ledge event sent");
                 ledgeEventSent = false;
                 endOfLedgeEventSent = true;
             }
@@ -615,5 +622,24 @@ public class Movement : MonoBehaviour,IDistortable
 
 
     }
+
+    public void TemporarilyDisableMovement(Component sender, object data)
+    {
+        if(data is object[] dataArray && dataArray.Length > 0)
+        {
+            data = dataArray[0];
+        }
+        float duration = (float)data;
+        StartCoroutine(DisableMovement(duration));
+
+    }
+
+    private IEnumerator DisableMovement(float duration)
+    {
+        customTimeScale = 0;
+        yield return new WaitForSeconds(duration);
+        customTimeScale = 1;
+    }
+
 
 }
