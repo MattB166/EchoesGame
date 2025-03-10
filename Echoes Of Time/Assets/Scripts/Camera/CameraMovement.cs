@@ -21,6 +21,7 @@ public class CameraMovement : MonoBehaviour
     public float moveDelay;
     private Vector3 targetVector3;
     public Vector3 playerOffset;
+    private Vector3 initialOffset;
     private bool canMoveX;
     private bool canMoveY;
     private Vector2 camBounds;
@@ -33,6 +34,7 @@ public class CameraMovement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         targetVector3 = player.position + playerOffset;
+        initialOffset = playerOffset;
         transform.position = targetVector3;
         CalculateCameraLevelBounds();
         //InitialiseCameraBackGround();
@@ -98,6 +100,16 @@ public class CameraMovement : MonoBehaviour
         StartCoroutine(ResetTarget(3));
     }
 
+
+    public void LedgeOffset(Component sender, object data)
+    {
+        playerOffset = new Vector3(playerOffset.x, playerOffset.y - 3, playerOffset.z);
+    }
+
+    public void ResetOffset(Component sender, object data)
+    {
+        playerOffset = initialOffset;
+    }
 
     private IEnumerator ResetTarget(float duration)
     {

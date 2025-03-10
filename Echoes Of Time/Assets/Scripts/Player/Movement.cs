@@ -90,16 +90,23 @@ public class Movement : MonoBehaviour,IDistortable
     private bool onClimbable;
 
     [HideInInspector] public bool isGrounded;
+    public bool isOnLedge;
     [Space(10)]
     [Header("Jump Settings")]
     [Range(-20f, -0.05f)] public float gravity;
     private float internalGravity;
     [Range(0.01f, 0.5f)] public float groundcheckDistance;
+    [Range(0.01f, 1.5f)] public float ledgeCheckDistance;
+    public GameEvent OnPlayerLedging;
+    public GameEvent OnEndOfLedging;
+    private bool ledgeEventSent = false;
     public float coyoteTime;
     private float coyoteCounter;
     //add jump buffer next 
     public LayerMask groundLayer;
     private Transform groundCheck;
+    private Transform LeftLedgeCheck;
+    private Transform RightLedgeCheck;
 
     [SerializeField]
     private float customTimeScale;
@@ -116,6 +123,8 @@ public class Movement : MonoBehaviour,IDistortable
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         groundCheck = transform.Find("groundcheck");
+        LeftLedgeCheck = transform.Find("leftledgecheck");
+        RightLedgeCheck = transform.Find("rightledgecheck");
         animator = GetComponent<Animator>();
         currentWeapon = GetComponent<Actions>().currentWeapon;
         InitialiseWeaponAnims();
@@ -139,7 +148,7 @@ public class Movement : MonoBehaviour,IDistortable
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundcheckDistance, groundLayer);
         currentWeapon = GetComponent<Actions>().currentWeapon;
-        
+
         CalculateGroundChecks();
         CalculateMovementAnimationChecks();
         PerformDoubleJump();
@@ -372,7 +381,22 @@ public class Movement : MonoBehaviour,IDistortable
             airTime = 0.0f;
             isJumping = false;
             gravity = internalGravity; 
-
+            bool leftLedgeCheck = Physics2D.Raycast(LeftLedgeCheck.position, Vector2.down, ledgeCheckDistance, groundLayer);
+            bool rightLedgeCheck = Physics2D.Raycast(RightLedgeCheck.position, Vector2.down, ledgeCheckDistance, groundLayer);
+            isOnLedge = !leftLedgeCheck || !rightLedgeCheck;
+            if (isOnLedge && !ledgeEventSent)
+            {
+                //pump one event to camera to move to ledge position.
+                Debug.Log("Ledge event sent");
+                OnPlayerLedging.Announce(this, null);
+                ledgeEventSent = true;
+            }
+            else if (!isOnLedge)
+            {
+                //reset ledge event sent and ask for normal camera follow.
+                OnEndOfLedging.Announce(this, null);
+                ledgeEventSent = false;
+            }
 
         }
         else if (!isGrounded)
