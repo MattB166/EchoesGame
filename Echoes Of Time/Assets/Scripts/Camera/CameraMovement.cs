@@ -19,20 +19,21 @@ public class CameraMovement : MonoBehaviour
 {
     private Transform player;
     public float moveDelay;
-    private Vector3 targetTransform;
+    private Vector3 targetVector3;
     public Vector3 playerOffset;
     private bool canMoveX;
     private bool canMoveY;
     private Vector2 camBounds;
     public LevelBounds LevelBounds;
-    
+    private bool targetChanged = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        targetTransform = player.position + playerOffset;
-        transform.position = targetTransform;
+        targetVector3 = player.position + playerOffset;
+        transform.position = targetVector3;
         CalculateCameraLevelBounds();
         //InitialiseCameraBackGround();
     }
@@ -59,9 +60,10 @@ public class CameraMovement : MonoBehaviour
     void CamFollow()
     {
 
-        targetTransform = player.position + playerOffset;
+        //targetVector3 = player.position + playerOffset;
+        targetVector3 = GetTarget();
 
-        Vector3 newPos = Vector3.Slerp(transform.position, targetTransform, moveDelay * Time.deltaTime);
+        Vector3 newPos = Vector3.Slerp(transform.position, targetVector3, moveDelay * Time.deltaTime);
         transform.position = ClampPositionIntoLevel(newPos);
 
     }
@@ -88,5 +90,27 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(clampedX, clampedY, position.z);
     }
 
-    
+    public void ChangeTarget(Component sender, object data)
+    {
+        Debug.Log(sender.gameObject.transform.position);
+        targetChanged = true;
+        targetVector3 = sender.gameObject.transform.position + playerOffset;
+        StartCoroutine(ResetTarget(3));
+    }
+
+
+    private IEnumerator ResetTarget(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        targetChanged = false;
+    }
+
+    public Vector3 GetTarget()
+    {
+        if(targetChanged)
+        {
+            return targetVector3;
+        }
+        else return player.position + playerOffset; 
+    }
 }
