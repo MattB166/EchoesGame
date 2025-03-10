@@ -630,7 +630,7 @@ public class Movement : MonoBehaviour,IDistortable
             data = dataArray[0];
         }
         float duration = (float)data;
-        StartCoroutine(DisableMovement(duration));
+        StartCoroutine(DisableMovement(duration + 1));
 
     }
 
