@@ -100,6 +100,7 @@ public class Movement : MonoBehaviour,IDistortable
     public GameEvent OnPlayerLedging;
     public GameEvent OnEndOfLedging;
     private bool ledgeEventSent = false;
+    private bool endOfLedgeEventSent = false;
     public float coyoteTime;
     private float coyoteCounter;
     //add jump buffer next 
@@ -390,12 +391,15 @@ public class Movement : MonoBehaviour,IDistortable
                 Debug.Log("Ledge event sent");
                 OnPlayerLedging.Announce(this, null);
                 ledgeEventSent = true;
+                endOfLedgeEventSent = false;
             }
-            else if (!isOnLedge)
+            else if (!isOnLedge && !endOfLedgeEventSent)
             {
                 //reset ledge event sent and ask for normal camera follow.
                 OnEndOfLedging.Announce(this, null);
+                Debug.Log("End of ledge event sent");
                 ledgeEventSent = false;
+                endOfLedgeEventSent = true;
             }
 
         }
