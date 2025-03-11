@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
     private Vector3 endPosition;
     private Vector3 targetPosition;
     public GameEvent doorMoving; 
+    private Collider2D Collider2D;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,8 @@ public class Door : MonoBehaviour
         else
             endPosition = new Vector3(transform.position.x + moveDistance, transform.position.y, transform.position.z);
         targetPosition = endPosition;
+        Collider2D = GetComponent<Collider2D>();
+
     }
 
     // Update is called once per frame
@@ -50,7 +53,8 @@ public class Door : MonoBehaviour
        if(transform.position == targetPosition)
         {
             shouldMove = false;
-            if(targetPosition == endPosition)
+            
+            if (targetPosition == endPosition)
             {
                 targetPosition = startPosition;
             }
@@ -68,5 +72,6 @@ public class Door : MonoBehaviour
         doorMoving.Announce(this, null);
         locked = false;
         shouldMove = true;
+        Collider2D.isTrigger = !Collider2D.isTrigger;
     }
 }

@@ -38,6 +38,7 @@ public class FourDirectionalMovingPlatform : BasePlatform
     {
         base.Update();
         Move();
+        Debug.Log("Custom time scale : " + customTimeScale);
     }
 
     private void Move()
@@ -57,7 +58,7 @@ public class FourDirectionalMovingPlatform : BasePlatform
             //    }
 
             //}
-            transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime * customTimeScale);
             if (Vector2.Distance(transform.position, targetPositions[currentTargetIndex]) < 0.1f)
             {
                 canMove = false;
