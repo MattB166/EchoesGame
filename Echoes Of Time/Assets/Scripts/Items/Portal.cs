@@ -32,6 +32,8 @@ public class Portal : MonoBehaviour
     public bool portalBeingPlaced;
     private float portalPlacementTimer;
     private SpriteRenderer spriteRenderer;
+    public float proximityRadius;
+    public Collider2D triggerCol;
 
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
@@ -39,8 +41,10 @@ public class Portal : MonoBehaviour
     {
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        triggerCol = GetComponent<Collider2D>();
     }
 
+   
     public void InitialisePortal(PortalData data, PortalNode node)
     {
         portalData = data;
@@ -115,6 +119,8 @@ public class Portal : MonoBehaviour
         }
 
 
+        PerformEffects();
+
     }
 
 
@@ -166,30 +172,72 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !portalBeingPlaced) //or any item that can be teleported.
         {
             //perform checks for one way / two way portals.
+            CalculateTeleportType(collision);
+
         }
     }
 
-    private void CalculateTeleportType()
+    private void CalculateTeleportType(Collider2D col)
     {
         if (portalNode == PortalNode.Start)
         {
             //check if the linked portal is a one way portal, if so, close both portals and destroy
             //if not, teleport the player to the linked portal, both portals remain open, but stop the player from zapping back and forth immediately.
+            if(portalData.oneWay)
+            {
+                //teleport the player to the linked portal, close both portals and destroy.
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                linkedPortalScript.closePortal = true;
+                closePortal = true;
+            }
+            else
+            {
+                //leave both portals open, teleport the player to the linked portal
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                StartCoroutine(linkedPortalScript.ReEnableTrigger(2.0f));
+            }
+
         }
         else if (portalNode == PortalNode.End)
         {
-            //check if the portal closes after two way teleportation, if so, close both portals and destroy.
-            //else check if closes after certain amount of time, if so, close both portals and destroy.
+            if(portalData.closesAfterTwoWay)
+            {
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                linkedPortalScript.closePortal = true;
+                closePortal = true;
+            }
+            else
+            {
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                StartCoroutine(linkedPortalScript.ReEnableTrigger(2.0f));
+            }
+
         }
+       
+        
+
+
+    }
+
+    public IEnumerator ReEnableTrigger(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        triggerCol.enabled = true;
     }
 
 
 
     public void PerformEffects()
     {
-        //cam shake and sound effects when nearby to the portal. 
+       
     }
+
+    
 }

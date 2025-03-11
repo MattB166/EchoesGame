@@ -105,6 +105,10 @@ MonoBehaviour:
   closePortal: 0
   portalNode: 0
   portalBeingPlaced: 0
+  proximityRadius: 2
+  triggerCol: {fileID: 0}
+  playerInRange: {fileID: 11400000, guid: 112b5a244d26aea4c9b459e01bc1418f, type: 2}
+  leftRange: {fileID: 11400000, guid: 935b6d8fcc2c3fd43894a5762c3d3467, type: 2}
 --- !u!61 &311156462294341023
 BoxCollider2D:
   m_ObjectHideFlags: 0

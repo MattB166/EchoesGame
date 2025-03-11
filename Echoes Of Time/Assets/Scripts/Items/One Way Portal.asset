@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7972fd43de5bdc14db6702e7e8edcb1e, type: 3}
-  m_Name: Portal Data
+  m_Name: One Way Portal
   m_EditorClassIdentifier: 
   timeToReachFullSize: 0
   portalPlacementTimer: 2
   portalPlacementDistance: 10
-  oneWay: 0
+  oneWay: 1
   closesAfterTwoWay: 0
   timeOpen: 0
   teleportationDelay: 0
