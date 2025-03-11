@@ -13,6 +13,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     protected Vector2 currentVel;
     public event Action<BasePlatform, float, float> OnDistort;
     public LayerMask parentable;
+    public bool playerOnPlatform;
 
     public float CustomTimeScale
     {
@@ -43,10 +44,11 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
        if(collision.gameObject.CompareTag("Player"))
         {
+            playerOnPlatform = true;
             collision.gameObject.transform.SetParent(transform, true);
             if (collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
             {
@@ -64,7 +66,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     }
 
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

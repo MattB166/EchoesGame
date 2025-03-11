@@ -57,6 +57,7 @@ public class Movement : MonoBehaviour,IDistortable
     [Range(1, 15)] public float jumpForce;
     [Range(1, 15)] public float doubleJumpForce;
     [Range(1, 2)] public float fallMultiplier;
+    private Vector2 initialPos;
 
     public float direction;
     private Animator animator;
@@ -135,6 +136,7 @@ public class Movement : MonoBehaviour,IDistortable
         internalGravity = gravity;
         GetComponent<Actions>().attackAnimFinishedCallback += ResetAnimations;
         //startPos = CheckPointSystem.instance.activeCheckPoint.transform.position;
+        initialPos = transform.position;
         ResetPlayerPosition();
 
         //start pos needs to be latest checkpoint of latest level. 
@@ -617,7 +619,7 @@ public class Movement : MonoBehaviour,IDistortable
         }
         else
         {
-            gameObject.transform.position = new Vector2(0, 0);
+            gameObject.transform.position = initialPos;
         }
 
 

@@ -114,7 +114,7 @@ public class Actions : MonoBehaviour, IDamageable
                 {
 
                     AddWeapon(weapon);
-                    Debug.Log("Adding weapon to available weapons animations");
+                    //Debug.Log("Adding weapon to available weapons animations");
                 }
 
                 currentWeapon = weapon;
@@ -376,7 +376,8 @@ public class Actions : MonoBehaviour, IDamageable
             onHealthChange.Announce(this,HitPoints);
             if (HitPoints <= 0)
             {
-                //death logic 
+                //death logic and event. 
+                
             }
         }
 

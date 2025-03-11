@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 82969620481197934}
   - component: {fileID: 1710401450337809817}
   - component: {fileID: 2377925434345320684}
+  - component: {fileID: 7695291771924335923}
   m_Layer: 7
   m_Name: One Way Platform
   m_TagString: Platform
@@ -347,6 +348,7 @@ MonoBehaviour:
   parentable:
     serializedVersion: 2
     m_Bits: 0
+  playerOnPlatform: 0
   data: {fileID: 11400000, guid: 064b54c3a675e5845b694500758fc84a, type: 2}
   startDirection: 0
   isMoving: 0
@@ -469,3 +471,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.5704103, y: 0.6020225}
   m_EdgeRadius: 0
+--- !u!114 &7695291771924335923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8182975563747824093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls: []

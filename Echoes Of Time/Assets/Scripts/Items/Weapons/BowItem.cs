@@ -67,7 +67,7 @@ public class BowItem : WeaponItem
             int amount = p.Value;
             BaseProjectile projectile = projectileData.projectilePrefab.GetComponent<BaseProjectile>();
             AddProjectile(projectile, amount);
-            Debug.Log("Projectile added from inventory: " + projectileData.name + " with amount: " + amount);
+            //Debug.Log("Projectile added from inventory: " + projectileData.name + " with amount: " + amount);
         }
 
         inv.storedProjectiles.Clear();
@@ -81,7 +81,7 @@ public class BowItem : WeaponItem
 
             if (currentProjectile == null || currentProjectile.ammoCount <= 0)
             {
-                Debug.Log("No projectiles left to fire.");
+                //Debug.Log("No projectiles left to fire.");
                 return;
             }
 
@@ -103,7 +103,7 @@ public class BowItem : WeaponItem
 
             bp.Fire(pos);
             currentProjectile.ammoCount--;
-            Debug.Log("Fired projectile: " + currentProjectile.projectile.projectileData.name + " Projectile now has: " + currentProjectile.ammoCount + " ammo.");
+            //Debug.Log("Fired projectile: " + currentProjectile.projectile.projectileData.name + " Projectile now has: " + currentProjectile.ammoCount + " ammo.");
             //Debug.Log(projectiles.Count + " projectiles left.");
             if (currentProjectile.ammoCount <= 0)
             {
@@ -157,14 +157,14 @@ public class BowItem : WeaponItem
             {
                 projectiles[i].ammoCount += ammoCount;
                 int newCount = projectiles[i].ammoCount;
-                Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name + " now has: " + newCount + " ammo.");
+                //Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name + " now has: " + newCount + " ammo.");
                 return;
             }
         }
         BaseProjectile bp = projectile;
         int count = ammoCount;
         Projectiles p = new Projectiles(bp, count);
-        Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
+        //Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
         projectiles.Add(p);
         currentProjectile = p;
     }

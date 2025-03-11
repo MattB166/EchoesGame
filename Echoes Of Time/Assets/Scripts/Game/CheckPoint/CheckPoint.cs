@@ -69,7 +69,7 @@ public class CheckPoint : MonoBehaviour
         //small delay before it runs any further. 1 for effect, 2 for enough time for game manager to save data.
         isActivated = true;
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.49f, transform.position.z);
-        Debug.Log("Moved checkpoint up a little");
+        //Debug.Log("Moved checkpoint up a little");
         hasCorrected = true;
         col.enabled = false;
        

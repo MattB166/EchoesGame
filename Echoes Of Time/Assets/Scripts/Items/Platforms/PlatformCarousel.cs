@@ -39,25 +39,23 @@ public class PlatformCarousel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void FixedUpdate()
-    {
         RotateCarousel();
-
     }
-
     public void RotateCarousel()
     {
-        foreach (Transform t in platformTransforms)
+        for(int i = 0; i < platformCount; i++)
         {
+            Transform t = platformTransforms[i];
             BasePlatform basePlatform = t.TryGetComponent(out BasePlatform baseP) ? baseP : null;
             float timeScale = basePlatform.CustomTimeScale;
-            t.RotateAround(transform.position, Vector3.forward, speed * timeScale * Time.deltaTime);
 
-            t.localRotation = Quaternion.identity;
+            float angle = (i * (360f / platformCount)) + (Time.time * speed * timeScale);
+            Vector2 position = CalculatePosition(angle);
+            t.position = (Vector2)transform.position + position;
+            t.rotation = Quaternion.identity;
         }
+            
+        
     }
 
     private Vector2 CalculatePosition(float angle)

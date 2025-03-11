@@ -19,7 +19,8 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
     private Vector2 currentTargetPos;
     public StartDirection startDirection;
     private float dir;
-    public bool isMoving; 
+    public bool isMoving;
+    public bool needsSwitchingOn;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,27 +48,59 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
             dir = -1;
         }
         currentTargetPos = maxPoint;
-        canMove = true;
+        canMove = false;
+        needsSwitchingOn = true;
+        Debug.Log("can move : " + canMove + "Needs switching on : " + needsSwitchingOn);
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+
     }
 
-   
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+       
+    }
+
+    public override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            //player assumed to have fallen off halfway
+            //if(data.alwaysMoving)
+            //{
+            //    InvertTarget();
+            //    canMove = true;
+            //}
+            
+        }    
+       
+    }
+
+    private IEnumerator ResetPlatform(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        transform.position = MovementStartPoint;
+        currentTargetPos = maxPoint;
+        canMove = false;
+
+    }
 
     public void Move()
     {
-        if(canMove)
+        if(canMove && !needsSwitchingOn)
         {
             Vector2 dir = (currentTargetPos - (Vector2)transform.position).normalized;
             transform.position = Vector2.MoveTowards(transform.position, currentTargetPos, data.speed * Time.deltaTime * customTimeScale);
             //isMoving = true;
             if (Vector2.Distance(transform.position, currentTargetPos) < 0.1f)
             {
-                //isMoving = false;
+                needsSwitchingOn = true;
                 canMove = false;
                 InvertTarget();
 
@@ -94,8 +127,17 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
        
     }
 
-    public void EnableMovement()
+    private void ToggleMovement(Component sender, object data)
     {
-        canMove = true;
+        canMove = !canMove;
+        Debug.Log(canMove);
+    }
+
+    public void SwitchPlatform(Component sender, object data)
+    {
+        needsSwitchingOn = !needsSwitchingOn;
+        ToggleMovement(sender, data);
+        Debug.Log(needsSwitchingOn);
+
     }
 }

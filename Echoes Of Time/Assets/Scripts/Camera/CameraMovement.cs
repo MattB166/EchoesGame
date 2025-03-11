@@ -100,7 +100,7 @@ public class CameraMovement : MonoBehaviour
     public void ChangeTarget(Component sender, object data)
     {
         temporaryDifferentTarget.Announce(this, delayForTargetReset);
-        Debug.Log(sender.gameObject.transform.position);
+        //Debug.Log(sender.gameObject.transform.position);
         targetChanged = true;
         Vector3 newOffset = new Vector3(0,0, playerOffset.z);
         targetVector3 = sender.gameObject.transform.position + newOffset;
@@ -118,7 +118,7 @@ public class CameraMovement : MonoBehaviour
     {
         //reset the offset to how it was before but taking direction facing into account
         playerOffset = new Vector3(initialOffset.x + (currentDirection * directionFacingOffset), initialOffset.y, initialOffset.z);
-        Debug.Log("Resetted player offset: " + playerOffset);
+        //Debug.Log("Resetted player offset: " + playerOffset);
     }
 
     public void InvertFacingOffset(Component sender, object data)

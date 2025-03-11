@@ -187,7 +187,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         {
             storedProjectiles.Add(projectileData, amount);
         }
-        Debug.Log("Stored " + amount + " " + projectileData.name + " in inventory");
+        //Debug.Log("Stored " + amount + " " + projectileData.name + " in inventory");
     }
 
     public int GetStoredProjectileAmount(ProjectileData projectileData)
@@ -195,7 +195,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         if(storedProjectiles.TryGetValue(projectileData, out int amount))
         {
             storedProjectiles.Remove(projectileData);
-            Debug.Log("Retrieved " + amount + " " + projectileData.name + " from inventory");
+            //Debug.Log("Retrieved " + amount + " " + projectileData.name + " from inventory");
             return amount; 
         }
         return 0;
