@@ -55,7 +55,7 @@ public class CheckPointSystem : MonoBehaviour
         lastActiveLevel = checkpoint.levelName;
 
         //save data after checkpoint is set.
-        OnNewCheckPoint.Announce(this,checkpoint);
+        //OnNewCheckPoint.Announce(this,checkpoint);  ///ADD AN EVENT OR THE SYSTEM DOESNT SAVE IT. 
         SavingSystem.SaveGameData(new GameSaveData(lastActiveLevel, new List<int>(achievedCheckPointIDs), activeCheckPoint.checkPointID, activeCheckPoint.gameObject.transform.position),GameManager.instance.currentSaveSlot);
     }
 }
