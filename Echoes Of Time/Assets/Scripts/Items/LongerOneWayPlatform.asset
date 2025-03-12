@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b848f9ab588e534f8288a68a730c091, type: 3}
-  m_Name: Travel Objective
+  m_Script: {fileID: 11500000, guid: 3165795d61594ae45916a9e986ac9563, type: 3}
+  m_Name: LongerOneWayPlatform
   m_EditorClassIdentifier: 
-  objectiveName: 'Learn The Basics! '
-  objectiveDescription: Jump across the platforms
+  speed: 4
+  maxDistance: 10
+  waitTime: 0
+  alwaysMoving: 0

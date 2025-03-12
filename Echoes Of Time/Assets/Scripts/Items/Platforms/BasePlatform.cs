@@ -14,6 +14,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     public event Action<BasePlatform, float, float> OnDistort;
     public LayerMask parentable;
     public bool playerOnPlatform;
+    private bool isDistorted = false;
 
     public float CustomTimeScale
     {
@@ -24,6 +25,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
     public void Distort(float timeScale)
     {
         customTimeScale = timeScale;
+        isDistorted = true;
         OnDistort?.Invoke(this, timeScale, 0);
     }
 
@@ -73,6 +75,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
             collision.gameObject.transform.SetParent(null);
             carriedBodies.Remove(collision.gameObject.GetComponent<Rigidbody2D>());
+            playerOnPlatform = false;
 
         }
     }
@@ -103,5 +106,18 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
 
 
 
+    }
+
+    public void ToggleDistortion(float value)
+    {
+        if(isDistorted)
+        {
+            customTimeScale = 1;
+            isDistorted = false;
+        }
+        else
+        {
+            Distort(value);
+        }
     }
 }

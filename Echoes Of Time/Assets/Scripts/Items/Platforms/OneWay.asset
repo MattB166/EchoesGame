@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OneWay
   m_EditorClassIdentifier: 
   speed: 3
-  maxDistance: 14
+  maxDistance: 4
   waitTime: 2
   alwaysMoving: 1

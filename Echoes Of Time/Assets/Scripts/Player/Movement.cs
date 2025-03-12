@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum AnimationStates
 {
@@ -160,7 +161,7 @@ public class Movement : MonoBehaviour,IDistortable
         isAttacking = GetComponent<Actions>().isAttacking;
         if (transform.position.y < -10)
         {
-            ResetPlayerPosition();
+            ResetPlayerPosition(); //send event to reset other objects in the scene that need resetting. 
         }
 
 

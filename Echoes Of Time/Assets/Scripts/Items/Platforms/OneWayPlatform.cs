@@ -21,6 +21,7 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
     private float dir;
     public bool isMoving;
     public bool needsSwitchingOn;
+    private bool needsResetting;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +58,7 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
     void Update()
     {
         Move();
-
+        ResetPlatform();
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)
@@ -71,23 +72,28 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
         base.OnTriggerExit2D(collision);
         if(collision.gameObject.CompareTag("Player"))
         {
-            //player assumed to have fallen off halfway
-            //if(data.alwaysMoving)
+            //if position isnt at intended point then player has fallen off, so reset to starting point. 
+            //Vector2 currentPos = transform.position;
+            //if (currentPos != MovementStartPoint)
             //{
-            //    InvertTarget();
-            //    canMove = true;
+            //    needsResetting = true;
             //}
-            
         }    
        
     }
 
-    private IEnumerator ResetPlatform(float delay)
+    private void ResetPlatform()
     {
-        yield return new WaitForSeconds(delay);
-        transform.position = MovementStartPoint;
-        currentTargetPos = maxPoint;
-        canMove = false;
+        if(needsResetting)
+        {
+            transform.position = MovementStartPoint;
+            currentTargetPos = maxPoint;
+            isMoving = false;
+            needsSwitchingOn = true;
+            canMove = false;
+            needsResetting = false;
+        }
+        
 
     }
 
@@ -97,11 +103,12 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
         {
             Vector2 dir = (currentTargetPos - (Vector2)transform.position).normalized;
             transform.position = Vector2.MoveTowards(transform.position, currentTargetPos, data.speed * Time.deltaTime * customTimeScale);
-            //isMoving = true;
+            isMoving = true;
             if (Vector2.Distance(transform.position, currentTargetPos) < 0.1f)
             {
                 needsSwitchingOn = true;
                 canMove = false;
+                isMoving = false;
                 InvertTarget();
 
             }

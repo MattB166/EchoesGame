@@ -29,12 +29,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        SavingSystem.DeleteSaveSlot(currentSaveSlot);
-        //if (!hasLoaded)
-        //{
-        //    LoadGame(currentSaveSlot);
-        //    hasLoaded = true;
-        //}
+        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        if (!hasLoaded)
+        {
+            LoadGame(currentSaveSlot);
+            hasLoaded = true;
+        }
 
 
     }
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         //get current save slot
         //save the game into current slot. 
-        //SaveGame(currentSaveSlot);
+        SaveGame(currentSaveSlot);
         //Debug.Log("Saved game to save slot " + currentSaveSlot);
     }
 
