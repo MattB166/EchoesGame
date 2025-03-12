@@ -73,7 +73,11 @@ public class CheckPoint : MonoBehaviour
         //Debug.Log("Moved checkpoint up a little");
         hasCorrected = true;
         col.enabled = false;
-        checkPointActivated.Announce(this);
+        if (checkPointActivated != null)
+        {
+            checkPointActivated.Announce(this);
+        }
+        
 
     }
 
