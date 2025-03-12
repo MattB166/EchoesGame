@@ -17,10 +17,25 @@ public class InventoryUI : MonoBehaviour
     }
 
 
-    public void ChangeItem(Component sender, object data)
+    public void ChangeItem(Component sender, object data) ///need to try and work out why any other event subscription doesnt work for this, as i want to pass 
+        //in the whole inventory list and items, not just the current item.
     {
         Debug.Log("Change Item event received");
-        
+        if (data is object[] dataArray && dataArray.Length > 0)
+        {
+            data = dataArray[0];
+            if (data is InventoryItem item)
+            {
+               StartCoroutine(ApplicationDelay(0.01f, item));
+            }
+
+        }
+    }
+
+    private IEnumerator ApplicationDelay(float delay, InventoryItem item)
+    {
+        yield return new WaitForSeconds(delay);
+        centreSlot.UpdateSlot(item);
     }
 
     private void UpdatePanel(InventoryEventData data)

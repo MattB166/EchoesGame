@@ -22,13 +22,13 @@ public class InventorySlot : MonoBehaviour
             Debug.Log("Updating Inventory Slot");
             itemIcon.sprite = item.item.itemData.itemSprite;
             quantityText.text = item.quantity > 1 ? item.quantity.ToString() : "";
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
         }
         else
         {
             itemIcon.sprite = null;
             quantityText.text = "";
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }
