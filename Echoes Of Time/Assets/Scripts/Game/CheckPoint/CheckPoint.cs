@@ -13,6 +13,7 @@ public class CheckPoint : MonoBehaviour
     public bool isActivated = false;
     private bool hasCorrected = false;
     private Collider2D col;
+    public GameEvent checkPointActivated;
 
     public string levelName;
     [SerializeField] private int persistentCheckPointID;
@@ -72,7 +73,8 @@ public class CheckPoint : MonoBehaviour
         //Debug.Log("Moved checkpoint up a little");
         hasCorrected = true;
         col.enabled = false;
-       
+        checkPointActivated.Announce(this);
+
     }
 
     public void DoNotCorrectPosition()

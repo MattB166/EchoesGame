@@ -72,6 +72,7 @@ public class Actions : MonoBehaviour, IDamageable
     [Header("Events")]
     
     public GameEvent onHealthChange;
+    public GameEvent onInteract;
 
 
     // Start is called before the first frame update
@@ -323,11 +324,13 @@ public class Actions : MonoBehaviour, IDamageable
             Debug.Log("Interacting with closest item");
             HandlePickup(closestInputPickupItem);
             closestInputPickupItem.OnInteract();
+            onInteract.Announce(this, closestInputPickupItem);
         }
         else if (context.performed && closestNonPickupInteractable != null)
         {
             Debug.Log("Interacting with closest non pickup item");
             closestNonPickupInteractable.OnInteract();
+            onInteract.Announce(this, closestNonPickupInteractable);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

@@ -586,6 +586,11 @@ MonoBehaviour:
   input: {x: 0, y: 0}
   spawnPos: {x: 0, y: 0}
   OnPlayerDirectionFacing: {fileID: 11400000, guid: 55388319d77fcd74aa69971a047f689d, type: 2}
+  moveInput: {fileID: 11400000, guid: 5f139208ef3b9a0418af3a4791caddb0, type: 2}
+  jumpInputEvent: {fileID: 11400000, guid: 3f45422d19eb35147acdf61896d6b261, type: 2}
+  doubleJumpInputEvent: {fileID: 11400000, guid: b6b93a4b21c81aa42a8b984f2590f096, type: 2}
+  dashInputEvent: {fileID: 11400000, guid: 3d7fbfca62014cc46874ccb911dc86bd, type: 2}
+  climbInputEvent: {fileID: 11400000, guid: c2fc24b4ae6056745be26a27aff0833d, type: 2}
   walkSpeed: 5.03
   sprintSpeed: 0
   dashSpeed: 10
@@ -629,6 +634,7 @@ MonoBehaviour:
   currentState: 0
   isAttacking: 0
   onHealthChange: {fileID: 11400000, guid: b08515e11ef9fe84fbcaab66c6b297a7, type: 2}
+  onInteract: {fileID: 11400000, guid: f9952b75e07b2a1458b0238f431168bc, type: 2}
 --- !u!95 &945074512683496423
 Animator:
   serializedVersion: 7

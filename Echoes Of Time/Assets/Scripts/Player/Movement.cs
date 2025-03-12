@@ -48,6 +48,11 @@ public class Movement : MonoBehaviour,IDistortable
     [HideInInspector] public Vector2 input;
     public Vector2 spawnPos;
     public GameEvent OnPlayerDirectionFacing;
+    public GameEvent moveInput;
+    public GameEvent jumpInputEvent;
+    public GameEvent doubleJumpInputEvent;
+    public GameEvent dashInputEvent;
+    public GameEvent climbInputEvent;
 
     [Header("Movement Settings")]
     [Range(1, 10)] public float walkSpeed;
@@ -175,6 +180,7 @@ public class Movement : MonoBehaviour,IDistortable
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         input = context.ReadValue<Vector2>();
+        moveInput.Announce(this, input);
     }
 
     private Vector2 Move()
@@ -208,6 +214,7 @@ public class Movement : MonoBehaviour,IDistortable
     {
         if (context.performed)
         {
+            jumpInputEvent.Announce(this, null);
             if (isGrounded || coyoteCounter > 0)
             {
                 jumpInput = true;
@@ -223,7 +230,7 @@ public class Movement : MonoBehaviour,IDistortable
     {
         if (context.performed && canDash)
         {
-           
+           dashInputEvent.Announce(this, null);
             StartCoroutine(Dash());
         }
     }
@@ -245,15 +252,18 @@ public class Movement : MonoBehaviour,IDistortable
     {
         if(jumpInput) //need a smoother double jump value i think.  
         {
+            
             canClimb = false;
             isJumping = true;
             if (!doubleJumping && isGrounded)
             {
+                jumpInputEvent.Announce(this, null);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 SetAnimationState(currentWeapon, "Player_Jump");
             }
             else if (!doubleJumping && !isGrounded)
             {
+                doubleJumpInputEvent.Announce(this, null);
                 rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
                 SetAnimationState(currentWeapon, "Player_Jump");
                 doubleJumping = false;
@@ -278,6 +288,7 @@ public class Movement : MonoBehaviour,IDistortable
     {
         if (context.performed)
         {
+            climbInputEvent.Announce(this, null);
             //Debug.Log("Climbing");
             climbInput = true;
         }

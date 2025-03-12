@@ -51,7 +51,7 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
         currentTargetPos = maxPoint;
         canMove = false;
         needsSwitchingOn = true;
-        Debug.Log("can move : " + canMove + "Needs switching on : " + needsSwitchingOn);
+        //Debug.Log("can move : " + canMove + "Needs switching on : " + needsSwitchingOn);
     }
 
     // Update is called once per frame

@@ -10,6 +10,7 @@ using UnityEngine;
 public abstract class BaseObjective : MonoBehaviour
 {
     public ObjectiveData objectiveData;
+    public bool isStarted { get; protected set; } = false;
     public bool isCompleted { get; protected set; } = false;
     public float currentProgress; //percentage of completion
 
@@ -30,7 +31,7 @@ public abstract class BaseObjective : MonoBehaviour
 
     public virtual void Activate()
     {
-        
+        isStarted = true;
     }
 
     protected void CompleteObjective()

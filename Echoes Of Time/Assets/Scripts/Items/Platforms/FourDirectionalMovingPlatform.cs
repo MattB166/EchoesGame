@@ -38,7 +38,7 @@ public class FourDirectionalMovingPlatform : BasePlatform
     {
         base.Update();
         Move();
-        Debug.Log("Custom time scale : " + customTimeScale);
+        //Debug.Log("Custom time scale : " + customTimeScale);
     }
 
     private void Move()

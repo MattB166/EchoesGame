@@ -49,11 +49,12 @@ public class ObjectiveManager : MonoBehaviour
 
     public void SetMainObjective(BaseObjective objective)
     {
-        if (!completedObjectives.Contains(objective) && objective != mainObjective)
+        if (!completedObjectives.Contains(objective) && objective != mainObjective && mainObjective == null)
         {
             mainObjective = objective;
             OnMainObjectiveUpdated.Announce(this, mainObjective);
             objective.Activate();
+            //Debug.Log(objective.objectiveData.objectiveDescription);
         }
        
     }
