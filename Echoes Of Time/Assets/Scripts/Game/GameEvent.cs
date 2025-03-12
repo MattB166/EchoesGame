@@ -12,6 +12,7 @@ public class GameEvent : ScriptableObject
         for (int i = listeners.Count - 1; i >= 0; i--)
         {
             listeners[i].OnEventAnnounced(sender,data);
+            
         }
     }
 

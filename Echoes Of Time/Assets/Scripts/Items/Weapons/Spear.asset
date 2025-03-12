@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2419c0cd67abe7a44b3545092c13c78a, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: a0a8ca4c06aa54f4fafdf9170a530589, type: 3}
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
   weaponType: 1

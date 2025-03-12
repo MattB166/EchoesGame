@@ -7,8 +7,8 @@ public class WeaponPickupItem : InputPickupItem
 {
     protected override void Collect()
     {
-       // Debug.Log("This is an input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
-       
+        // Debug.Log("This is an input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
+        
     }
 
     public override void HandlePickup(Actions player, Inventory i)
@@ -37,7 +37,7 @@ public class WeaponPickupItem : InputPickupItem
                 }
                 else
                 {
-                    //Debug.Log("Item already exists. Not duplicating");
+                    Debug.Log("Item already exists. Not duplicating");
                     existingItem.Init(weaponData, i, weapon);
                     existingItem.SetOwner(player.gameObject);
                     i.AddItem(existingItem);

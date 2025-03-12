@@ -745,6 +745,7 @@ MonoBehaviour:
   items: []
   currentItemIndex: 0
   itemChanged: {fileID: 11400000, guid: 4fc593795353f71408994ba6323f6cc7, type: 2}
+  newOrderOfInventory: {fileID: 11400000, guid: 067cbb2f6fc198044be135150782638b, type: 2}
   onItemUsed: {fileID: 11400000, guid: 939695f443281cd41ac157deba12eef9, type: 2}
   onItemSecondaryUsed: {fileID: 11400000, guid: 8b2d6500afa29ca4e80d6f8a8d4895c4, type: 2}
   onItemDropped: {fileID: 11400000, guid: a0c3521c0d4fdcc4c8b6abd6ee2105e5, type: 2}

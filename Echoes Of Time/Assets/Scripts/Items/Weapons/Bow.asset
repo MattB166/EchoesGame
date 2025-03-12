@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b171814de310d6b4a88ecc0b2c17947e, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: ae1fec4b2b7178b478f79f13ac35dc34, type: 3}
   pickupSound: {fileID: 0}
   isAnimatedOnPickup: 0
   weaponType: 2

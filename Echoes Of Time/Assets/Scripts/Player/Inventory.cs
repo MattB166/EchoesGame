@@ -70,8 +70,8 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             return;
         }
         currentItemIndex = (currentItemIndex + 1) % items.Count;
-        itemChanged.Announce(this,currentItem);
-        //Debug.Log("Current item: " + currentItem.item.itemData.name);
+        
+        itemChanged.Announce(this, currentItem);
 
     }
 
