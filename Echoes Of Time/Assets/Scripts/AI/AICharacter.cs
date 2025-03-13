@@ -2,7 +2,12 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum AITypes
+{
+    Grounded,
+    Aerial,
+    Hybrid
+}
 /// <summary>
 /// Defines the basic stats and behavior of an AI character.
 /// </summary>
@@ -11,6 +16,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
 {
     [Header("AI Character Data")]
     public AIStats AICharacterData;
+    public abstract AITypes AIType { get; }
     [Header("AI Movement")]
     public AIPath aiPath;
     public AIDestinationSetter aiDestinationSetter;
@@ -76,6 +82,11 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
         {
             //die.
         }
+    }
+
+    public virtual void Die()
+    {
+        //announce death and perform any inherited death logic. animation, sound, particle effects etc. 
     }
 
     public void Distort(float timeScale)
