@@ -107,7 +107,7 @@ public class Actions : MonoBehaviour, IDamageable
         }
         if (data is InventoryItem item)
         {
-            Debug.Log("Changing weapon animation");
+            //Debug.Log("Changing weapon animation");
             if (item.item.itemData as WeaponData != null)
             {
                 Weapons weapon = (item.item.itemData as WeaponData).weaponType;
@@ -321,14 +321,14 @@ public class Actions : MonoBehaviour, IDamageable
     {
         if (context.performed && closestInputPickupItem != null)
         {
-            Debug.Log("Interacting with closest item");
+            //Debug.Log("Interacting with closest item");
             HandlePickup(closestInputPickupItem);
             closestInputPickupItem.OnInteract();
             onInteract.Announce(this, closestInputPickupItem);
         }
         else if (context.performed && closestNonPickupInteractable != null)
         {
-            Debug.Log("Interacting with closest non pickup item");
+            //Debug.Log("Interacting with closest non pickup item");
             closestNonPickupInteractable.OnInteract();
             onInteract.Announce(this, closestNonPickupInteractable);
         }

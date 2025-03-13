@@ -137,14 +137,14 @@ public class OneWayPlatform : BasePlatform //maybe have another interface so can
     private void ToggleMovement(Component sender, object data)
     {
         canMove = !canMove;
-        Debug.Log(canMove);
+        //Debug.Log(canMove);
     }
 
     public void SwitchPlatform(Component sender, object data)
     {
         needsSwitchingOn = !needsSwitchingOn;
         ToggleMovement(sender, data);
-        Debug.Log(needsSwitchingOn);
+        //Debug.Log(needsSwitchingOn);
 
     }
 }

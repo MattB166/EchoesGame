@@ -37,7 +37,7 @@ public class WeaponPickupItem : InputPickupItem
                 }
                 else
                 {
-                    Debug.Log("Item already exists. Not duplicating");
+                    //Debug.Log("Item already exists. Not duplicating");
                     existingItem.Init(weaponData, i, weapon);
                     existingItem.SetOwner(player.gameObject);
                     i.AddItem(existingItem);

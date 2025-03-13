@@ -57,7 +57,7 @@ public class CheckPoint : MonoBehaviour
             if(!isActivated && !hasCorrected)
             {
                 ActivateCheckpoint();
-                Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been activated. ");
+                //Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been activated. ");
                 CheckPointSystem.instance.SetNewCheckpoint(this);
             }
 

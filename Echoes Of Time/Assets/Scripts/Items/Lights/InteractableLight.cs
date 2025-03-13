@@ -15,7 +15,7 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
     private bool intensityChanged;
     public override void OnInteract()
     {
-        Debug.Log("Changing light intensity");
+        //Debug.Log("Changing light intensity");
         ChangeIntensity();
     }
 

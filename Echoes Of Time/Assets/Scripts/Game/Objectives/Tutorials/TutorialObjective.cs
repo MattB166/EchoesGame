@@ -12,7 +12,7 @@ public class TutorialObjective : BaseObjective
     public override void Activate()
     {
         base.Activate();
-        Debug.Log("Tutorial Objective Activated : " + objectiveData.objectiveName);
+        //Debug.Log("Tutorial Objective Activated : " + objectiveData.objectiveName);
         
     }
     // Start is called before the first frame update

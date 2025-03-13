@@ -42,7 +42,7 @@ public abstract class BaseObjective : MonoBehaviour
             
             ObjectiveManager.instance.CompleteObjective(this);
             gameObject.SetActive(false);
-            Debug.Log("Objective Complete: " + objectiveData.objectiveName);
+            //Debug.Log("Objective Complete: " + objectiveData.objectiveName);
         }
     }
 

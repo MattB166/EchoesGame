@@ -58,7 +58,7 @@ public class BowItem : WeaponItem
     {
         base.Init(itemData, inv, prefab);
         weaponData = itemData as WeaponData;
-        Debug.Log("Bow initialized with " + weaponData.name);
+        //Debug.Log("Bow initialized with " + weaponData.name);
         projectiles.Clear(); //need to actually add in the saved projectiles
 
         foreach (var p in inv.storedProjectiles)
