@@ -17,7 +17,7 @@ public class BaseGroundedState : BaseState
         groundedAI.aiPath.canMove = false;
         if (groundedAI != null && rb != null)
         {
-           Debug.Log("Base Grounded State Enabled");
+           //Debug.Log("Base Grounded State Enabled");
         }
         else
         {

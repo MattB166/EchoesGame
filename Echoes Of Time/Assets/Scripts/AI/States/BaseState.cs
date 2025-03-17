@@ -12,7 +12,7 @@ public abstract class BaseState : MonoBehaviour
     public virtual void OnEnable()
     {
         aiCharacter = GetComponent<AICharacter>();
-        Debug.Log("Base State Enabled");
+        //Debug.Log("Base State Enabled");
     }
     public virtual void RunLogic()
     {
