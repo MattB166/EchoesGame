@@ -14,6 +14,7 @@ public class GroundedWalk : BaseGroundedState
     {
         base.OnEnable();
         aiCharacter.aiPath.enableRotation = false;
+        anim.Play(gameObject.name + "_Walk");
         CalculateTarget();
     }
     public override void RunLogic()

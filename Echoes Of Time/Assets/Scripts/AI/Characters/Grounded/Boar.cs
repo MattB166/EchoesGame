@@ -14,11 +14,6 @@ public class Boar : GroundedAI
         ChangeState(GroundedStates.Patrol);
     }
 
-    //public override void Update()
-    //{
-    //    base.Update();
-    //}
-
     public override void FixedUpdate()
     {
         base.FixedUpdate();

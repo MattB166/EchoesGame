@@ -6,12 +6,14 @@ public class BaseGroundedState : BaseState
 {
     public GroundedAI groundedAI;
     public Rigidbody2D rb;
+    public Animator anim;
 
     public override void OnEnable()
     {
         base.OnEnable();
         groundedAI = GetComponent<GroundedAI>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         groundedAI.aiPath.canMove = false;
         if (groundedAI != null && rb != null)
         {
