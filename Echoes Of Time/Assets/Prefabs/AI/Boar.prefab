@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5422339063145084748}
+  - component: {fileID: 7862642872113551118}
   - component: {fileID: 8271010484858211102}
   - component: {fileID: 1166153014032077410}
-  - component: {fileID: 7862642872113551118}
   - component: {fileID: 6079016794824616058}
   - component: {fileID: 2268281967810549544}
   - component: {fileID: 3578213844636292287}
@@ -39,6 +39,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7862642872113551118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828096632985148876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cef6dda44016c5409b27e0b693c3250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AICharacterData: {fileID: 11400000, guid: c055d053f09fc2c4a83ccd22bd409533, type: 2}
+  aiPath: {fileID: 0}
+  aiDestinationSetter: {fileID: 0}
+  seeker: {fileID: 0}
+  currentStateScript: {fileID: 0}
+  direction: 0
+  MaxHealth: 0
+  customTimeScale: 0
+  AIDeath: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!212 &8271010484858211102
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -118,28 +140,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7862642872113551118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828096632985148876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cef6dda44016c5409b27e0b693c3250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AICharacterData: {fileID: 11400000, guid: c055d053f09fc2c4a83ccd22bd409533, type: 2}
-  aiPath: {fileID: 0}
-  aiDestinationSetter: {fileID: 0}
-  seeker: {fileID: 0}
-  currentStateScript: {fileID: 0}
-  direction: 0
-  MaxHealth: 0
-  customTimeScale: 0
-  AIDeath: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!114 &6079016794824616058
 MonoBehaviour:
   m_ObjectHideFlags: 0

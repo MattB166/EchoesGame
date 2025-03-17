@@ -43,30 +43,13 @@ public abstract class GroundedAI : AICharacter
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         base.Start();
-        direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
         //ChangeState(GroundedStates.Idle);
     }
 
     private void Update()
     {
-        CalculateSpriteDirection();
         //check detection radius
 
-    }
-
-    public void CalculateSpriteDirection()
-    {
-        //check direction so can flip sprite
-        if (rb.velocity.x > 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-            direction = 1;
-        }
-        else if (rb.velocity.x < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-            direction = -1;
-        }
     }
 
     public override void FixedUpdate()

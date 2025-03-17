@@ -1,85 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GroundedWalk : BaseGroundedState
 {
-
-    private bool targetSet = false;
-    private Vector2 target;
+    private Vector2 targetA;
+    private Vector2 targetB;
+    private bool movingToB = true;
+    private Vector2 currentTarget;
     private float walkDistance;
-    private bool shouldFlip = false;
     private float walkTimer = 0f;
     public override void OnEnable()
     {
         base.OnEnable();
         aiCharacter.aiPath.enableRotation = false;
         anim.Play(gameObject.name + "_Walk");
-        CalculateTarget();
+        targetA = aiCharacter.transform.position;
+        targetB = targetA + new Vector2(aiCharacter.AICharacterData.patrolDistance, 0);
+        currentTarget = targetB;
     }
     public override void RunLogic()
     {
-        //move character in direction of facing direction for walk time, then change to idle.
-        if (targetSet)
-        {
-            WalkToTarget();
-        }
-        else
-        {
-            CalculateTarget();
-        }
-    }
-
-    public void CalculateTarget()
-    {
-        Debug.Log("Calculating target");
-        Vector2 startPos = transform.position;
-        float direction = 0f;
-        float distance = 0f;
-        if (aiCharacter != null)
-        {
-            direction = aiCharacter.direction;
-            distance = aiCharacter.AICharacterData.patrolDistance;
-        }
-        else
-        {
-            Debug.LogError("AICharacter is null in GroundedWalk");
-        }
-       
-        if(!targetSet)
-        {
-            //calculate target based on direction and distance
-            target = new Vector2(startPos.x + (direction * distance), startPos.y);
-            targetSet = true;
-            Debug.Log("Target set to " + target);
-            aiCharacter.direction = -direction;
-        }
-
+       WalkToTarget();
     }
 
     public void WalkToTarget()
     {
-        //move across to target
-        if (targetSet)
+        walkTimer += Time.deltaTime;
+        aiCharacter.aiPath.destination = currentTarget;
+        aiCharacter.aiPath.canMove = true;
+
+        FlipSprite();
+        if (Vector2.Distance(aiCharacter.transform.position, currentTarget) < 0.1f)
         {
-            walkTimer += Time.deltaTime;
-            aiCharacter.aiPath.destination = target;
-            aiCharacter.aiPath.canMove = true;
-            if (Vector2.Distance(transform.position, target) < 0.1f)
+           aiCharacter.aiPath.canMove = false;
+            if (movingToB)
             {
-                aiCharacter.aiPath.canMove = false;
-                targetSet = false;
-                walkTimer = 0f;
-                Debug.Log("Target reached");
-                //CalculateTarget();
-
+                currentTarget = targetA;
+                movingToB = false;
             }
-            else if (walkTimer > 10.0f) //or is about to walk off an edge)
+            else
             {
-                targetSet = false;
-                aiCharacter.aiPath.canMove = false;
+                currentTarget = targetB;
+                movingToB = true;
             }
-
+            StartCoroutine(PauseBeforeMoving(1.0f));
         }
+    }
+
+    private void FlipSprite()
+    {
+        if (currentTarget.x > transform.position.x)
+        {
+            aiCharacter.GetComponent<SpriteRenderer>().flipX = false; ; // Face right
+            //aiCharacter.direction = 1;
+        }
+        else
+        {
+            aiCharacter.GetComponent<SpriteRenderer>().flipX = true; // Face left
+            //aiCharacter.direction = -1;
+        }
+    }
+
+
+    private IEnumerator PauseBeforeMoving(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        aiCharacter.aiPath.canMove = true;
     }
 }

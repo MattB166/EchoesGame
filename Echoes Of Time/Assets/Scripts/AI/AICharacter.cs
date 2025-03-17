@@ -26,7 +26,6 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public AIDestinationSetter aiDestinationSetter;
     public Seeker seeker;
     public BaseState currentStateScript;
-    public float direction;
 
     [Header("Health")]
     [SerializeField]
