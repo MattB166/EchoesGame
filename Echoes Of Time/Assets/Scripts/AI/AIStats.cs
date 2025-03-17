@@ -11,4 +11,5 @@ public class AIStats : ScriptableObject
     public float moveSpeed;
     public float attackSpeed;
     public float patrolDistance;
+    public float detectionRange;
 }

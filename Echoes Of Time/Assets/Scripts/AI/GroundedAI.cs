@@ -49,6 +49,13 @@ public abstract class GroundedAI : AICharacter
 
     private void Update()
     {
+        CalculateSpriteDirection();
+        //check detection radius
+
+    }
+
+    public void CalculateSpriteDirection()
+    {
         //check direction so can flip sprite
         if (rb.velocity.x > 0)
         {
@@ -94,5 +101,12 @@ public abstract class GroundedAI : AICharacter
 
         }
     }
-                
+
+    public void ScanDetection()
+    {
+        //check stats detection radius for player 
+        //if player in radius, change state to attack
+
+    }
+
 }

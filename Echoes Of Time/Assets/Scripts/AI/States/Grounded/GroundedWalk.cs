@@ -9,7 +9,7 @@ public class GroundedWalk : BaseGroundedState
     private Vector2 target;
     private float walkDistance;
     private bool shouldFlip = false;
-
+    private float walkTimer = 0f;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -62,15 +62,22 @@ public class GroundedWalk : BaseGroundedState
         //move across to target
         if (targetSet)
         {
+            walkTimer += Time.deltaTime;
             aiCharacter.aiPath.destination = target;
             aiCharacter.aiPath.canMove = true;
             if (Vector2.Distance(transform.position, target) < 0.1f)
             {
                 aiCharacter.aiPath.canMove = false;
                 targetSet = false;
+                walkTimer = 0f;
                 Debug.Log("Target reached");
                 //CalculateTarget();
 
+            }
+            else if (walkTimer > 10.0f) //or is about to walk off an edge)
+            {
+                targetSet = false;
+                aiCharacter.aiPath.canMove = false;
             }
 
         }
