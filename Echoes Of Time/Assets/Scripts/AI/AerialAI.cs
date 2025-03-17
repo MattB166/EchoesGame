@@ -27,9 +27,14 @@ public abstract class AerialAI : AICharacter
         base.Start();
     }
 
-    public virtual void Update()
+    //public virtual void Update()
+    //{
+    //    base.Update();
+    //}
+
+    public override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
     }
 
     public void ChangeState(AerialStates newState)

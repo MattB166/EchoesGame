@@ -10,4 +10,5 @@ public class AIStats : ScriptableObject
     public Sprite AIIcon;
     public float moveSpeed;
     public float attackSpeed;
+    public float patrolDistance;
 }

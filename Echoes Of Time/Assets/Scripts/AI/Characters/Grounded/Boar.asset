@@ -15,5 +15,6 @@ MonoBehaviour:
   AIName: Boar
   MaxHealth: 3
   AIIcon: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 1
   attackSpeed: 2
+  patrolDistance: 5

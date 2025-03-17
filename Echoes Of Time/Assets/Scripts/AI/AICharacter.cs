@@ -13,7 +13,8 @@ public enum AITypes
 /// </summary>
 [RequireComponent(typeof(AIPath))
     , RequireComponent(typeof(AIDestinationSetter))
-    , RequireComponent(typeof(Seeker))]
+    , RequireComponent(typeof(Seeker)),
+    RequireComponent(typeof(BoxCollider2D))]
 public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //make abstract and derive into types of AI characters. in these derived classes, the state controller will be defined, and 
                                          //the logic for changing between states will be defined.
 {
@@ -25,6 +26,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public AIDestinationSetter aiDestinationSetter;
     public Seeker seeker;
     public BaseState currentStateScript;
+    public float direction;
 
     [Header("Health")]
     [SerializeField]
@@ -53,16 +55,17 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public virtual void Start()
     {
         //initialise the AI character. 
-        Debug.Log("AI Character Start");
+        //Debug.Log("AI Character Start");
         Initialise();
     }
 
-    // Update is called once per frame
-    public virtual void Update()
+ 
+
+    public virtual void FixedUpdate()
     {
-        //call update logic for the current state. 
-        Debug.Log("AI Character Update");
-        if(currentStateScript != null)
+        //call fixed update logic for the current state. 
+        //Debug.Log("AI Character Fixed Update");
+        if (currentStateScript != null)
         {
             currentStateScript.RunLogic();
         }

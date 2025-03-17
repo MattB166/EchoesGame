@@ -39,20 +39,37 @@ public abstract class GroundedAI : AICharacter
     // Start is called before the first frame update
     public virtual void Start()
     {
-        Debug.Log("Grounded AI Start");
+        //Debug.Log("Grounded AI Start");
         rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
         base.Start();
+        direction = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
         //ChangeState(GroundedStates.Idle);
     }
 
-    public override void Update()
+    private void Update()
     {
-        base.Update();
+        //check direction so can flip sprite
+        if (rb.velocity.x > 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            direction = 1;
+        }
+        else if (rb.velocity.x < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+            direction = -1;
+        }
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
     public void ChangeState(GroundedStates newState)
     {
-        Debug.Log("Changing state to " + newState);
+        //Debug.Log("Changing state to " + newState);
         if (currentState != newState)
         {
             //if(aiDestinationSetter.target != null)
@@ -64,6 +81,9 @@ public abstract class GroundedAI : AICharacter
             {
                 case GroundedStates.Idle:
                     currentStateScript = transform.gameObject.AddComponent<GroundedIdle>();
+                    break;
+                case GroundedStates.Patrol:
+                    currentStateScript = transform.gameObject.AddComponent<GroundedWalk>();
                     break;
             }
 

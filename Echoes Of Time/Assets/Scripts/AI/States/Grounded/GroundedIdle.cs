@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GroundedIdle : BaseGroundedState
 {
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+    }
     public override void RunLogic()
     {
         //Debug.Log("Grounded Idle");
@@ -15,6 +20,7 @@ public class GroundedIdle : BaseGroundedState
             {
                 Debug.Log("Grounded Idle active with rb and groundedAI set, velocity set to 0 on x");
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                
             }
         }
     }

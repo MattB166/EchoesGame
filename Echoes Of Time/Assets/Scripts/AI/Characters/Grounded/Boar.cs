@@ -9,13 +9,18 @@ public class Boar : GroundedAI
 
     public override void Start()
     {
-        Debug.Log("Boar AI Start");
+        //Debug.Log("Boar AI Start");
         base.Start();
-        ChangeState(GroundedStates.Idle);
+        ChangeState(GroundedStates.Patrol);
     }
 
-    public override void Update()
+    //public override void Update()
+    //{
+    //    base.Update();
+    //}
+
+    public override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
     }
 }
