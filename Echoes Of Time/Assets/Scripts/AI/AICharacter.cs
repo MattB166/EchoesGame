@@ -11,6 +11,9 @@ public enum AITypes
 /// <summary>
 /// Defines the basic stats and behavior of an AI character.
 /// </summary>
+[RequireComponent(typeof(AIPath))
+    , RequireComponent(typeof(AIDestinationSetter))
+    , RequireComponent(typeof(Seeker))]
 public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //make abstract and derive into types of AI characters. in these derived classes, the state controller will be defined, and 
                                          //the logic for changing between states will be defined.
 {
@@ -21,6 +24,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public AIPath aiPath;
     public AIDestinationSetter aiDestinationSetter;
     public Seeker seeker;
+    public BaseState currentStateScript;
 
     [Header("Health")]
     [SerializeField]
@@ -49,13 +53,19 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public virtual void Start()
     {
         //initialise the AI character. 
+        Debug.Log("AI Character Start");
         Initialise();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         //call update logic for the current state. 
+        Debug.Log("AI Character Update");
+        if(currentStateScript != null)
+        {
+            currentStateScript.RunLogic();
+        }
     }
 
     /// <summary>
