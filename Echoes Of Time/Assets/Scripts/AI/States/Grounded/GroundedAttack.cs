@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundedAttack : BaseGroundedState
+{
+
+    public bool shouldAttack = false;
+    public bool shouldRun = false;
+    public Vector2 targetPos;
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        groundedAI.currentState = GroundedStates.Attack;
+        aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.attackSpeed;
+    }
+
+    private void Start()
+    {
+        ///Debug.Log($"Start() called on {gameObject.name} at {Time.time}", this);
+        //DetermineDistance();
+    }
+    public override void RunLogic()
+    {
+        DetermineDistance();
+
+        if (shouldAttack)
+        {
+            anim.Play(gameObject.name + "_Attack");
+        }
+        else if (shouldRun)
+        {
+            MoveTowardsPlayer();
+        }
+    }
+
+    public void DetermineDistance()
+    {
+        //Debug.Log("Determine Distance");
+        Vector2 playerPosition = groundedAI.playerPosition.position;
+        float distance = Vector2.Distance(playerPosition, transform.position);
+        if (playerPosition.x > transform.position.x)
+        {
+            groundedAI.GetComponent<SpriteRenderer>().flipX = false; // Face right
+        }
+        else
+        {
+            groundedAI.GetComponent<SpriteRenderer>().flipX = true; // Face left
+        }
+
+        //only the x value is important as the grounded cannot move vertically
+        if (distance < groundedAI.AICharacterData.attackDistance)
+        {
+            if(!shouldAttack)
+            {
+                shouldAttack = true;
+                shouldRun = false;
+            }
+        }
+        else
+        {
+           if(!shouldRun)
+            {
+                shouldRun = true;
+                shouldAttack = false;
+            }
+        }
+    }
+
+    public void MoveTowardsPlayer()
+    {
+        Vector2 playerPos = groundedAI.playerPosition.position;
+        groundedAI.aiPath.destination = new Vector3(playerPos.x, transform.position.y, 0);
+        groundedAI.aiPath.canMove = true;
+        anim.Play(gameObject.name + "_Run");
+        //Debug.Log("Distance left: " + Vector2.Distance(transform.position, playerPos) + " Attack distance: " + groundedAI.AICharacterData.attackDistance, this);
+        if (Vector2.Distance(transform.position, playerPos) < aiCharacter.AICharacterData.attackDistance)
+        {
+            groundedAI.aiPath.canMove = false;
+            shouldAttack = true;
+            shouldRun = false;
+            anim.StopPlayback();
+        }
+    }
+}
+

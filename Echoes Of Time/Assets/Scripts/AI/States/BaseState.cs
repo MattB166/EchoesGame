@@ -8,10 +8,12 @@ using UnityEngine;
 public abstract class BaseState : MonoBehaviour
 {
     public AICharacter aiCharacter;
+    public Animator anim;
 
     public virtual void OnEnable()
     {
         aiCharacter = GetComponent<AICharacter>();
+        anim = GetComponent<Animator>();
         //Debug.Log("Base State Enabled");
     }
     public virtual void RunLogic()

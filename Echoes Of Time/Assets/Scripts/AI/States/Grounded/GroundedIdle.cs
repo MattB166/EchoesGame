@@ -8,6 +8,7 @@ public class GroundedIdle : BaseGroundedState
     public override void OnEnable()
     {
         base.OnEnable();
+        groundedAI.currentState = GroundedStates.Idle;
     }
     public override void RunLogic()
     {

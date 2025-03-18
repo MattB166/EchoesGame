@@ -26,6 +26,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public AIDestinationSetter aiDestinationSetter;
     public Seeker seeker;
     public BaseState currentStateScript;
+    public Transform playerPosition;
 
     [Header("Health")]
     [SerializeField]
@@ -84,6 +85,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
         aiPath.pickNextWaypointDist = 1.2f;
         aiDestinationSetter.target = null;
         HitPoints = AICharacterData.MaxHealth;
+        playerPosition = null;
         //set gravity in both the path and rigidbodies in derived classes so grounded characters can have gravity and airborne characters can have none.
     }
 
@@ -92,7 +94,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
         HitPoints -= amount;
         if (HitPoints <= 0)
         {
-            //die.
+            Die();
         }
     }
 

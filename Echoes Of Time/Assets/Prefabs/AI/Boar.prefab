@@ -56,10 +56,11 @@ MonoBehaviour:
   aiDestinationSetter: {fileID: 0}
   seeker: {fileID: 0}
   currentStateScript: {fileID: 0}
-  direction: 0
+  playerPosition: {fileID: 0}
   MaxHealth: 0
   customTimeScale: 0
   AIDeath: {fileID: 0}
+  currentState: 0
   rb: {fileID: 0}
 --- !u!212 &8271010484858211102
 SpriteRenderer:

@@ -19,6 +19,8 @@ public class GroundedWalk : BaseGroundedState
         targetA = aiCharacter.transform.position;
         targetB = targetA + new Vector2(aiCharacter.AICharacterData.patrolDistance, 0);
         currentTarget = targetB;
+        groundedAI.currentState = GroundedStates.Patrol;
+        aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.moveSpeed;
     }
     public override void RunLogic()
     {

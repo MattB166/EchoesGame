@@ -10,6 +10,8 @@ public class AIStats : ScriptableObject
     public Sprite AIIcon;
     public float moveSpeed;
     public float attackSpeed;
+    public float attackDistance;
     public float patrolDistance;
     public float detectionRange;
+    public bool spawnsLootOnDeath;
 }

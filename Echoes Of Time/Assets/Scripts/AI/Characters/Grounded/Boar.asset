@@ -17,4 +17,6 @@ MonoBehaviour:
   AIIcon: {fileID: 0}
   moveSpeed: 1
   attackSpeed: 2
+  attackDistance: 1
   patrolDistance: 5
+  detectionRange: 3

@@ -16,6 +16,7 @@ MonoBehaviour:
   MaxHealth: 5
   AIIcon: {fileID: 0}
   moveSpeed: 1
-  attackSpeed: 0
+  attackSpeed: 3
+  attackDistance: 1.8
   patrolDistance: 6
-  detectionRange: 0
+  detectionRange: 5
