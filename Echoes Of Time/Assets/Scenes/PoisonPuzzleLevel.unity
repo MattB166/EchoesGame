@@ -574,19 +574,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[0].stageName
       value: Align Switches
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[1].stageName
+      value: Find Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[0].stageCompletionEvent
       value: 
       objectReference: {fileID: 11400000, guid: 3bf515899f4258648a83523463c94f99, type: 2}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[1].stageCompletionEvent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[0].eventsNeeded.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[1].eventsNeeded.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: 'escapeStages.Array.data[0].eventsNeeded.Array.data[0]'
@@ -602,6 +614,22 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 24490df49a6807f4893f7b49a9f7dea0, type: 2}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: 'escapeStages.Array.data[0].eventsNeeded.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99cc895f9cff6514588cfc9837f43e8c, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[1].eventsNeeded.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 857cd85068ef5094bbd2e879a0d80661, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[1].eventsNeeded.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b45b0df2dc8ce69449b6bc57dc0a6950, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[1].eventsNeeded.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 24490df49a6807f4893f7b49a9f7dea0, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[1].eventsNeeded.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 99cc895f9cff6514588cfc9837f43e8c, type: 2}
     - target: {fileID: 7737052318100749324, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
