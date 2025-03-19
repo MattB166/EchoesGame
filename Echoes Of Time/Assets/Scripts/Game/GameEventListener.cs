@@ -21,6 +21,14 @@ public class GameEventListener : MonoBehaviour
         gameEvent.UnregisterListener(this);
     }
 
+    public void Init(GameEvent gameEvent, UnityAction<Component, object> response)
+    {
+        this.gameEvent = gameEvent;
+        this.response = new CustomEvent();
+        this.response.AddListener(response);
+        gameEvent.RegisterListener(this);
+    }
+
     public void OnEventAnnounced(Component sender, object data)
     {
         response.Invoke(sender,data);
