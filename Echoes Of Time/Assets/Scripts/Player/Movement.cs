@@ -45,6 +45,8 @@ public enum AnimationStates
 [RequireComponent(typeof(BoxCollider2D))]
 public class Movement : MonoBehaviour,IDistortable
 {
+    public static Movement instance;
+
     [HideInInspector] public Vector2 input;
     public Vector2 spawnPos;
     public GameEvent OnPlayerDirectionFacing;
@@ -125,6 +127,18 @@ public class Movement : MonoBehaviour,IDistortable
         set { customTimeScale = value; }
 
             }
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

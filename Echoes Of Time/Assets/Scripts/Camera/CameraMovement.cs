@@ -32,7 +32,7 @@ public class CameraMovement : MonoBehaviour
     private bool targetChanged = false;
     public GameEvent temporaryDifferentTarget;
     public GameEvent playerTargetAgain;
-
+    public bool shouldLock = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +48,6 @@ public class CameraMovement : MonoBehaviour
     private void LateUpdate()
     {
         CamFollow();
-
     }
 
     private void Update()
@@ -157,5 +156,15 @@ public class CameraMovement : MonoBehaviour
             return targetVector3;
         }
         else return player.position + playerOffset; 
+    }
+
+    public void ToggleCameraLock(Component sender, object data)
+    {
+        shouldLock = !shouldLock;
+    }
+
+    public void AmendLevelBounds(LevelBounds levelBounds)
+    {
+        LevelBounds = levelBounds;
     }
 }

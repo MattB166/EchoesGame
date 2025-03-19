@@ -19,4 +19,10 @@ public class GoblinRider : GroundedAI
     {
         base.FixedUpdate();
     }
+
+    public override void Die()
+    {
+        base.Die();
+        Destroy(gameObject, 2f);
+    }
 }
