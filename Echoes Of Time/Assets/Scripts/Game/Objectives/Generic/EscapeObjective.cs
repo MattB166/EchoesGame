@@ -9,9 +9,11 @@ using UnityEngine.Events;
 public class ObjectiveStage
 {
     public string stageName;
+    //public GameEvent stageEventStarted;
     public List<GameEvent> eventsNeeded;
     public float progress;
     public GameEvent stageCompletionEvent;
+    public LevelBounds objectiveStageBounds;
 
 
     public void IncreaseProgress()
@@ -27,6 +29,7 @@ public class EscapeObjective : BaseObjective
     //an objective for the alignment of switches to be completed
     //requires certain events to be triggered, in order to be completed. 
     private Collider2D triggerCollider;
+    public GameEvent stageEventStarted;
     public List<ObjectiveStage> escapeStages;
     public int currentStage;
     public int completedStages;
@@ -49,7 +52,10 @@ public class EscapeObjective : BaseObjective
             GameEventListener listener = transform.AddComponent<GameEventListener>();
             listener.Init(gameEvent, (component, data) => OnEventTriggered(stage));
             currentListeners.Add(listener);
+            
         }
+        //announce event for new stage. 
+        stageEventStarted.Announce(this,stage.objectiveStageBounds);
     }
 
     public void OnEventTriggered(ObjectiveStage stage)

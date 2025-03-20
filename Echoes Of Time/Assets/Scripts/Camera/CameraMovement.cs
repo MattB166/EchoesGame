@@ -34,6 +34,7 @@ public class CameraMovement : MonoBehaviour
     public GameEvent playerTargetAgain;
     public bool shouldLock = false;
 
+    private Coroutine boundsTransitionCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +53,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-       
+
     }
     void CamShake()
     {
@@ -65,13 +66,16 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     void CamFollow()
     {
-
+        if (shouldLock)
+        {
+            return;
+        }
         //targetVector3 = player.position + playerOffset;
         targetVector3 = GetTarget();
 
         Vector3 newPos = Vector3.Slerp(transform.position, targetVector3, moveDelay * Time.deltaTime);
         transform.position = ClampPositionIntoLevel(newPos);
-
+        //Debug.Log("Camera position: " + transform.position);
     }
 
     /// <summary>
@@ -101,7 +105,7 @@ public class CameraMovement : MonoBehaviour
         temporaryDifferentTarget.Announce(this, delayForTargetReset);
         //Debug.Log(sender.gameObject.transform.position);
         targetChanged = true;
-        Vector3 newOffset = new Vector3(0,0, playerOffset.z);
+        Vector3 newOffset = new Vector3(0, 0, playerOffset.z);
         targetVector3 = sender.gameObject.transform.position + newOffset;
 
         StartCoroutine(ResetTarget(delayForTargetReset));
@@ -122,7 +126,7 @@ public class CameraMovement : MonoBehaviour
 
     public void InvertFacingOffset(Component sender, object data)
     {
-        if(data is object[] dataArray && dataArray.Length > 0)
+        if (data is object[] dataArray && dataArray.Length > 0)
         {
             data = dataArray[0];
         }
@@ -132,12 +136,12 @@ public class CameraMovement : MonoBehaviour
         {
             //new offset moves camera slightly in the facing direction of the player
             playerOffset = new Vector3(initialOffset.x - directionFacingOffset, playerOffset.y, playerOffset.z);
-            
+
         }
-        else if(dataDirection > 0)
+        else if (dataDirection > 0)
         {
             playerOffset = new Vector3(initialOffset.x + directionFacingOffset, playerOffset.y, playerOffset.z);
-            
+
         }
         //Debug.Log("New offset has been set: " + playerOffset);
     }
@@ -151,20 +155,56 @@ public class CameraMovement : MonoBehaviour
 
     public Vector3 GetTarget()
     {
-        if(targetChanged)
+        if (targetChanged)
         {
             return targetVector3;
         }
-        else return player.position + playerOffset; 
+        else return player.position + playerOffset;
     }
 
     public void ToggleCameraLock(Component sender, object data)
     {
         shouldLock = !shouldLock;
+        if (shouldLock)
+        {
+            transform.position = ClampPositionIntoLevel(transform.position);
+        }
     }
 
-    public void AmendLevelBounds(LevelBounds levelBounds)
+    public void AmendLevelBounds(Component sender, object data)
     {
-        LevelBounds = levelBounds;
+        if (data is object[] dataArray && dataArray.Length > 0)
+        {
+            data = dataArray[0];
+        }
+        if(boundsTransitionCoroutine != null)
+        {
+            StopCoroutine(boundsTransitionCoroutine);
+        }
+        boundsTransitionCoroutine = StartCoroutine(BoundsTransition((LevelBounds)data, 1.5f));
+
+    }
+
+    private IEnumerator BoundsTransition(LevelBounds targetBounds, float duration)
+    {
+        //ToggleCameraLock(this, null);
+        //Debug.Log("Bounds transition started");
+        float elapsedTime = 0f;
+        LevelBounds initialBounds = LevelBounds;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            LevelBounds = new LevelBounds
+            {
+                minX = Mathf.Lerp(initialBounds.minX, targetBounds.minX, elapsedTime / duration),
+                maxX = Mathf.Lerp(initialBounds.maxX, targetBounds.maxX, elapsedTime / duration),
+                minY = Mathf.Lerp(initialBounds.minY, targetBounds.minY, elapsedTime / duration),
+                maxY = Mathf.Lerp(initialBounds.maxY, targetBounds.maxY, elapsedTime / duration)
+            };
+             yield return null;
+        }
+        LevelBounds = targetBounds;
+        //ToggleCameraLock(this, null);
+        //Debug.Log("New Bounds : " + LevelBounds.minX + " " + LevelBounds.maxX + " " + LevelBounds.minY + " " + LevelBounds.maxY);
     }
 }
