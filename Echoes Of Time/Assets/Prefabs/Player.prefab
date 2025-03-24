@@ -254,6 +254,8 @@ GameObject:
   - component: {fileID: 5497611484853813979}
   - component: {fileID: 3767579487116102766}
   - component: {fileID: 8596799801152925443}
+  - component: {fileID: 2790417093127545490}
+  - component: {fileID: 8003454847820091283}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -745,7 +747,6 @@ MonoBehaviour:
   items: []
   currentItemIndex: 0
   itemChanged: {fileID: 11400000, guid: 4fc593795353f71408994ba6323f6cc7, type: 2}
-  newOrderOfInventory: {fileID: 11400000, guid: 067cbb2f6fc198044be135150782638b, type: 2}
   onItemUsed: {fileID: 11400000, guid: 939695f443281cd41ac157deba12eef9, type: 2}
   onItemSecondaryUsed: {fileID: 11400000, guid: 8b2d6500afa29ca4e80d6f8a8d4895c4, type: 2}
   onItemDropped: {fileID: 11400000, guid: a0c3521c0d4fdcc4c8b6abd6ee2105e5, type: 2}
@@ -881,6 +882,62 @@ MonoBehaviour:
       - m_Target: {fileID: 8713895717359230334}
         m_TargetAssemblyTypeName: Movement, Assembly-CSharp
         m_MethodName: TemporarilyDisableMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2790417093127545490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7397d46dbe8cff04db6b4f6da652fa19, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: ToggleGravity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8003454847820091283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 303f7356ded5cb74093a87306deb38f0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: ToggleGravity
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
