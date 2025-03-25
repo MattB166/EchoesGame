@@ -231,4 +231,9 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         }
         return 0;
     }
+
+    public void PlayItemSound()
+    {
+       currentItem.item.PlayUseSound();
+    }
 }

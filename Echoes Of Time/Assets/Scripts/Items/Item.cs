@@ -7,12 +7,12 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
     public ItemData itemData;
     public Inventory inventory;
     public GameObject prefab;
-    //public AudioSource audioSource;
+    private AudioSource audioSource;
     protected GameObject ItemOwner;
     // Start is called before the first frame update
     void Start()
     {
-        //audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -26,6 +26,13 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
         this.itemData = itemData;
         this.inventory = inv;
         this.prefab = prefab;
+        audioSource = inventory.gameObject.AddComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            Debug.Log("Audio source added to inventory game object");
+            audioSource.clip = itemData.useSound;
+            audioSource.playOnAwake = false;
+        }
         //Debug.Log("Item initialized with " + itemData.name);
     }
 
@@ -39,6 +46,22 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
     public virtual void SetOwner(GameObject owner)
     {
         ItemOwner = owner; 
+    }
+
+    public void PlayUseSound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+    }
+
+    protected void PlaySecondaryUseSound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 
 }

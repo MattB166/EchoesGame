@@ -12,6 +12,7 @@ public class SpearItem : MeleeWeaponItem
     private Vector2 startPos;
     public float throwDistance;
     private float currentDistance;
+    public AudioClip throwSound;
     //private Collider2D spearCol; 
 
     // Start is called before the first frame update
@@ -37,7 +38,7 @@ public class SpearItem : MeleeWeaponItem
     }
     public override void Use()
     {
-
+        //PlayUseSound();
     }
 
     public override void SecondaryUse()
@@ -85,6 +86,7 @@ public class SpearItem : MeleeWeaponItem
             rb.gravityScale = 0;
             inventory.player.GetComponent<Actions>().attackAnimFinishedCallback -= ThrowSpear;
             inventory.RemoveItem(this);
+            PlaySecondaryUseSound(throwSound);
         }
         
     }

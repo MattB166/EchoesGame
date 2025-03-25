@@ -17,7 +17,7 @@ public class SwordItem : MeleeWeaponItem
     public override void Use()
     {
        // Debug.Log("Using Sword");
-        
+        //PlayUseSound();
     }
 
     public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
