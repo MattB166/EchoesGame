@@ -7,11 +7,12 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
     public ItemData itemData;
     public Inventory inventory;
     public GameObject prefab;
+    //public AudioSource audioSource;
     protected GameObject ItemOwner;
     // Start is called before the first frame update
     void Start()
     {
-       
+        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

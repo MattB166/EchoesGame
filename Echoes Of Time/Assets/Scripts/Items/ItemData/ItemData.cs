@@ -6,6 +6,7 @@ public abstract class ItemData : ScriptableObject
 {
     public Sprite itemSprite;
     public AudioClip pickupSound;
+    public AudioClip useSound;
     public bool isAnimatedOnPickup;
 
 

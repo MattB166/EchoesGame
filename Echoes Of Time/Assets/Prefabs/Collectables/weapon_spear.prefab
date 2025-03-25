@@ -161,6 +161,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: e3c86168a8ae33347aa3711dfd5b161f, type: 2}
   inventory: {fileID: 0}
   prefab: {fileID: 6614358742109557468}
+  audioSource: {fileID: 0}
   weaponData: {fileID: 11400000, guid: e3c86168a8ae33347aa3711dfd5b161f, type: 2}
   meleeWeaponData: {fileID: 11400000, guid: e3c86168a8ae33347aa3711dfd5b161f, type: 2}
   isThrown: 0
