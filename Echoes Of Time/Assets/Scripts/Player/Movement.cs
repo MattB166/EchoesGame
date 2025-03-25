@@ -178,7 +178,7 @@ public class Movement : MonoBehaviour,IDistortable
         PerformDoubleJump();
         ApplyGravity();
         isAttacking = GetComponent<Actions>().isAttacking;
-        if (transform.position.y < -50)
+        if (transform.position.y < -30)
         {
             ResetPlayerPosition(); //send event to reset other objects in the scene that need resetting. 
         }

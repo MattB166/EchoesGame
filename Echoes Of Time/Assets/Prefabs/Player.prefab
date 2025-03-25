@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainObjective: {fileID: 0}
   sideObjectivePool:
-  - {fileID: 0}
+  - {fileID: 130338799744276047, guid: a6838e1fc99c61647bdaee90bcee7344, type: 3}
   activeSideObjectives: []
   completedObjectives: []
   completedSideObjectives: []
@@ -611,7 +611,7 @@ MonoBehaviour:
   isOnLedge: 0
   gravity: -20
   groundcheckDistance: 0.04
-  ledgeCheckDistance: 0.1
+  ledgeCheckDistance: 1.5
   OnPlayerLedging: {fileID: 11400000, guid: 2ecf79b2dffe8eb4480d618d84583404, type: 2}
   OnEndOfLedging: {fileID: 11400000, guid: 6b33297e035c4444990d0796d1df5c2b, type: 2}
   coyoteTime: 0.5

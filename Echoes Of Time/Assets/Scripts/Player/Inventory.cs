@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Script which manages the player's inventory, including the items they have and the quantity of each item, and using these items. 
 /// </summary>
@@ -18,6 +19,8 @@ public class InventoryItem
 }
 public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SCRIPT, FOR THE SPRITE AND THE QUANTITY AND CURRENT SELECTED ITEM. 
 {
+    public static Inventory instance;
+
     public List<InventoryItem> items = new List<InventoryItem>();
     private List<InventoryItem> itemsToRemove = new List<InventoryItem>();
     public int currentItemIndex = 0;
@@ -42,6 +45,36 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     public Dictionary<ProjectileData, int> storedProjectiles = new Dictionary<ProjectileData, int>();
 
 
+
+    private void Awake()
+    {
+        Debug.Log("Inventory awake");
+        if (instance == null)
+        {
+            Debug.Log("Inventory instance created");
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            //Debug.Log("Inventory instance already exists, destroying this one");
+            Destroy(gameObject);
+            return;
+        }
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Vector3 spawnLocation = SpawnManager.instance.GetSpawnLocation(scene.name);
+        player.transform.position = spawnLocation;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +85,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     void Update()
     {
         ProcessItemRemovals();
-        
+        DontDestroyOnLoad(gameObject);
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)
@@ -108,9 +141,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         //Debug.Log("Item not in inventory, adding it");
         InventoryItem item = new InventoryItem(newItem, 1);
         items.Add(item);
-        SetCurrentItem(item);
-
-
+        SetCurrentItem(item);  
 
     }
 

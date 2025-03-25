@@ -78,7 +78,7 @@ public abstract class GroundedAI : AICharacter
                     currentStateScript = transform.gameObject.AddComponent<GroundedWalk>();
                     break;
                 case GroundedStates.Attack:
-                    Debug.Log("Changing state to attack");
+                    //Debug.Log("Changing state to attack");
                     currentStateScript = transform.gameObject.AddComponent<GroundedAttack>();
                     break;
                 case GroundedStates.Dead:
@@ -133,6 +133,6 @@ public abstract class GroundedAI : AICharacter
     {
         base.Die();
         ChangeState(GroundedStates.Dead);
-        Debug.Log("Grounded AI Died");
+        //Debug.Log("Grounded AI Died");
     }
 }

@@ -11,6 +11,7 @@ public abstract class NonInputPickup : BasePickupItem
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player has collided with a pickup item");
             OnInteract();
         }
     }

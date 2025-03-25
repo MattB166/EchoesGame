@@ -32,7 +32,7 @@ public abstract class BaseObjective : MonoBehaviour
     public virtual void Activate()
     {
         isStarted = true;
-        Debug.Log("Objective Activated: " + objectiveData.objectiveName);
+        //Debug.Log("Objective Activated: " + objectiveData.objectiveName);
     }
 
     protected void CompleteObjective()
