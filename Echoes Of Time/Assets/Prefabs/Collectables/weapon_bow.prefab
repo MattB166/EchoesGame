@@ -162,4 +162,9 @@ MonoBehaviour:
   inventory: {fileID: 0}
   prefab: {fileID: 112878581887290119}
   weaponData: {fileID: 11400000, guid: 2a179553733e2c1419958fa574402600, type: 2}
+  projectiles: []
   currentProjectileIndex: 0
+  currentProjectile:
+    projectile: {fileID: 0}
+    ammoCount: 0
+  projectileChanged: {fileID: 11400000, guid: 7c6e2a11cb2580745a082d540907db4d, type: 2}

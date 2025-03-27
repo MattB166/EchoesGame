@@ -48,10 +48,10 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     private void Awake()
     {
-        Debug.Log("Inventory awake");
+        //Debug.Log("Inventory awake");
         if (instance == null)
         {
-            Debug.Log("Inventory instance created");
+            //Debug.Log("Inventory instance created");
             instance = this;
             DontDestroyOnLoad(gameObject);
         }

@@ -29,7 +29,7 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
         audioSource = inventory.gameObject.AddComponent<AudioSource>();
         if (audioSource != null)
         {
-            Debug.Log("Audio source added to inventory game object");
+            //Debug.Log("Audio source added to inventory game object");
             audioSource.clip = itemData.useSound;
             audioSource.playOnAwake = false;
         }

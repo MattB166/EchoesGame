@@ -116,7 +116,7 @@ public abstract class GroundedAI : AICharacter
         }
         if(!foundPlayer && playerInRange)
         {
-            Debug.Log("Player not found");
+            //Debug.Log("Player not found");
             playerInRange = false;
             ChangeState(GroundedStates.Patrol);
         }

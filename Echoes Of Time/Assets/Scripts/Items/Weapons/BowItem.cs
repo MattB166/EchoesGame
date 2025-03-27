@@ -22,6 +22,7 @@ public class BowItem : WeaponItem
     public List<Projectiles> projectiles = new List<Projectiles>();
     public int currentProjectileIndex = 0;
     public Projectiles currentProjectile;
+    public GameEvent projectileChanged;
 
     //private List<Projectiles> projectilesToRemove = new List<Projectiles>();
 
@@ -103,6 +104,7 @@ public class BowItem : WeaponItem
 
             bp.Fire(pos);
             currentProjectile.ammoCount--;
+            projectileChanged.Announce(this, currentProjectile);
             //Debug.Log("Fired projectile: " + currentProjectile.projectile.projectileData.name + " Projectile now has: " + currentProjectile.ammoCount + " ammo.");
             //Debug.Log(projectiles.Count + " projectiles left.");
             if (currentProjectile.ammoCount <= 0)
@@ -134,6 +136,7 @@ public class BowItem : WeaponItem
                 currentProjectile = null;
                 Debug.Log("No more projectiles left.");
             }
+
         }
     }
 
@@ -167,6 +170,7 @@ public class BowItem : WeaponItem
         //Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
         projectiles.Add(p);
         currentProjectile = p;
+        projectileChanged.Announce(this, currentProjectile);
     }
 
     public void CycleProjectiles()
@@ -186,6 +190,7 @@ public class BowItem : WeaponItem
             currentProjectileIndex = 0;
             currentProjectile = projectiles[currentProjectileIndex];
         }
+        projectileChanged.Announce(this, currentProjectile);
     }
 
 

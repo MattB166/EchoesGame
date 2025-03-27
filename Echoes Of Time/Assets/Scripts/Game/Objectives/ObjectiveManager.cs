@@ -69,6 +69,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             mainObjective = null;
             OnMainObjectiveComplete.Announce(this, objective);
+            Debug.Log(mainObjective.objectiveData.objectiveName + " has been completed!");
         }
         else
         {
