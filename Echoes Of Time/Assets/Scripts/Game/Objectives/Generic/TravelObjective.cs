@@ -71,6 +71,8 @@ public class TravelObjective : BaseObjective
         else
         {
             highestProgress = currentProgress;
+            //event to update progress
+            //ObjectiveManager.instance.OnMainObjectiveUpdated.Announce(this, this);
         }
     }
 }

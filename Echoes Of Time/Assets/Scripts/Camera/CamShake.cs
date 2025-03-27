@@ -60,7 +60,7 @@ public class CamShake : MonoBehaviour
         {
             counter += Time.deltaTime * Mathf.Pow(intensity,0.3f) * intensityMultiplier;
             Vector2 shake = GetVec() * intensityMagnitude;
-            transform.position = playerPos + new Vector3(shake.x, shake.y, transform.position.z);
+            transform.position += new Vector3(shake.x, shake.y, 0);
         }
     }
 

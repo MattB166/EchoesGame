@@ -39,6 +39,8 @@ public abstract class GroundedAI : AICharacter
     private Collider2D[] cols;
     public GroundedStates previousState { get; }
 
+    public GameEvent AttackAnimCheckNeeded;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -134,5 +136,10 @@ public abstract class GroundedAI : AICharacter
         base.Die();
         ChangeState(GroundedStates.Dead);
         //Debug.Log("Grounded AI Died");
+    }
+
+    public void EndOfAttackAnimCallback()
+    {
+        AttackAnimCheckNeeded.Announce(this);
     }
 }

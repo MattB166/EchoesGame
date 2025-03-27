@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class ObjectiveStage
 {
     public string stageName;
-    //public GameEvent stageEventStarted;
+    public string stageDescription;
     public List<GameEvent> eventsNeeded;
     public float progress;
     public GameEvent stageCompletionEvent;
@@ -56,6 +56,7 @@ public class EscapeObjective : BaseObjective
         }
         //announce event for new stage. 
         stageEventStarted.Announce(this,stage.objectiveStageBounds);
+        objectiveData.objectiveDescription = stage.stageDescription;
     }
 
     public void OnEventTriggered(ObjectiveStage stage)

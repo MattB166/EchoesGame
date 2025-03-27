@@ -62,6 +62,7 @@ MonoBehaviour:
   AIDeath: {fileID: 0}
   currentState: 0
   rb: {fileID: 0}
+  AttackAnimCheckNeeded: {fileID: 11400000, guid: c49a27efb27abf342be92c1e1eb2fc7f, type: 2}
 --- !u!212 &8271010484858211102
 SpriteRenderer:
   m_ObjectHideFlags: 0

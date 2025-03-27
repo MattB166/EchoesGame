@@ -647,7 +647,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[2].stageName
-      value: New Stage
+      value: Propulsion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[0].stageDescription
+      value: 'Reverse all the switches! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[1].stageDescription
+      value: 'Somewhere Hidden here is the correct key! Find it! '
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[0].stageEventStarted

@@ -11,6 +11,7 @@ public class AIStats : ScriptableObject
     public float moveSpeed;
     public float attackSpeed;
     public float attackDistance;
+    public float attackDamage;
     public float patrolDistance;
     public float detectionRange;
     public bool spawnsLootOnDeath;

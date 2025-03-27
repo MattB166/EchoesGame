@@ -44,7 +44,7 @@ public class ObjectiveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        OnMainObjectiveUpdated.Announce(this, mainObjective);
     }
 
     public void SetMainObjective(BaseObjective objective)

@@ -31,7 +31,13 @@ public class objectivetext : MonoBehaviour
             if(data is BaseObjective)
             {
                 //Debug.Log("Data is base objective");
-                objectiveTextString = ((BaseObjective)data).objectiveData.objectiveName;
+                float progress = ((BaseObjective)data).currentProgress * 100;
+
+                if(float.IsInfinity(progress) || float.IsNaN(progress))
+                {
+                    progress = 0f;
+                }
+                objectiveTextString = ((BaseObjective)data).objectiveData.objectiveName + " " + progress.ToString("F0") + "%"; 
             }
         }
     }

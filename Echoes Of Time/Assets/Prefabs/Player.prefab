@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 8596799801152925443}
   - component: {fileID: 2790417093127545490}
   - component: {fileID: 8003454847820091283}
+  - component: {fileID: 3496713698993589305}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -636,6 +637,7 @@ MonoBehaviour:
   currentState: 0
   isAttacking: 0
   onHealthChange: {fileID: 11400000, guid: b08515e11ef9fe84fbcaab66c6b297a7, type: 2}
+  onDeath: {fileID: 11400000, guid: a8b53f977e61c204e997eab416678000, type: 2}
   onInteract: {fileID: 11400000, guid: f9952b75e07b2a1458b0238f431168bc, type: 2}
 --- !u!95 &945074512683496423
 Animator:
@@ -939,6 +941,46 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Movement, Assembly-CSharp
         m_MethodName: ToggleGravity
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3496713698993589305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283457379052071060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba4e63ea1a7a744f956da92d017e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a8b53f977e61c204e997eab416678000, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104509520533267175}
+        m_TargetAssemblyTypeName: Actions, Assembly-CSharp
+        m_MethodName: InitialisePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: ResetPlayerPosition
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

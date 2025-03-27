@@ -8,18 +8,26 @@ public class GroundedAttack : BaseGroundedState
     public bool shouldAttack = false;
     public bool shouldRun = false;
     public Vector2 targetPos;
+    public GameEventListener attackAnimFinishedCallback;
 
     public override void OnEnable()
     {
         base.OnEnable();
         groundedAI.currentState = GroundedStates.Attack;
         aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.attackSpeed;
+        
     }
 
     private void Start()
     {
-        ///Debug.Log($"Start() called on {gameObject.name} at {Time.time}", this);
-        //DetermineDistance();
+       if(groundedAI.AttackAnimCheckNeeded == null)
+        {
+            Debug.LogError("AttackAnimCheckNeeded is null");
+        }
+        attackAnimFinishedCallback = gameObject.AddComponent<GameEventListener>();
+        attackAnimFinishedCallback.Init(groundedAI.AttackAnimCheckNeeded, CheckForAttackRange);
+ 
+        
     }
     public override void RunLogic()
     {
@@ -81,6 +89,23 @@ public class GroundedAttack : BaseGroundedState
             shouldAttack = true;
             shouldRun = false;
             anim.StopPlayback();
+        }
+    }
+
+    public void CheckForAttackRange(Component sender, object data)
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, groundedAI.AICharacterData.attackDistance);
+        foreach (var item in hitColliders)
+        {
+            if (item.TryGetComponent<IDamageable>(out IDamageable dam))
+            {
+                //if item is not the gameobject attached to this
+                if (item.gameObject != gameObject)
+                {
+                    dam.TakeDamage(groundedAI.AICharacterData.attackDamage);
+                    Debug.Log("Dealt damage to: " + item.name);
+                }
+            }
         }
     }
 }

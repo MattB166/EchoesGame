@@ -28,11 +28,13 @@ public class Actions : MonoBehaviour, IDamageable
     [Header("Player Stats")]
     [SerializeField]
     private float playerMaxHealth;               ///MOVE PLAYER HEALTH TO A SEPARATE SCRIPT FOR PLAYER STATS TO SEPARATE CONCERNS 
+    [SerializeField]
+    private float playerCurrentHealth;
     private bool canTakeDamage = true;
     public float HitPoints
     {
-        get { return playerMaxHealth; }
-        set { playerMaxHealth = value; }
+        get { return playerCurrentHealth; }
+        set { playerCurrentHealth = value; }
     }
 
 
@@ -72,6 +74,7 @@ public class Actions : MonoBehaviour, IDamageable
     [Header("Events")]
     
     public GameEvent onHealthChange;
+    public GameEvent onDeath;
     public GameEvent onInteract;
 
 
@@ -96,7 +99,9 @@ public class Actions : MonoBehaviour, IDamageable
 
     public void InitialisePlayer()
     {
-        HitPoints = playerMaxHealth;
+        playerCurrentHealth = playerMaxHealth;
+        HitPoints = playerCurrentHealth;
+        Debug.Log("Hitpoints reset to : " + HitPoints);
     }
 
     public void ChangeWeaponAnimation(Component sender, object data)
@@ -379,8 +384,8 @@ public class Actions : MonoBehaviour, IDamageable
             onHealthChange.Announce(this,HitPoints);
             if (HitPoints <= 0)
             {
-                //death logic and event. 
-                
+                Debug.Log("Player has died");
+                onDeath.Announce(this);
             }
         }
 

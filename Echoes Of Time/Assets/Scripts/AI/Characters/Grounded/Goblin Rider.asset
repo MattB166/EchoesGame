@@ -18,5 +18,7 @@ MonoBehaviour:
   moveSpeed: 1
   attackSpeed: 3
   attackDistance: 1.8
+  attackDamage: 2
   patrolDistance: 6
   detectionRange: 5
+  spawnsLootOnDeath: 0
