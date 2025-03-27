@@ -149,6 +149,15 @@ MonoBehaviour:
   hitPoints: 6
   markedForImmediateDeletion: 0
   spawnsItem: 0
+  projectile: {fileID: 144089182479733433, guid: 3e52b63896d13a24bb3d50640c9f7631, type: 3}
+  playerDetected: 0
+  shootPlayer: 0
+  shootTimer: 3
+  checkInterval: 3
+  shootRange: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!95 &8949313205291575786
 Animator:
   serializedVersion: 7

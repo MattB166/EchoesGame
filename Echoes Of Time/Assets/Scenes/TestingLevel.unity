@@ -761,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5682150839970170673, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.98
+      value: 7.79
       objectReference: {fileID: 0}
     - target: {fileID: 5682150839970170673, guid: 202f206fdca0fb94fb6732b3e7301625, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10621,6 +10621,22 @@ PrefabInstance:
     - target: {fileID: 1791005852928289284, guid: d8726b92907942049bd02a93851d672a, type: 3}
       propertyPath: m_Name
       value: CrossBow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051884997770772943, guid: d8726b92907942049bd02a93851d672a, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 144089182479733433, guid: 3e52b63896d13a24bb3d50640c9f7631, type: 3}
+    - target: {fileID: 4051884997770772943, guid: d8726b92907942049bd02a93851d672a, type: 3}
+      propertyPath: shootRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051884997770772943, guid: d8726b92907942049bd02a93851d672a, type: 3}
+      propertyPath: shootTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051884997770772943, guid: d8726b92907942049bd02a93851d672a, type: 3}
+      propertyPath: checkInterval
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6546646954528966339, guid: d8726b92907942049bd02a93851d672a, type: 3}
       propertyPath: m_LocalPosition.x

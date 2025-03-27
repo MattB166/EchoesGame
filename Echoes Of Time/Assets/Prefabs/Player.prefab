@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 2790417093127545490}
   - component: {fileID: 8003454847820091283}
   - component: {fileID: 3496713698993589305}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMaxHealth: 10
+  playerCurrentHealth: 0
   currentWeapon: 0
   currentState: 0
   isAttacking: 0

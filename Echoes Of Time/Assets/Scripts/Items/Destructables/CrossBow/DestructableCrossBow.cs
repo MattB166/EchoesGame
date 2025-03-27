@@ -6,12 +6,29 @@ public class DestructableCrossBow : DestructableObject
 {
     Animator anim;
     private Rigidbody2D rb;
-
-
+    private SpriteRenderer sr;
+    private float shootDirection;
+    public GameObject projectile;
+    private bool needsToCheck = true;
+    public bool playerDetected;
+    public bool shootPlayer;
+    public float shootTimer;
+    public float checkInterval;
+    public float shootRange;
+    public LayerMask playerLayer;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
+        if(sr.flipX)
+        {
+            shootDirection = 1;
+        }
+        else
+        {
+            shootDirection = -1;
+        }
         Initialise();
     }
 
@@ -19,6 +36,19 @@ public class DestructableCrossBow : DestructableObject
     void Update()
     {
         base.Update();
+        //Debug.Log("Crossbow Update");
+        //performs raycast for player every check interval, if at all found, it continues to shoot in that direction. 
+        if (needsToCheck && !shootPlayer)
+        {
+            CastForPlayer();
+        }
+        if(playerDetected && !shootPlayer)
+        {
+            shootPlayer = true;
+            StartShooting();
+        }
+
+
         if (isDestroyed)
         {
             anim.Play("CrossBow");
@@ -35,9 +65,43 @@ public class DestructableCrossBow : DestructableObject
     {
         
     }
-    
+
+
+    public void StartShooting()
+    {
+        //Debug.Log("Starting to shoot");
+        InvokeRepeating("Shoot", 0, shootTimer);
+    }
+
     public void Shoot()
     {
-        //shoot standard projectiles 
+        //Debug.Log("Shooting");
+
+    }
+    public void CastForPlayer()
+    {
+        //Debug.Log("Casting for player");
+        Ray2D ray = new Ray2D(transform.position, new Vector2(shootDirection, 0));
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, shootRange,playerLayer);
+        Debug.DrawRay(ray.origin, ray.direction * shootRange, Color.red);
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+             
+                playerDetected = true;
+                //Debug.Log("Player detected by crossbow");
+            }
+        }
+        //reset the check interval
+        needsToCheck = false;
+        StartCoroutine(ResetCheck());
+    }
+
+    private IEnumerator ResetCheck()
+    {
+        //Debug.Log("Resetting check");
+        yield return new WaitForSeconds(checkInterval);
+        needsToCheck = true;
     }
 }
