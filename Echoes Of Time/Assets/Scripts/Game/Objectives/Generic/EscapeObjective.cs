@@ -56,7 +56,7 @@ public class EscapeObjective : BaseObjective
         }
         //announce event for new stage. 
         stageEventStarted.Announce(this,stage.objectiveStageBounds);
-        objectiveData.objectiveDescription = stage.stageDescription;
+        objectiveData.objectiveDescription = stage.stageDescription + stage.progress.ToString();
     }
 
     public void OnEventTriggered(ObjectiveStage stage)
@@ -90,7 +90,7 @@ public class EscapeObjective : BaseObjective
     protected override void Update()
     {
         base.Update();
-
+        objectiveData.objectiveDescription = escapeStages[currentStage].stageDescription + escapeStages[currentStage].progress.ToString();
     }
 
     protected override bool CheckObjectiveCompletion()
