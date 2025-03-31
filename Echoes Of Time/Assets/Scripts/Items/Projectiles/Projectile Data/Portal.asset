@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc21ef6e3048614caf1ca87db8ef6f8, type: 3}
   m_Name: Portal
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -5816642994671486895, guid: 9772ceb452a8dff42b01fcbb18dd5b4e, type: 3}
   pickupSound: {fileID: 0}
   useSound: {fileID: 0}
   isAnimatedOnPickup: 0

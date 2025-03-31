@@ -177,7 +177,7 @@ public class SpearItem : MeleeWeaponItem
         Vector2 playerPos = inventory.player.transform.position;
         Vector2 spearPos = transform.position;
         Vector2 direction = playerPos - spearPos;
-        float speed = 15.0f;
+        float speed = 30.0f;
         transform.position = Vector2.MoveTowards(spearPos, playerPos, speed * Time.deltaTime);
         //Quaternion targetRot = Quaternion.Euler(0, 0, 90);
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 100 * Time.deltaTime);

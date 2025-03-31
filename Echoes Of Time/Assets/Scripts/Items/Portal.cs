@@ -231,6 +231,7 @@ public class Portal : MonoBehaviour
                 col.gameObject.transform.position = linkedPortal.transform.position;
                 linkedPortalScript.closePortal = true;
                 closePortal = true;
+                Invoke("DestroyPortal", 2.0f);
             }
             else
             {
@@ -249,6 +250,7 @@ public class Portal : MonoBehaviour
                 col.gameObject.transform.position = linkedPortal.transform.position;
                 linkedPortalScript.closePortal = true;
                 closePortal = true;
+                Invoke("DestroyPortal", 2.0f);
             }
             else
             {
@@ -263,6 +265,7 @@ public class Portal : MonoBehaviour
                 col.gameObject.transform.position = linkedPortal.transform.position;
                 linkedPortalScript.closePortal = true;
                 closePortal = true;
+                Invoke("DestroyPortal", 2.0f);
             }
             else
             {
@@ -291,5 +294,10 @@ public class Portal : MonoBehaviour
        
     }
 
+
+    public void DestroyPortal()
+    {
+        Destroy(gameObject);
+    }
     
 }
