@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   pickupSound: {fileID: 0}
+  useSound: {fileID: 0}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 3380238497052440609, guid: 29dc17cdc12cae94989ed22a6ec53499, type: 3}
   projectileSpeed: 10
   maxDistance: 1
   projectileType: 4
-  pickupAmount: 2
+  pickupAmount: 15
   notifierColour: {r: 0, g: 1, b: 0.14068007, a: 0}
   portalPrefab: {fileID: 6150674934596508684, guid: 65918cca26a87454b8ec94f11637d715, type: 3}
   portalData: {fileID: 11400000, guid: bf0be7e3b6819d149b90f18f0794f9e9, type: 2}

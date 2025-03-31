@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PortalProjectile : BaseProjectile
 {
     protected PortalProjectileData portalProjectileData;
+    public LayerMask obstacleLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +28,27 @@ public class PortalProjectile : BaseProjectile
         transform.rotation = Quaternion.Euler(0, 0, angle);
         if (distanceTravelled >= projectileData.maxDistance)
         {
-            
-            CreatePortals();
+            if(CanPlacePortal())
+            {
+                CreatePortals();
+            }
+           
             Destroy(gameObject);
         }
     }
+
+    public bool CanPlacePortal()
+    {
+        ///checks whether any objects are in the way of the portal being placed. walls, enemies, etc.
+        float radius = 0.5f;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, obstacleLayer);
+        if (colliders.Length > 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
 
     public void CreatePortals()
     {

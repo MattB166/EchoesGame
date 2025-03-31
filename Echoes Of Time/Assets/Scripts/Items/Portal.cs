@@ -34,6 +34,8 @@ public class Portal : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public float proximityRadius;
     public Collider2D triggerCol;
+    Color portalColour;
+    public LayerMask obstacleLayer;
 
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
@@ -42,9 +44,21 @@ public class Portal : MonoBehaviour
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         spriteRenderer = GetComponent<SpriteRenderer>();
         triggerCol = GetComponent<Collider2D>();
+        if(portalNode == PortalNode.Start)
+        {
+            Color randomCol = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 1f);
+            portalColour = randomCol;
+            spriteRenderer.color = portalColour;
+        }
+        else
+        {
+            spriteRenderer.color = linkedPortalScript.portalColour;
+        }
+
+
     }
 
-   
+
     public void InitialisePortal(PortalData data, PortalNode node)
     {
         portalData = data;
@@ -54,6 +68,7 @@ public class Portal : MonoBehaviour
         {
             portalBeingPlaced = true;
             portalPlacementTimer = portalData.portalPlacementTimer;
+            Debug.Log("Portal being placed");
         }
 
     }
@@ -85,10 +100,16 @@ public class Portal : MonoBehaviour
             {
                 stillTimer = 0;
                 Debug.Log("Portal too far away from linked portal");
+                return;
             }
-             //HAVE A PARTICLE SYSTEM CONNECTING THE TWO PORTALS, 
-                //WHICH GETS LESS DENSE THE FURTHER AWAY THE PORTALS ARE FROM EACH OTHER AND CLOSER TO THE MAX DISTANCE.. 
-           
+
+            if(!CanPlacePortal())
+            {
+                stillTimer = 0;
+                Debug.Log("Cannot place portal here");
+                return;
+            }
+
             if (Vector3.Distance(transform.position, lastPosition) < 0.1f)
             {
                 stillTimer += Time.deltaTime;
@@ -123,6 +144,23 @@ public class Portal : MonoBehaviour
 
     }
 
+
+    public bool CanPlacePortal()
+    {
+        ///checks whether any objects are in the way of the portal being placed. walls, enemies, etc.
+        float radius = proximityRadius;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius,obstacleLayer);
+        if (colliders.Length > 0)
+        {
+            Debug.Log(colliders.Length + " objects in the way of the portal");
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Debug.Log(colliders[i].name);
+            }
+            return false;
+        }
+        return true;
+    }
 
 
     private IEnumerator OpenPortal()
@@ -172,7 +210,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !portalBeingPlaced) //or any item that can be teleported.
+        if (collision.gameObject.CompareTag("Player") && !portalBeingPlaced && !linkedPortalScript.portalBeingPlaced) //or any item that can be teleported.
         {
             //perform checks for one way / two way portals.
             CalculateTeleportType(collision);
@@ -205,7 +243,21 @@ public class Portal : MonoBehaviour
         }
         else if (portalNode == PortalNode.End)
         {
-            if(portalData.closesAfterTwoWay)
+            if(portalData.oneWay)
+            {
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                linkedPortalScript.closePortal = true;
+                closePortal = true;
+            }
+            else
+            {
+                linkedPortalScript.triggerCol.enabled = false;
+                col.gameObject.transform.position = linkedPortal.transform.position;
+                StartCoroutine(linkedPortalScript.ReEnableTrigger(2.0f));
+            }
+
+            if (portalData.closesAfterTwoWay)
             {
                 linkedPortalScript.triggerCol.enabled = false;
                 col.gameObject.transform.position = linkedPortal.transform.position;
