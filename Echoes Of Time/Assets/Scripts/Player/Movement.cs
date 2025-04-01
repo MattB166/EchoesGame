@@ -675,12 +675,12 @@ public class Movement : MonoBehaviour,IDistortable
         //toggle between 0 and internal gravity.
         if (gravity == 0)
         {
-            Debug.Log("Gravity on");
+            //Debug.Log("Gravity on");
             gravity = internalGravity;
         }
         else
         {
-            Debug.Log("Gravity off");
+            //Debug.Log("Gravity off");
             gravity = 0;
         }
     }

@@ -72,7 +72,7 @@ public class Switch : BaseNonPickup, IDistortable
         float elapsed = 0f;
         while (elapsed < switchTime)
         {
-            Debug.Log("Switching off in " + (switchTime - elapsed));
+            //Debug.Log("Switching off in " + (switchTime - elapsed));
             yield return null;
             if(customTimeScale > 0)
             {

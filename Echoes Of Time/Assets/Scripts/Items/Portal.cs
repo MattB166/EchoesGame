@@ -152,7 +152,7 @@ public class Portal : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius,obstacleLayer);
         if (colliders.Length > 0)
         {
-            Debug.Log(colliders.Length + " objects in the way of the portal");
+            //Debug.Log(colliders.Length + " objects in the way of the portal");
             for (int i = 0; i < colliders.Length; i++)
             {
                 Debug.Log(colliders[i].name);

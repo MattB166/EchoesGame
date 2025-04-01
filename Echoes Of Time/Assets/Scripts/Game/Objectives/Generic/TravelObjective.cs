@@ -15,7 +15,7 @@ public class TravelObjective : BaseObjective
     public override void Activate()
     {
         base.Activate();
-        Debug.Log("Travel Objective Activated");
+        //Debug.Log("Travel Objective Activated");
         beginLocation = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
         targetLocation = new Vector2(targetTransform.position.x, targetTransform.position.y);
         distanceToTarget = Vector2.Distance(beginLocation, targetLocation);

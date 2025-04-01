@@ -73,14 +73,14 @@ public class EscapeObjective : BaseObjective
     void Start()
     {
         triggerCollider = gameObject.GetComponent<Collider2D>();
-        Debug.Log("Escape Objective found");
+        //Debug.Log("Escape Objective found");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player has entered the escape zone");
+            //Debug.Log("Player has entered the escape zone");
             ObjectiveManager.instance.SetMainObjective(this);
             triggerCollider.enabled = false;
         }

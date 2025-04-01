@@ -179,7 +179,7 @@ public class BowItem : WeaponItem
         {
             currentProjectileIndex = (currentProjectileIndex + 1) % projectiles.Count;
             currentProjectile = projectiles[currentProjectileIndex];
-            Debug.Log("Switched to projectile: " + currentProjectile.projectile.projectileData.name);
+            //Debug.Log("Switched to projectile: " + currentProjectile.projectile.projectileData.name);
             if (currentProjectile.ammoCount <= 0)
             {
                 RemoveProjectile(currentProjectile);

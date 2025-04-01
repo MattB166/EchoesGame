@@ -23,7 +23,7 @@ public class DistorterProjectile : BaseProjectile
     {
         if(col.TryGetComponent(out IDistortable distortable))
         {
-           Debug.Log("hit a distortable object");
+           //Debug.Log("hit a distortable object");
             if(distorterProjectileData.timedDistortion)
             {
                 distortable.Distort(distorterProjectileData.distortionValue, distorterProjectileData.distortionTime);
