@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8910689030fb04f4e95984328187488d, type: 3}
-  m_Name: MovementObjective
+  m_Script: {fileID: 11500000, guid: a8b061a5fa396194cb210a0791bfcae7, type: 3}
+  m_Name: FrozenTutorialEventComplete
   m_EditorClassIdentifier: 
-  objectiveName: Learn Movement
-  objectiveDescription: 'A,D for L/R movement
-
-    W,S for Ladders'
-  tutorialType: 0
+  listeners: []

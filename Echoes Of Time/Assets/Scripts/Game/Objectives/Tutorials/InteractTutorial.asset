@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: InteractTutorial
   m_EditorClassIdentifier: 
   objectiveName: Interact
-  objectiveDescription: 'Interact with an object. '
+  objectiveDescription: E to Interact with an object, or pick it up.
   tutorialType: 2

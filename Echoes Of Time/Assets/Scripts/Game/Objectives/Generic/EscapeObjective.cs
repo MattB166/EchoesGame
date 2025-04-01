@@ -90,7 +90,7 @@ public class EscapeObjective : BaseObjective
     protected override void Update()
     {
         base.Update();
-        objectiveData.objectiveDescription = escapeStages[currentStage].stageDescription + escapeStages[currentStage].progress.ToString();
+        objectiveData.objectiveDescription = escapeStages[currentStage].stageDescription + escapeStages[currentStage].progress.ToString("F0")+ "%"; 
     }
 
     protected override bool CheckObjectiveCompletion()

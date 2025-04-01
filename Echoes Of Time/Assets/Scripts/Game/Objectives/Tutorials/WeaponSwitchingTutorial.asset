@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8910689030fb04f4e95984328187488d, type: 3}
-  m_Name: MovementObjective
+  m_Name: WeaponSwitchingTutorial
   m_EditorClassIdentifier: 
-  objectiveName: Learn Movement
-  objectiveDescription: 'A,D for L/R movement
-
-    W,S for Ladders'
-  tutorialType: 0
+  objectiveName: Switch Weapon
+  objectiveDescription: Q to switch Weapon
+  tutorialType: 2

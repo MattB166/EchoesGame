@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: JumpTutorial
   m_EditorClassIdentifier: 
   objectiveName: Jump
-  objectiveDescription: 
+  objectiveDescription: Space to Jump!
   tutorialType: 1

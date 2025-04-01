@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DoubleJumpTutorial
   m_EditorClassIdentifier: 
   objectiveName: Double Jump
-  objectiveDescription: 
+  objectiveDescription: Press Jump twice in quick succession to reach the platform!
   tutorialType: 3
