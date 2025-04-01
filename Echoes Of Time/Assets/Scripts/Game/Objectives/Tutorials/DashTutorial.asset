@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8910689030fb04f4e95984328187488d, type: 3}
-  m_Name: WeaponSwitchingTutorial
+  m_Name: DashTutorial
   m_EditorClassIdentifier: 
-  objectiveName: Switch Weapon
-  objectiveDescription: 'Q to switch Weapon
-
-    LMB For Primary Use
-
-    RMB For
-    Secondary Use'
-  tutorialType: 2
+  objectiveName: 'Dash '
+  objectiveDescription: 'R to Dash! '
+  tutorialType: 0
