@@ -576,17 +576,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: weapon_sword
       objectReference: {fileID: 0}
-    - target: {fileID: 8049989016198664905, guid: 9f00ca353965b9a46948cf8a2be97bb7, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 8643666650221787334, guid: 9f00ca353965b9a46948cf8a2be97bb7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.16
+      value: -5.29
       objectReference: {fileID: 0}
     - target: {fileID: 8643666650221787334, guid: 9f00ca353965b9a46948cf8a2be97bb7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.35
+      value: -6.84
       objectReference: {fileID: 0}
     - target: {fileID: 8643666650221787334, guid: 9f00ca353965b9a46948cf8a2be97bb7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12221,7 +12217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4916315901903618116, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.31
+      value: 8.85
       objectReference: {fileID: 0}
     - target: {fileID: 4916315901903618116, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
       propertyPath: m_LocalPosition.y

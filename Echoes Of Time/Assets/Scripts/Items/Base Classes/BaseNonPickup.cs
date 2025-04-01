@@ -12,6 +12,8 @@ public abstract class BaseNonPickup : BaseInteractableClass
     //private BaseNonPickup nearestItem;
     //private Collider2D col;
     private bool playerInRange = false;
+    private GameObject interactSprite;
+    private bool isEnabled = false;
 
     private void Start()
     {
@@ -48,5 +50,39 @@ public abstract class BaseNonPickup : BaseInteractableClass
         }
     }
 
+
+    public void DisplayInteractPrompt()
+    {
+        if (transform.childCount == 0)
+        {
+            return;
+        }
+        interactSprite = transform.GetChild(0).gameObject;
+        if (interactSprite != null && !isEnabled)
+        {
+            interactSprite.SetActive(true);
+            isEnabled = true;
+            StartCoroutine(HidePrompt());
+        }
+    }
+
+    public void HideInteractPrompt()
+    {
+        if(transform.childCount == 0)
+        {
+            return;
+        }
+        if (interactSprite != null)
+        {
+            interactSprite.SetActive(false);
+            isEnabled = false;
+        }
+    }
+
+    private IEnumerator HidePrompt()
+    {
+        yield return new WaitForSeconds(2);
+        HideInteractPrompt();
+    }
 
 }

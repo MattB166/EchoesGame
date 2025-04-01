@@ -295,6 +295,7 @@ public class Actions : MonoBehaviour, IDamageable
                 {
                     nearestDistance = distance;
                     nearestItem = item;
+                    nearestItem.DisplayPickupPrompt();
                 }
             }
            
@@ -315,6 +316,7 @@ public class Actions : MonoBehaviour, IDamageable
                 {
                     nearestDistance = distance;
                     nearestItem = item;
+                    nearestItem.DisplayInteractPrompt();
                 }
             }
 

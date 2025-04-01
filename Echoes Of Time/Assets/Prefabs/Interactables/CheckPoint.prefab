@@ -168,5 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActivated: 0
+  checkPointActivated: {fileID: 0}
   levelName: 
-  checkPointID: 0
+  persistentCheckPointID: 0
