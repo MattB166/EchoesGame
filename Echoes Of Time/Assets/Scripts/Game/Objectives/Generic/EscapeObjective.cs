@@ -11,6 +11,7 @@ public class ObjectiveStage
     public string stageName;
     public string stageDescription;
     public List<GameEvent> eventsNeeded;
+    public List<GameEvent> eventsUnWanted;
     public float progress;
     public GameEvent stageCompletionEvent;
     public LevelBounds objectiveStageBounds;
@@ -19,6 +20,12 @@ public class ObjectiveStage
     public void IncreaseProgress()
     {
         progress += 100 / eventsNeeded.Count;
+        progress = Mathf.Clamp(progress, 0, 100f);
+    }
+
+    public void DecreaseProgress()
+    {
+        progress -= 100 / eventsNeeded.Count;
         progress = Mathf.Clamp(progress, 0, 100f);
     }
 
@@ -53,6 +60,12 @@ public class EscapeObjective : BaseObjective
             listener.Init(gameEvent, (component, data) => OnEventTriggered(stage));
             currentListeners.Add(listener);
             
+        }
+        foreach (GameEvent gameEvent in stage.eventsUnWanted)
+        {
+            GameEventListener listener = transform.AddComponent<GameEventListener>();
+            listener.Init(gameEvent, (component, data) => stage.DecreaseProgress());
+            currentListeners.Add(listener);
         }
         //announce event for new stage. 
         stageEventStarted.Announce(this,stage.objectiveStageBounds);

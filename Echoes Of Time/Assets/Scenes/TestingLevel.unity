@@ -361,6 +361,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e8692329677df1148a49bf261ebf877e, type: 2}
     - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: e8692329677df1148a49bf261ebf877e, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
       propertyPath: onSwitchOn
       value: 
       objectReference: {fileID: 11400000, guid: e8692329677df1148a49bf261ebf877e, type: 2}
@@ -368,6 +372,10 @@ PrefabInstance:
       propertyPath: onSwitchOff
       value: 
       objectReference: {fileID: 11400000, guid: d3a6f01d559683a499f59b1f3851c1d8, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9121,6 +9129,14 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: 694baf792b896d84b99b637e5a2fe1c5, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: 694baf792b896d84b99b637e5a2fe1c5, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9928,6 +9944,14 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: 434b278ef1e6af14b827ff07d2fa81bc, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: 434b278ef1e6af14b827ff07d2fa81bc, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

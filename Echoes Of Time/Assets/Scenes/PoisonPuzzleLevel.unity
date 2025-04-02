@@ -690,6 +690,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: escapeStages.Array.data[0].eventsUnWanted.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: escapeStages.Array.data[0].objectiveStageBounds.maxX
       value: 12
       objectReference: {fileID: 0}
@@ -773,6 +777,22 @@ PrefabInstance:
       propertyPath: 'escapeStages.Array.data[2].eventsNeeded.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 5f1dfa8c1d6954246bc7e2de71909af2, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[0].eventsUnWanted.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 830f0bead7b827743b9f477574c47adf, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[0].eventsUnWanted.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 166e00100f941d6469e248212542955b, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[0].eventsUnWanted.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 33f691c8c6ccf6e4681c14396cd47e3b, type: 2}
+    - target: {fileID: 1394397786763176433, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
+      propertyPath: 'escapeStages.Array.data[0].eventsUnWanted.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e3c1500dfd8b96645b8554bccb63cb40, type: 2}
     - target: {fileID: 7737052318100749324, guid: eaf7ed59491eda14eaa94d352e0da52e, type: 3}
       propertyPath: m_Name
       value: PoisonRoomObjective
@@ -838,6 +858,22 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: 99cc895f9cff6514588cfc9837f43e8c, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: e3c1500dfd8b96645b8554bccb63cb40, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: switchTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: timedSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1621,6 +1657,22 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: 24490df49a6807f4893f7b49a9f7dea0, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: 33f691c8c6ccf6e4681c14396cd47e3b, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: switchTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: timedSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11454,6 +11506,22 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: b45b0df2dc8ce69449b6bc57dc0a6950, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: 166e00100f941d6469e248212542955b, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: switchTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: timedSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11819,6 +11887,22 @@ PrefabInstance:
       propertyPath: onSwitch
       value: 
       objectReference: {fileID: 11400000, guid: 857cd85068ef5094bbd2e879a0d80661, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: offSwitch
+      value: 
+      objectReference: {fileID: 11400000, guid: 830f0bead7b827743b9f477574c47adf, type: 2}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: switchTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: timedSwitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488588973213652417, guid: 0fb562b56491abe48a78b274f413ea34, type: 3}
+      propertyPath: shouldAllowReUse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
