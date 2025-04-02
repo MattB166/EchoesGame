@@ -12,6 +12,7 @@ public class Switch : BaseNonPickup, IDistortable
     public bool timedSwitch;
     public float switchTime;
     public bool shouldAllowReUse;
+    private GameObject switchTimerImage;
 
     private float customTimeScale;
     public float CustomTimeScale 
@@ -24,6 +25,10 @@ public class Switch : BaseNonPickup, IDistortable
     {
         anim = GetComponent<Animator>();
         customTimeScale = 1;
+        if(timedSwitch)
+        {
+            switchTimerImage = transform.GetChild(1).gameObject;
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class Switch : BaseNonPickup, IDistortable
             switchedOn = true;
             if (timedSwitch)
             {
+                switchTimerImage.SetActive(true);
                 StartCoroutine(SwitchOff());
             }
             onSwitch.Announce(this, null);
@@ -58,6 +64,10 @@ public class Switch : BaseNonPickup, IDistortable
         {
             anim.Play("SwitchOff");
             switchedOn = false;
+            if (timedSwitch)
+            {
+                switchTimerImage.SetActive(false);
+            }
             offSwitch.Announce(this, null);
             customTimeScale = 1;
             if (!shouldAllowReUse)

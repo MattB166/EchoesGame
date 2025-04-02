@@ -20,6 +20,11 @@ public class ParallaxScrolling : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
+    }
+
+    private void LateUpdate()
+    {
         float distX = (cam.transform.position.x - startPos.x) * parallaxEffect;
         float movement = cam.transform.position.x * (1 - parallaxEffect);
 
@@ -33,7 +38,7 @@ public class ParallaxScrolling : MonoBehaviour
             transform.position = new Vector3(startPos.x + distX, transform.position.y, transform.position.z);
         }
 
-        if(movement > startPos.x + length)
+        if (movement > startPos.x + length)
         {
             //Debug.Log("Snapping back");
             startPos.x += length;
