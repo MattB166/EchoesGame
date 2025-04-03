@@ -11,6 +11,7 @@ public class PlatformCarousel : MonoBehaviour
     public float radius;
     public float speed;
     public float height;
+    public GameEvent onCarouselDistort;
 
     public List<Transform> platformTransforms = new List<Transform>();
     private List<BasePlatform> platforms = new List<BasePlatform>();
@@ -74,8 +75,10 @@ public class PlatformCarousel : MonoBehaviour
             if (platform != Sourceplatform && platform.CustomTimeScale != timeScale)
             {
                 platform.Distort(timeScale,time);
+                
             }
         }
+        onCarouselDistort.Announce(this, null);
     }
 
 }

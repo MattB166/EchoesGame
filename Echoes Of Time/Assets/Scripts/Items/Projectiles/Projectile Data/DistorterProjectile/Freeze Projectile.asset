@@ -17,8 +17,8 @@ MonoBehaviour:
   useSound: {fileID: 0}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 4996739014253110841, guid: 676292b4edaab6c40a31709d7fe7faa6, type: 3}
-  projectileSpeed: 10
-  maxDistance: 7.8
+  projectileSpeed: 20
+  maxDistance: 10
   projectileType: 1
   pickupAmount: 10
   notifierColour: {r: 0.46692157, g: 1, b: 0, a: 0}
