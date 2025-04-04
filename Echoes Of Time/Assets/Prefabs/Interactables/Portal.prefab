@@ -110,6 +110,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 712
+  exitedPortal: {fileID: 11400000, guid: d267d9cee074f2844bd7fab3b11d2248, type: 2}
 --- !u!61 &311156462294341023
 BoxCollider2D:
   m_ObjectHideFlags: 0

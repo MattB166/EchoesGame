@@ -37,6 +37,7 @@ public class Portal : MonoBehaviour
     Color portalColour;
     public LayerMask obstacleLayer;
 
+    public GameEvent exitedPortal;
     //when the player enters the portal, they will be teleported to the other portal, and if it is one way, both portals close and the player cannot return, portals destroyed. 
     // Start is called before the first frame update
     void Start()
@@ -187,6 +188,7 @@ public class Portal : MonoBehaviour
 
     private IEnumerator ClosePortal()
     {
+        exitedPortal.Announce(this);
         closePortal = false;
         isClosing = true;
         Vector3 startScale = gameObject.transform.localScale;
@@ -244,7 +246,7 @@ public class Portal : MonoBehaviour
         }
         else if (portalNode == PortalNode.End)
         {
-            if(portalData.oneWay)
+            if (portalData.oneWay)
             {
                 linkedPortalScript.triggerCol.enabled = false;
                 col.gameObject.transform.position = linkedPortal.transform.position;

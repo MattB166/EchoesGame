@@ -173,3 +173,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileData: {fileID: 11400000, guid: a6344ff46ecd1094bb795811bd2aad8c, type: 2}
+  onprojectileHit: {fileID: 11400000, guid: 8bcaffd98f7610448b76d58da2c62cfd, type: 2}

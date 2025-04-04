@@ -15,6 +15,8 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
     public bool spawnsItem;
     protected bool isDestroyed = false;
     private int newOrderLayer = -1;
+    public GameEvent onDamageEvent;
+    public GameEvent onDestructionEvent;
     public abstract override void OnInteract();
     public abstract void Initialise();
 
@@ -39,6 +41,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
             GetComponent<SpriteRenderer>().sortingOrder = newOrderLayer;
         }
     }
+
 
     protected void Update()
     {

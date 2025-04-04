@@ -9,4 +9,5 @@ public interface IDamageable
 {
    float HitPoints { get; set; }
     void TakeDamage(float amount);
+
 }
