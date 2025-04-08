@@ -6,4 +6,5 @@ using UnityEngine;
 public class MeleeWeaponData : WeaponData
 {
     public int damage;
+    public GameObject impactAnimation;
 }

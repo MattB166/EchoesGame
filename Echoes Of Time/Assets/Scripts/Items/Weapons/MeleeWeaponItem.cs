@@ -45,6 +45,8 @@ public abstract class MeleeWeaponItem : WeaponItem
                 }
                 //Camera.main.GetComponent<CamShake>().Shake(1.0f,ShakeType.Weak);
                 damageable.TakeDamage(meleeWeaponData.damage);
+                GameObject impact = Instantiate(meleeWeaponData.impactAnimation, hit.transform.position, Quaternion.identity);
+                Destroy(impact, 1.0f);
                 //Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
             }
         }

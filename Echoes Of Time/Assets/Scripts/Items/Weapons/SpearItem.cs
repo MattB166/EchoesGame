@@ -106,6 +106,8 @@ public class SpearItem : MeleeWeaponItem
             {
                 //Debug.Log("Spear hit damageable");
                 damageable.TakeDamage(ThrowDamage);
+                GameObject impact = Instantiate(meleeWeaponData.impactAnimation, collision.transform.position, Quaternion.identity);
+                Destroy(impact, 1.0f);
                 pierceCount++;
                 if (pierceCount >= maxPierces)
                 {

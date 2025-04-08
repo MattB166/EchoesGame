@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponType: 1
   prefab: {fileID: 6614358742109557468, guid: 26c5767ace3ca70499c87dbddf300b3e, type: 3}
   damage: 2
+  impactAnimation: {fileID: 3397170581976728686, guid: b2ce34ebefee9b14cabd27052854033c, type: 3}

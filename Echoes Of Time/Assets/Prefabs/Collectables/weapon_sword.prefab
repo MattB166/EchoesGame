@@ -5120,3 +5120,4 @@ MonoBehaviour:
   prefab: {fileID: 1083792624925682935}
   weaponData: {fileID: 11400000, guid: 15248bf9c0f580a4b8079cd6941705a8, type: 2}
   meleeWeaponData: {fileID: 11400000, guid: 15248bf9c0f580a4b8079cd6941705a8, type: 2}
+  impactAnimation: {fileID: 2461276311449696466, guid: 4b5f4a34ac5b3af43a4a7ba244cf2156, type: 3}
