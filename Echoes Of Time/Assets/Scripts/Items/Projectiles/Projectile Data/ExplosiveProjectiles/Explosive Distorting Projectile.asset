@@ -18,10 +18,11 @@ MonoBehaviour:
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 6026192619952894362, guid: e04f1962af2744b4286f0dab1f1f8ae9, type: 3}
   projectileSpeed: 20
-  maxDistance: 10
+  maxDistance: 13
   projectileType: 3
   pickupAmount: 1
   notifierColour: {r: 1, g: 0, b: 0, a: 0}
+  impactSound: {fileID: 0}
   explosionRadius: 6
   explosionForce: 4
   shockWaveDelay: 0.5

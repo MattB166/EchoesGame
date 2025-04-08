@@ -25,7 +25,7 @@ public class DestructableCrate : DestructableObject
         audioSource = transform.AddComponent<AudioSource>();
         if (audioSource != null)
         {
-            Debug.Log("Audio source added to crate");
+            //Debug.Log("Audio source added to crate");
         }
         else
         {

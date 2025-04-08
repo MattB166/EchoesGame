@@ -35,7 +35,7 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
         audioSource = gameObject.AddComponent<AudioSource>();
         if (audioSource != null)
         {
-            Debug.Log("Audio source added to projectile");
+           // Debug.Log("Audio source added to projectile");
         }
         else
         {

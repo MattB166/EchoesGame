@@ -135,7 +135,7 @@ public abstract class GroundedAI : AICharacter
     {
         base.Die();
         ChangeState(GroundedStates.Dead);
-        Debug.Log("Grounded AI Died");
+        //Debug.Log("Grounded AI Died");
     }
 
     public void EndOfAttackAnimCallback()

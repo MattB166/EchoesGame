@@ -69,7 +69,7 @@ public class Portal : MonoBehaviour
         {
             portalBeingPlaced = true;
             portalPlacementTimer = portalData.portalPlacementTimer;
-            Debug.Log("Portal being placed");
+            //Debug.Log("Portal being placed");
         }
 
     }
@@ -100,14 +100,14 @@ public class Portal : MonoBehaviour
             if(Vector3.Distance(transform.position, startingPos) > portalData.portalPlacementDistance)
             {
                 stillTimer = 0;
-                Debug.Log("Portal too far away from linked portal");
+                //Debug.Log("Portal too far away from linked portal");
                 return;
             }
 
             if(!CanPlacePortal())
             {
                 stillTimer = 0;
-                Debug.Log("Cannot place portal here");
+                //Debug.Log("Cannot place portal here");
                 return;
             }
 
@@ -156,7 +156,7 @@ public class Portal : MonoBehaviour
             //Debug.Log(colliders.Length + " objects in the way of the portal");
             for (int i = 0; i < colliders.Length; i++)
             {
-                Debug.Log(colliders[i].name);
+                //Debug.Log(colliders[i].name);
             }
             return false;
         }

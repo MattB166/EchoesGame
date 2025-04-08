@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   pickupSound: {fileID: 0}
-  useSound: {fileID: 0}
+  useSound: {fileID: 8300000, guid: 0bd05763df902854a80475577a26666a, type: 3}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 144089182479733433, guid: 3e52b63896d13a24bb3d50640c9f7631, type: 3}
   projectileSpeed: 20
-  maxDistance: 10
+  maxDistance: 13
   projectileType: 0
   pickupAmount: 10
   notifierColour: {r: 0, g: 0, b: 0, a: 0}
+  impactSound: {fileID: 0}
   damage: 1
