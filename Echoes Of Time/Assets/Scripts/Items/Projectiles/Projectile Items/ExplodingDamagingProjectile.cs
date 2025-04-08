@@ -6,7 +6,7 @@ public class ExplodingDamagingProjectile : BaseProjectile
 {
     protected ExplosiveDamagingProjectileData explosiveDamagingProjectileData;
     private int activeCoroutines = 0;
-    public GameEvent onprojectileHit; 
+    public GameEvent onprojectileHit;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,7 @@ public class ExplodingDamagingProjectile : BaseProjectile
         if(col.TryGetComponent(out IDamageable damageable))
         {
             onprojectileHit.Announce(this);
+            PlayProjectileHitSound();
             Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(transform.position, explosiveDamagingProjectileData.explosionRadius);
             
             foreach (Collider2D collider in collider2Ds)
@@ -70,7 +71,7 @@ public class ExplodingDamagingProjectile : BaseProjectile
         activeCoroutines--;
         if (activeCoroutines <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject,3.0f);
         }
 
     }

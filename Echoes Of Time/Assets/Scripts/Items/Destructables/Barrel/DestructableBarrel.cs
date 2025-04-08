@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +29,15 @@ public class DestructableBarrel : DestructableObject
     public override void Initialise()
     {
         originalPos = gameObject.transform.position;
+        audioSource = transform.AddComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            Debug.Log("Audio source added to crate");
+        }
+        else
+        {
+            Debug.Log("Audio source not added to crate");
+        }
     }
 
     public override void OnInteract()

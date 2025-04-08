@@ -8,11 +8,12 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
     protected Vector2 startingPosition;
     protected float distanceTravelled;
     protected bool grounded; //if the projectile has hit the ground after travelling max distance. 
+    protected AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
@@ -31,6 +32,16 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
     {
         //Debug.Log("Projectile fired!");
         startingPosition = startPos;
+        audioSource = gameObject.AddComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            Debug.Log("Audio source added to projectile");
+        }
+        else
+        {
+            Debug.Log("Audio source not added to projectile");
+        }
+        PlayProjectileFiredSound();
     }
 
     /// <summary>
@@ -57,11 +68,11 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
         transform.rotation = Quaternion.Euler(0, 0, angle);
         if (distanceTravelled >= projectileData.maxDistance)
         {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(0, -10);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 90), 1 * Time.deltaTime);
-            Destroy(gameObject,3.0f); 
-
+            //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            //rb.velocity = new Vector2(0, -10);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 90), 1 * Time.deltaTime);
+            //Destroy(gameObject,3.0f); 
+            Destroy(gameObject, 3.0f); //destroy after 3 seconds if it has not hit anything.
             //enable gravity and let it fall to the ground, when it hits ground explode without the effect. 
         }
     }
@@ -69,5 +80,28 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
     public virtual void InitialiseData(ProjectileData data)
     {
         projectileData = data;
+    }
+
+    public void PlayProjectileFiredSound()
+    {
+        if(audioSource)
+        {
+          if(projectileData.useSound != null)
+            {
+                audioSource.PlayOneShot(projectileData.useSound);
+            }
+        }
+    }
+
+    public void PlayProjectileHitSound()
+    {
+        if(audioSource)
+        {
+            if(projectileData.impactSound != null)
+            {
+                Debug.Log("Playing impact sound of projectile");
+                audioSource.PlayOneShot(projectileData.impactSound);
+            }
+        }
     }
 }

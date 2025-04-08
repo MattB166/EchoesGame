@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class DestructableObject : BaseNonPickup, IDamageable
@@ -34,6 +35,10 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         //Debug.Log("Taking damage");
         HitPoints -= amount;
         OnInteract();
+        if(itemData.interactSound != null)
+        {
+            audioSource.PlayOneShot(itemData.interactSound);
+        }
         isShaking = true;
         if (HitPoints <= 0)
         {

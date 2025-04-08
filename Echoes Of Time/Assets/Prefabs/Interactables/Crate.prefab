@@ -150,6 +150,9 @@ MonoBehaviour:
   hitPoints: 2
   markedForImmediateDeletion: 0
   spawnsItem: 1
+  onDamageEvent: {fileID: 0}
+  onDestructionEvent: {fileID: 0}
+  destructSound: {fileID: 0}
 --- !u!95 &4073359650853034550
 Animator:
   serializedVersion: 7
