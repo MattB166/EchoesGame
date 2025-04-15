@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac76ab3032a3bd47bb87ecb685ccf44, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
+  itemSprite: {fileID: 0}
   pickupSound: {fileID: 0}
+  useSound: {fileID: 0}
   isAnimatedOnPickup: 0
-  healthAmount: 5
+  healthAmount: 2

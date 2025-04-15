@@ -396,6 +396,10 @@ public class Actions : MonoBehaviour, IDamageable
     public void AddHealth(float amount)
     {
         HitPoints += amount;
+        if (HitPoints > playerMaxHealth)
+        {
+            HitPoints = playerMaxHealth;
+        }
         //Debug.Log("Added " + amount + " health");
     }
 }

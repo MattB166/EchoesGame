@@ -78,7 +78,7 @@ public class Poison : MonoBehaviour
             }
             //perform damage
             dam.TakeDamage(damageAmount);
-            Debug.Log("Dealt damage to: " + targetObject.name + " because of poison");
+            Debug.Log("Dealt " + damageAmount + " damage to: " + targetObject.name + " because of poison");
             yield return new WaitForSeconds(damageInterval);
         }
 
