@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// manages the control of the pause menu, so that it can be paused and unpaused and go back to menu, and quit. 
 /// </summary>
@@ -30,7 +32,7 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause(InputAction.CallbackContext context)
     {
-        Debug.Log("TogglePause called");
+        //Debug.Log("TogglePause called");
         if (context.performed)
         {
             if (isPaused)
@@ -69,7 +71,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        Debug.Log("Loading Menu...");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
