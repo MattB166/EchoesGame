@@ -7,12 +7,30 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
     public static bool isPaused = false;
 
     public GameObject pauseMenuUI;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void TogglePause(InputAction.CallbackContext context)
     {
+        Debug.Log("TogglePause called");
         if (context.performed)
         {
             if (isPaused)

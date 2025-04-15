@@ -41,12 +41,12 @@ public class SpriteFlicker : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < time)
         {
-            Debug.Log("Flicker");
+            //Debug.Log("Flicker");
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(flickerInterval);
             elapsedTime += flickerInterval;
         }
-        Debug.Log("Flicker end");
+        //Debug.Log("Flicker end");
         spriteRenderer.enabled = true;
         alreadyFlickering = false;
         yield return null;
