@@ -23,7 +23,7 @@ public class ObjectiveDescription : MonoBehaviour
     void Update()
     {
         objectiveText.text = objectiveTextString;
-        if(Input.anyKeyDown && isFrozen)
+        if(Input.anyKeyDown && isFrozen && !PauseMenu.isPaused)
         {
             UnfreezeObjectiveDescription(this, null);
         }
