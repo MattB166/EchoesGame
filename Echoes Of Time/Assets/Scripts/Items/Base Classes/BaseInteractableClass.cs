@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class BaseInteractableClass : MonoBehaviour
 {
     public abstract void OnInteract();
-    protected AudioSource audioSource;
+    //protected AudioSource audioSource;
 }

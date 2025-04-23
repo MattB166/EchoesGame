@@ -26,7 +26,6 @@ public class PauseMenu : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
         DontDestroyOnLoad(gameObject);
     }
 
@@ -56,6 +55,7 @@ public class PauseMenu : MonoBehaviour
         }
         
         isPaused = true;
+        GameManager.instance.SetCurrentSceneType(SceneType.PauseMenu);
     }
 
     public void Unpause()
@@ -67,6 +67,7 @@ public class PauseMenu : MonoBehaviour
         }
         
         isPaused = false;
+        GameManager.instance.SetCurrentSceneType(SceneType.Game);
     }
 
     public void LoadMenu()

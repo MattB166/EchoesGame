@@ -77,7 +77,7 @@ public class MusicManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip, Vector3? position = null)
+    public void PlaySFX(AudioClip clip, Vector3? position = null, float? volume = null)
     {
         if (clip == null)
         {
@@ -90,6 +90,14 @@ public class MusicManager : MonoBehaviour
             //sfxSource.PlayOneShot(clip);
             AudioSource currentSource = sfxSourcePool[currentSFXSourceIndex];
             currentSource.outputAudioMixerGroup = sfxGroup;
+            if(volume != null)
+            {
+                currentSource.volume = volume.Value;
+            }
+            else
+            {
+                currentSource.volume = 1f;
+            }
             currentSource.PlayOneShot(clip);
             currentSFXSourceIndex = (currentSFXSourceIndex + 1) % sfxSourcePool.Count;
         }
@@ -98,6 +106,14 @@ public class MusicManager : MonoBehaviour
             GameObject tmpObj = new GameObject("TempSFX_" + clip.name);
             tmpObj.transform.position = position.Value;
             AudioSource tmpSource = tmpObj.AddComponent<AudioSource>();
+            if(volume != null)
+            {
+                tmpSource.volume = volume.Value;
+            }
+            else
+            {
+                tmpSource.volume = 1f;
+            }
             tmpSource.clip = clip;
             tmpSource.outputAudioMixerGroup = sfxGroup;
             tmpSource.spatialBlend = 1f; 

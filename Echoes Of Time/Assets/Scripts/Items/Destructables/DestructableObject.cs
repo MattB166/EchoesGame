@@ -37,7 +37,8 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
         OnInteract();
         if(itemData.interactSound != null)
         {
-            audioSource.PlayOneShot(itemData.interactSound);
+            //audioSource.PlayOneShot(itemData.interactSound);
+            MusicManager.instance.PlaySFX(itemData.interactSound,transform.position);
         }
         isShaking = true;
         if (HitPoints <= 0)

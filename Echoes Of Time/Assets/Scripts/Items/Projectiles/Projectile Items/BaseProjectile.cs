@@ -8,7 +8,6 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
     protected Vector2 startingPosition;
     protected float distanceTravelled;
     protected bool grounded; //if the projectile has hit the ground after travelling max distance. 
-    protected AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,15 +31,7 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
     {
         //Debug.Log("Projectile fired!");
         startingPosition = startPos;
-        audioSource = gameObject.AddComponent<AudioSource>();
-        if (audioSource != null)
-        {
-           // Debug.Log("Audio source added to projectile");
-        }
-        else
-        {
-            Debug.Log("Audio source not added to projectile");
-        }
+        
         PlayProjectileFiredSound();
     }
 
@@ -84,24 +75,21 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
 
     public void PlayProjectileFiredSound()
     {
-        if(audioSource)
-        {
+       
           if(projectileData.useSound != null)
             {
-                audioSource.PlayOneShot(projectileData.useSound);
-            }
+               MusicManager.instance.PlaySFX(projectileData.useSound, transform.position,0.2f);
         }
+        
     }
 
     public void PlayProjectileHitSound()
     {
-        if(audioSource)
-        {
+        
             if(projectileData.impactSound != null)
             {
-                Debug.Log("Playing impact sound of projectile");
-                audioSource.PlayOneShot(projectileData.impactSound);
-            }
+                MusicManager.instance.PlaySFX(projectileData.impactSound, transform.position);
         }
+        
     }
 }

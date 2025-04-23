@@ -5,12 +5,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Actions;
 
+public enum SceneType
+{
+    MainMenu,
+    Game,
+    PauseMenu,
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
+
+    GameObject playerPrefab;
     public GameObject player { get; private set; }
     public int currentSaveSlot;
     public Transform playerPos { get { return player.transform; } }
+
+    public SceneType CurrentSceneType { get; private set; }
 
     private bool hasLoaded = false;
     private void Awake()
@@ -29,7 +39,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
         //if (!hasLoaded)
         //{
         //    LoadGame(currentSaveSlot);
@@ -42,6 +52,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player != null)
         playerPos.position = player.transform.position;
 
     }
@@ -60,7 +71,8 @@ public class GameManager : MonoBehaviour
         if (!SavingSystem.SaveSlotExists(currentSaveSlot))
         {
             Debug.LogError("Save slot " + currentSaveSlot + " does not exist.");
-            player.GetComponent<Actions>().SetCurrentWeapon(Weapons.None);
+            if(player != null)
+                player.GetComponent<Actions>().SetCurrentWeapon(Weapons.None);
             return;
         }
         PlayerSaveData playerSaveData = SavingSystem.LoadPlayerData(currentSaveSlot);
@@ -95,7 +107,7 @@ public class GameManager : MonoBehaviour
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
         if (gameSaveData != null)
         {
-            if(SceneManager.GetActiveScene().name != gameSaveData.levelName)
+            if (SceneManager.GetActiveScene().name != gameSaveData.levelName)
             {
                 CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
                 SceneManager.sceneLoaded += OnSceneLoaded;
@@ -105,14 +117,30 @@ public class GameManager : MonoBehaviour
             {
                 OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
             }
-            
-            
+
+
+        }
+        else
+        {
+            string firstScene = "TestingLevel";
+            if (SceneManager.GetActiveScene().name != firstScene)
+            {
+                CheckPointSystem.instance.lastActiveLevel = firstScene;
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                SceneManager.LoadScene(CheckPointSystem.instance.lastActiveLevel);
+            }
+            else
+            {
+                OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+            }
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+
+       
 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
         if (gameSaveData == null) return;
@@ -166,5 +194,11 @@ public class GameManager : MonoBehaviour
 
 
 
+    }
+
+    public void SetCurrentSceneType(SceneType sceneType)
+    {
+        CurrentSceneType = sceneType;
+        Debug.Log("Current scene type set to " + sceneType);
     }
 }

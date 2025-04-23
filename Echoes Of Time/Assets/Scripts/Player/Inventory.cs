@@ -63,6 +63,8 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         }
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
+
+
     }
 
     private void OnEnable()
@@ -103,7 +105,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             return;
         }
         currentItemIndex = (currentItemIndex + 1) % items.Count;
-        
+
         itemChanged.Announce(this, currentItem);
 
     }
@@ -120,7 +122,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             currentItemIndex = 0;
             itemChanged.Announce(this, currentItem);
         }
-        
+
         //Debug.Log("Current item: " + currentItem.item.itemData.name);
     }
 
@@ -141,7 +143,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         //Debug.Log("Item not in inventory, adding it");
         InventoryItem item = new InventoryItem(newItem, 1);
         items.Add(item);
-        SetCurrentItem(item);  
+        SetCurrentItem(item);
 
     }
 
@@ -210,7 +212,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     public void StoreProjectile(ProjectileData projectileData, int amount)
     {
-        if(storedProjectiles.ContainsKey(projectileData))
+        if (storedProjectiles.ContainsKey(projectileData))
         {
             storedProjectiles[projectileData] += amount;
         }
@@ -223,17 +225,17 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     public int GetStoredProjectileAmount(ProjectileData projectileData)
     {
-        if(storedProjectiles.TryGetValue(projectileData, out int amount))
+        if (storedProjectiles.TryGetValue(projectileData, out int amount))
         {
             storedProjectiles.Remove(projectileData);
             //Debug.Log("Retrieved " + amount + " " + projectileData.name + " from inventory");
-            return amount; 
+            return amount;
         }
         return 0;
     }
 
     public void PlayItemSound()
     {
-       currentItem.item.PlayUseSound();
+        currentItem.item.PlayUseSound();
     }
 }
