@@ -34,7 +34,12 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                DontDestroyOnLoad(player);
+        }
     }
     void Start()
     {
@@ -92,7 +97,7 @@ public class GameManager : MonoBehaviour
             {
                 //get the item, initialise it and add it to the inventory.
                 item.item.Init(item.item.itemData, player.GetComponent<Inventory>(), item.item.prefab);
-                Debug.Log("item initialised with " + item.item.itemData.name);
+                //Debug.Log("item initialised with " + item.item.itemData.name);
                 player.GetComponent<Inventory>().AddItem(item.item);
             }
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
@@ -196,6 +201,7 @@ public class GameManager : MonoBehaviour
         }
         PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon, availableWeapons, items, currentInventoryItemIndex, projectiles, 0);
         SavingSystem.SavePlayerData(playerSaveData, currentSaveSlot);
+        Debug.Log("Saved player data to save slot " + currentSaveSlot);
 
         ///game data 
 
@@ -206,6 +212,6 @@ public class GameManager : MonoBehaviour
     public void SetCurrentSceneType(SceneType sceneType)
     {
         CurrentSceneType = sceneType;
-        Debug.Log("Current scene type set to " + sceneType);
+        //Debug.Log("Current scene type set to " + sceneType);
     }
 }

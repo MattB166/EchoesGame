@@ -101,7 +101,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         playerCurrentHealth = playerMaxHealth;
         HitPoints = playerCurrentHealth;
-        Debug.Log("Hitpoints reset to : " + HitPoints);
+        //Debug.Log("Hitpoints reset to : " + HitPoints);
     }
 
     public void ChangeWeaponAnimation(Component sender, object data)

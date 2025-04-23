@@ -48,23 +48,23 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     private void Awake()
     {
-        //Debug.Log("Inventory awake");
-        if (instance == null)
-        {
-            Debug.Log("Inventory instance created");
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if(instance != null)
-        {
-            Debug.Log("Inventory instance already exists, destroying this one");
-            Destroy(gameObject);
-            return;
-        }
-        transform.SetParent(null);
-        DontDestroyOnLoad(gameObject);
+        ////Debug.Log("Inventory awake");
+        //if (instance == null)
+        //{
+        //    Debug.Log("Inventory instance created");
+        //    instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else if(instance != null)
+        //{
+        //    Debug.Log("Inventory instance already exists, destroying this one");
+        //    Destroy(gameObject);
+        //    return;
+        //}
+        //transform.SetParent(null);
+        //DontDestroyOnLoad(gameObject);
 
-
+        player = this.gameObject;
     }
 
     private void OnEnable()
@@ -80,14 +80,14 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     // Start is called before the first frame update
     void Start()
     {
-        player = this.gameObject;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         ProcessItemRemovals();
-        DontDestroyOnLoad(gameObject);   //this is the reason the player is not destroyed when changing scenes, espcially when going to the main menu. 
+        //DontDestroyOnLoad(gameObject);   //this is the reason the player is not destroyed when changing scenes, espcially when going to the main menu. 
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)
