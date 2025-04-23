@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
+    public AudioClip menuMusic;
     private void Awake()
     {
         GameManager.instance.SetCurrentSceneType(SceneType.MainMenu);
@@ -15,17 +16,20 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        MusicManager.instance.PlayMusic(menuMusic,true);
     }
 
     // Update is called once per frame
     void Update()
     {
        
+
     }
 
     public void PlayGame()
     {
+        MusicManager.instance.StopMusic();
+
         GameManager.instance.SetCurrentSceneType(SceneType.Game);
         if(SavingSystem.SaveSlotExists(0))
         {

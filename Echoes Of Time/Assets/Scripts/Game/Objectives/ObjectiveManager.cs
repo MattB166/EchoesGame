@@ -26,7 +26,12 @@ public class ObjectiveManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this);
+        }
+        if(GameManager.instance.player != null)
+        {
+            transform.parent = GameManager.instance.player.transform;
+            transform.position = GameManager.instance.player.transform.position;
         }
     }
 

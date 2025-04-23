@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ec8ce7335d9094d971311d4bb29092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4283457379052071060, guid: 1b93bd30b9f0f064c980fe3370acf74b, type: 3}
   currentSaveSlot: 0
 --- !u!4 &864426707
 Transform:
@@ -893,6 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f36dcad0e38ee4290074c6ca391e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMusic: {fileID: 8300000, guid: 7dc48ac47b618424f8d032a339525809, type: 3}
 --- !u!1 &1884472019
 GameObject:
   m_ObjectHideFlags: 0

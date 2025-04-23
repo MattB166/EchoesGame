@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
-    GameObject playerPrefab;
+    public GameObject playerPrefab;
     public GameObject player { get; private set; }
     public int currentSaveSlot;
     public Transform playerPos { get { return player.transform; } }
@@ -140,7 +140,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
 
-       
+        if(player != null)
+        {
+            Destroy(player);
+        }
+        Debug.Log("Instantiating new player");
+        player = Instantiate(playerPrefab);
+        player.name = "Player";
+
 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
         if (gameSaveData == null) return;

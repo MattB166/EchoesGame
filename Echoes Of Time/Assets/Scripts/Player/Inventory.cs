@@ -51,13 +51,13 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         //Debug.Log("Inventory awake");
         if (instance == null)
         {
-            //Debug.Log("Inventory instance created");
+            Debug.Log("Inventory instance created");
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if(instance != null)
         {
-            //Debug.Log("Inventory instance already exists, destroying this one");
+            Debug.Log("Inventory instance already exists, destroying this one");
             Destroy(gameObject);
             return;
         }
@@ -87,7 +87,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     void Update()
     {
         ProcessItemRemovals();
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);   //this is the reason the player is not destroyed when changing scenes, espcially when going to the main menu. 
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)
