@@ -33,7 +33,8 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.SetCurrentSceneType(SceneType.Game);
         if(SavingSystem.SaveSlotExists(0))
         {
-            GameManager.instance.LoadGame(0);
+            Debug.Log("Loading game from slot 0 as it exists");
+            GameManager.instance.LoadGameFromSlot(0);
         }
         else
         {

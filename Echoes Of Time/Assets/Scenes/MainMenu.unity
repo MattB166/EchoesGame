@@ -491,8 +491,16 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 7db3b2180d637574d8456626c0636fb1, type: 2}
   musicGroup: {fileID: 2343667114081319596, guid: 7db3b2180d637574d8456626c0636fb1, type: 2}
   sfxGroup: {fileID: -8538367037743810418, guid: 7db3b2180d637574d8456626c0636fb1, type: 2}
+  ambienceGroup: {fileID: 5951165913349779845, guid: 7db3b2180d637574d8456626c0636fb1, type: 2}
   musicSource: {fileID: 0}
   menuMusic: {fileID: 0}
+  levelMusicList:
+  - levelName: PoisonPuzzleLevel
+    musicClip: {fileID: 8300000, guid: 826bb8ea4939f9340ba3d55e1120eb1f, type: 3}
+  ambienceSource: {fileID: 0}
+  levelAmbienceList:
+  - levelName: TestingLevel
+    ambienceClip: {fileID: 8300000, guid: 3aa8f1d7601a19d4c88dcaaa262c2e06, type: 3}
 --- !u!4 &1561773913
 Transform:
   m_ObjectHideFlags: 0
@@ -894,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f36dcad0e38ee4290074c6ca391e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: {fileID: 8300000, guid: 7dc48ac47b618424f8d032a339525809, type: 3}
+  menuMusic: {fileID: 8300000, guid: 826bb8ea4939f9340ba3d55e1120eb1f, type: 3}
 --- !u!1 &1884472019
 GameObject:
   m_ObjectHideFlags: 0

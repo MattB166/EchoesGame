@@ -19,6 +19,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-2476976161975636850
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d444640373392ed47a622870bcb9d53e
+  m_EffectName: Attenuation
+  m_MixLevel: 57bce7611ef244d4db2e7d31de87ce93
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-2026948392091792852
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -49,6 +63,8 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: fae0f0d45bfced842be3a1d311f791f1
+    name: AmbienceVolume
   - guid: 2fdb525070ccece43a9804e4a59dd5b9
     name: MusicVolume
   - guid: 5cdf5efae5d418b4c88b38a12ded0c23
@@ -58,6 +74,7 @@ AudioMixerController:
     - ca82883b15246fe4fa6ec38cb47fc12a
     - 3f9ac15f33214f546957cf4bdd862b0c
     - d6803410ccac90e4f9021dcb859131b4
+    - c8104324db389d4449a5715454ed25f9
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -73,6 +90,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 2343667114081319596}
   - {fileID: -8538367037743810418}
+  - {fileID: 5951165913349779845}
   m_Volume: 6c3192979c9999541a00ea0012cc995c
   m_Pitch: 6f4260e28f834bb4ca0695c235e17881
   m_Send: 00000000000000000000000000000000
@@ -105,7 +123,8 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: b3c16de2600d16e4ebe67f8a24ccc411
-  m_FloatValues: {}
+  m_FloatValues:
+    fae0f0d45bfced842be3a1d311f791f1: 0
   m_TransitionOverrides: {}
 --- !u!243 &2343667114081319596
 AudioMixerGroupController:
@@ -140,3 +159,22 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &5951165913349779845
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ambience
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: c8104324db389d4449a5715454ed25f9
+  m_Children: []
+  m_Volume: fae0f0d45bfced842be3a1d311f791f1
+  m_Pitch: c1659287b7ffd914a8d7e869431708d8
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -2476976161975636850}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0

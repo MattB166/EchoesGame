@@ -1486,6 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ec8ce7335d9094d971311d4bb29092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
   currentSaveSlot: 0
 --- !u!1001 &745245669
 PrefabInstance:
@@ -1502,6 +1503,10 @@ PrefabInstance:
     - target: {fileID: 3401003567101834888, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
       propertyPath: m_Name
       value: CheckPoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401003567101834888, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7246577124940439087, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11784,6 +11789,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 3401003567101834888, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7246577124940439087, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.11
@@ -12225,6 +12234,10 @@ PrefabInstance:
     - target: {fileID: 3401003567101834888, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
       propertyPath: m_Name
       value: CheckPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401003567101834888, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7246577124940439087, guid: cbde8a4c51db52646819e2a8b3a87bbd, type: 3}
       propertyPath: m_LocalPosition.x

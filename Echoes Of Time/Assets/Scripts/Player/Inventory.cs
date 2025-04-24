@@ -87,7 +87,16 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
     void Update()
     {
         ProcessItemRemovals();
-        //DontDestroyOnLoad(gameObject);   //this is the reason the player is not destroyed when changing scenes, espcially when going to the main menu. 
+        if(GameManager.instance.CurrentSceneType == SceneType.MainMenu)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);   //this is the reason the player is not destroyed when changing scenes, espcially when going to the main menu
+        }
+        
     }
 
     public void OnCycleInventoryInput(InputAction.CallbackContext context)

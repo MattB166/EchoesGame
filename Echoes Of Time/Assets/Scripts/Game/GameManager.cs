@@ -44,12 +44,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        SavingSystem.DeleteSaveSlot(currentSaveSlot);
         //if (!hasLoaded)
         //{
         //    LoadGame(currentSaveSlot);
         //    hasLoaded = true;
         //}
+        SceneManager.sceneLoaded += RunMusicChecks;
 
 
     }
@@ -57,10 +58,37 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player != null)
-        playerPos.position = player.transform.position;
+        if (player == null && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            //Debug.Log("Player found in scene " + SceneManager.GetActiveScene().name);
+        }
+        if (player == null)
+        {
+            Debug.Log("Player is null");
+        }
+
+
+        if (player != null)
+            playerPos.position = player.transform.position;
+
+
 
     }
+
+
+    public void RunMusicChecks(Scene scene, LoadSceneMode mode)
+    {
+        //clear all previous music
+        MusicManager.instance.StopMusic();
+        MusicManager.instance.StopAmbience();
+        //SceneManager.sceneLoaded -= RunMusicChecks;
+        //starts whatever music should be playing in the new scene
+        MusicManager.instance.PlayMusicForLevel(scene.name);
+        MusicManager.instance.PlayAmbienceForLevel(scene.name);
+
+    }
+
 
     private void OnApplicationQuit()
     {
@@ -68,6 +96,24 @@ public class GameManager : MonoBehaviour
         //save the game into current slot. 
         //SaveGame(currentSaveSlot);
         //Debug.Log("Saved game to save slot " + currentSaveSlot);
+    }
+
+    public void LoadGameFromSlot(int saveSlot)
+    {
+        currentSaveSlot = saveSlot;
+        if(!hasLoaded)
+        {
+            LoadGame(currentSaveSlot);
+            hasLoaded = true;
+        }
+    }
+
+    public void ExitGameAndSaveCurrentSlot(int saveSlot)
+    {
+        currentSaveSlot = saveSlot;
+        SaveGame(currentSaveSlot);
+        //Debug.Log("Saved game to save slot " + currentSaveSlot);
+        //Application.Quit();
     }
 
     public void LoadGame(int currentSaveSlot)
@@ -80,34 +126,8 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<Actions>().SetCurrentWeapon(Weapons.None);
             return;
         }
-        PlayerSaveData playerSaveData = SavingSystem.LoadPlayerData(currentSaveSlot);
-        if (playerSaveData != null)
-        {
-            //load the player data into their classes. 
-            Debug.Log("Loaded player data from save slot " + currentSaveSlot);
-            HashSet<Weapons> availableWeapons = new HashSet<Weapons>(playerSaveData.availableWeaponsList);
-            player.GetComponent<Actions>().GetAvailableWeapons().Clear();
-            player.GetComponent<Actions>().SetAvailableWeapons(availableWeapons);
-
-            foreach (Projectiles p in playerSaveData.availableProjectiles)
-            {
-                player.GetComponent<Inventory>().StoreProjectile(p.projectile.projectileData, p.ammoCount);
-            }
-            foreach (InventoryItem item in playerSaveData.inventoryItems)
-            {
-                //get the item, initialise it and add it to the inventory.
-                item.item.Init(item.item.itemData, player.GetComponent<Inventory>(), item.item.prefab);
-                //Debug.Log("item initialised with " + item.item.itemData.name);
-                player.GetComponent<Inventory>().AddItem(item.item);
-            }
-            player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
-            player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
-        }
-        else
-        {
-            Debug.LogError("Failed to load player data from save slot " + currentSaveSlot);
-        }
-
+        //Debug.Log("i have made it this far");
+        
         //game data loading. 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
         if (gameSaveData != null)
@@ -117,10 +137,13 @@ public class GameManager : MonoBehaviour
                 CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
                 SceneManager.sceneLoaded += OnSceneLoaded;
                 SceneManager.LoadScene(CheckPointSystem.instance.lastActiveLevel);
+                //Debug.Log("Loading scene " + gameSaveData.levelName + " because why not.");
             }
             else
             {
                 OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+                //Debug.Log("running this instead.");
+                
             }
 
 
@@ -144,14 +167,58 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-
-        if(player != null)
+        Debug.Log("Scene loaded: " + scene.name);
+       
+        if (player != null)
         {
             Destroy(player);
         }
         Debug.Log("Instantiating new player");
         player = Instantiate(playerPrefab);
         player.name = "Player";
+
+        PlayerSaveData playerSaveData = SavingSystem.LoadPlayerData(currentSaveSlot);
+        if (playerSaveData != null)
+        {
+            //load the player data into their classes. 
+            Debug.Log("Loaded player data from save slot " + currentSaveSlot);
+            HashSet<Weapons> availableWeapons = new HashSet<Weapons>(playerSaveData.availableWeaponsList);
+            if(player != null)
+            {
+                player.GetComponent<Actions>().GetAvailableWeapons().Clear();
+                player.GetComponent<Actions>().SetAvailableWeapons(availableWeapons);
+                Debug.Log("Player found and components found. entering for each loops");
+            }
+            
+            foreach (Projectiles p in playerSaveData.availableProjectiles)
+            {
+                player.GetComponent<Inventory>().StoreProjectile(p.projectile.projectileData, p.ammoCount);
+            }
+            foreach (InventoryItem item in playerSaveData.inventoryItems)
+            {
+                //get the item, initialise it and add it to the inventory.
+                item.item.Init(item.item.itemData, player.GetComponent<Inventory>(), item.item.prefab);
+                //Debug.Log("item initialised with " + item.item.itemData.name);
+                if(player.GetComponent<Inventory>() != null)
+                {
+                    player.GetComponent<Inventory>().AddItem(item.item);
+                    Debug.Log("added item " + item.item.itemData.name + " to inventory");
+                }
+                else
+                {
+                    Debug.LogError("Inventory component not found on player.");
+                }
+                
+            }
+            player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
+            player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
+            //Debug.Log("i have performed all this");
+        }
+        else
+        {
+            Debug.LogError("Failed to load player data from save slot " + currentSaveSlot);
+        }
+
 
 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
@@ -176,11 +243,23 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
+
     }
 
 
     public void SaveGame(int currentSaveSlot)
     {
+        if(player == null)
+        {
+            Debug.LogError("Player is null, cannot save game.");
+            return;
+        }
+        else
+        {
+            Debug.Log("Player is not null, saving game.");
+        }
+
         ///player data
         Actions pActions = player.GetComponent<Actions>();
         List<InventoryItem> items = player.GetComponent<Inventory>().items;
@@ -189,6 +268,7 @@ public class GameManager : MonoBehaviour
         int currentInventoryItemIndex = player.GetComponent<Inventory>().currentItemIndex;
         //get access to bow item projectiles
         List<Projectiles> projectiles = new List<Projectiles>();
+        //Debug.Log("Attained player weapon data etc. now looping projectiles" + projectiles.Count + " projectiles found.");
         foreach (InventoryItem item in items)
         {
             if (item.item is BowItem bow)
@@ -201,6 +281,7 @@ public class GameManager : MonoBehaviour
         }
         PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon, availableWeapons, items, currentInventoryItemIndex, projectiles, 0);
         SavingSystem.SavePlayerData(playerSaveData, currentSaveSlot);
+        //Debug.Log("saved player data with: " + playerSaveData.currentWeaponIndex + " , " + playerSaveData.availableWeaponsList.Count + " available weapons, " + playerSaveData.inventoryItems.Count + " items, and " + playerSaveData.availableProjectiles.Count + " projectiles.");
         Debug.Log("Saved player data to save slot " + currentSaveSlot);
 
         ///game data 

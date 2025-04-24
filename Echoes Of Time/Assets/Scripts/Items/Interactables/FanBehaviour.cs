@@ -55,7 +55,7 @@ public class FanBehaviour : MonoBehaviour
             Rigidbody2D rb = collision.gameObject.TryGetComponent<Rigidbody2D>(out rb) ? rb : null;
             if (rb != null)
             {
-                Debug.Log("Lifting player");
+                //Debug.Log("Lifting player");
                 //rb.gravityScale = 0;
                 if(rb.velocity.y < -15)
                 {
