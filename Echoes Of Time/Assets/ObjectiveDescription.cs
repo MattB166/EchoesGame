@@ -16,7 +16,7 @@ public class ObjectiveDescription : MonoBehaviour
     void Start()
     {
         objectiveText = GetComponent<TextMeshProUGUI>();
-        objectiveTextString = "Objective Description ";
+        objectiveTextString = "";
     }
 
     // Update is called once per frame

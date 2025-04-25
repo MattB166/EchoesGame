@@ -13,7 +13,7 @@ public class objectivetext : MonoBehaviour
     void Start()
     {
         objectiveText = GetComponent<TextMeshProUGUI>();
-        objectiveTextString = "Objective Name ";
+        objectiveTextString = " ";
         //Debug.Log("Objective Text: " + objectiveTextString);
     }
 
