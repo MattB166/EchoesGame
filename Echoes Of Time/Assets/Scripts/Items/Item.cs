@@ -56,7 +56,8 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
         //}
         if (itemData.useSound != null)
         {
-            MusicManager.instance.PlaySFX(itemData.useSound,transform.position);
+            MusicManager.instance.PlaySFX(itemData.useSound,ItemOwner.transform.position);
+            Debug.Log("Playing use for item: " + itemData.useSound.name + " at " + ItemOwner.transform.position);
         }
     }
 
@@ -68,7 +69,7 @@ public abstract class Item : MonoBehaviour //needs derived classes for each spec
         //}
         if (clip != null)
         {
-            MusicManager.instance.PlaySFX(clip, transform.position);
+            MusicManager.instance.PlaySFX(clip, ItemOwner.transform.position);
         }
 
     }
