@@ -8,6 +8,7 @@ public class LevelTransporter : MonoBehaviour
 {
     Collider2D col;
     public string sceneName;
+    public GameEvent onPlayerCollision;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,10 @@ public class LevelTransporter : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if(onPlayerCollision != null)
+            {
+                onPlayerCollision.Announce(this,null);
+            }
             //move to new scene
             //Debug.Log("Moving to new scene: " + sceneName);
             SceneManager.LoadScene(sceneName);

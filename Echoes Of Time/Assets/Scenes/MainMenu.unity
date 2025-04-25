@@ -501,6 +501,8 @@ MonoBehaviour:
   levelAmbienceList:
   - levelName: TestingLevel
     ambienceClip: {fileID: 8300000, guid: 3aa8f1d7601a19d4c88dcaaa262c2e06, type: 3}
+  - levelName: SecondScene
+    ambienceClip: {fileID: 8300000, guid: c6c5cd0ee2d7db447be3ac0e13978c23, type: 3}
 --- !u!4 &1561773913
 Transform:
   m_ObjectHideFlags: 0
