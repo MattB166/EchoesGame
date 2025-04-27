@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class AudioSettingsUI : MonoBehaviour
 {
 
+    //dont destroy on load?? 
+
     [Header("Sliders")]
     public Slider masterSlider;
     public Slider musicSlider;

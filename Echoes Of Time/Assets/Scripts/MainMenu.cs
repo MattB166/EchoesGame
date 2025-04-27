@@ -9,12 +9,14 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public AudioClip menuMusic;
-    public GameObject mainMenuCanvas;
-    public GameObject settingsMenuCanvas;
+    public GameObject mainMenuPanel;
+    public GameObject settingsMenuPanel;
 
     private void Awake()
     {
         GameManager.instance.SetCurrentSceneType(SceneType.MainMenu);
+        mainMenuPanel = this.gameObject;
+        //settingsMenuPanel = GameObject.Find("AudioSettingsCanvas");
     }
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,10 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if(mainMenuPanel == null)
+        {
+            mainMenuPanel = this.gameObject;
+        }
 
     }
 
@@ -50,7 +55,7 @@ public class MainMenu : MonoBehaviour
     public void SettingsMenu()
     {
         //enable settings canvas and disable main canvas
-        mainMenuCanvas.SetActive(false);
-        settingsMenuCanvas.SetActive(true);
+        settingsMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
 }
