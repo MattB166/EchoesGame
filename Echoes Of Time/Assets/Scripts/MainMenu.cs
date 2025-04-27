@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public AudioClip menuMusic;
+    public GameObject mainMenuCanvas;
+    public GameObject settingsMenuCanvas;
+
     private void Awake()
     {
         GameManager.instance.SetCurrentSceneType(SceneType.MainMenu);
@@ -42,5 +45,12 @@ public class MainMenu : MonoBehaviour
             CheckPointSystem.instance.lastActiveLevel = "TestingLevel";
             SceneManager.LoadScene(CheckPointSystem.instance.lastActiveLevel, LoadSceneMode.Single);
         }
+    }
+
+    public void SettingsMenu()
+    {
+        //enable settings canvas and disable main canvas
+        mainMenuCanvas.SetActive(false);
+        settingsMenuCanvas.SetActive(true);
     }
 }
