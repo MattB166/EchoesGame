@@ -110,4 +110,36 @@ public static class SavingSystem
         return File.Exists(getPlayerDataPath(slot));
     }
     #endregion
+
+    #region Audio Settings
+
+    public static string audioSettingsPath = Application.persistentDataPath + "/audioSettings.json";
+    private static string getAudioSettingsPath(int slot)
+    {
+        return Application.persistentDataPath + "/audioSettings" + slot + ".json";
+    }
+    public static void SaveAudioSettings(AudioSettingsSaveData audioSettingsSaveData, int slot)
+    {
+        string path = getAudioSettingsPath(slot);
+        string json = JsonUtility.ToJson(audioSettingsSaveData);
+        File.WriteAllText(path, json);
+        Debug.Log("Saved audio settings to " + path);
+    }
+    public static AudioSettingsSaveData LoadAudioSettings(int slot)
+    {
+        string path = getAudioSettingsPath(slot);
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            AudioSettingsSaveData audioSettingsSaveData = JsonUtility.FromJson<AudioSettingsSaveData>(json);
+            Debug.Log("Loaded audio settings from " + path);
+            return audioSettingsSaveData;
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+            return new AudioSettingsSaveData(1f, 1f, 1f, 1f); // return default values if file not found
+        }
+    }
+    #endregion
 }

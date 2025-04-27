@@ -206,4 +206,14 @@ public class MusicManager : MonoBehaviour
     {
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f);
     }
+
+    public void SetAmbienceVolume(float value)
+    {
+        audioMixer.SetFloat("AmbienceVolume", Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f);
+    }
+
+    public void SetMasterVolume(float value)
+    {
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f);
+    }
 }
