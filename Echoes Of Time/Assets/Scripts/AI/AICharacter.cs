@@ -27,6 +27,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public Seeker seeker;
     public BaseState currentStateScript;
     public Transform playerPosition;
+    public float cachedSpeed;
 
     [Header("Health")]
     [SerializeField]
@@ -63,6 +64,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
         //initialise the AI character. 
         //Debug.Log("AI Character Start");
         Initialise();
+       
     }
 
  
@@ -88,10 +90,12 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
         seeker = GetComponent<Seeker>();
         aiPath.maxSpeed = AICharacterData.moveSpeed;
+        cachedSpeed = aiPath.maxSpeed;
         aiPath.pickNextWaypointDist = 1.2f;
         aiDestinationSetter.target = null;
         HitPoints = AICharacterData.MaxHealth;
         playerPosition = null;
+        customTimeScale = 1;
         //set gravity in both the path and rigidbodies in derived classes so grounded characters can have gravity and airborne characters can have none.
     }
 
@@ -112,6 +116,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public void Distort(float timeScale)
     {
         customTimeScale = timeScale;
+        aiPath.maxSpeed = cachedSpeed * timeScale;
         Debug.Log("AI character distorted");
     }
 
@@ -125,5 +130,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     {
         yield return new WaitForSeconds(duration);
         CustomTimeScale = 1;
+        aiPath.maxSpeed = cachedSpeed;
+        Debug.Log("AI character distortion time ended");
     }
 }

@@ -20,7 +20,7 @@ public class GroundedWalk : BaseGroundedState
         targetB = targetA + new Vector2(aiCharacter.AICharacterData.patrolDistance, 0);
         currentTarget = targetB;
         groundedAI.currentState = GroundedStates.Patrol;
-        aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.moveSpeed;
+        aiCharacter.aiPath.maxSpeed = aiCharacter.cachedSpeed * aiCharacter.CustomTimeScale;
     }
     public override void RunLogic()
     {
@@ -29,9 +29,10 @@ public class GroundedWalk : BaseGroundedState
 
     public void WalkToTarget()
     {
+        // Prevent movement if CustomTimeScale is 0
         if (aiCharacter.CustomTimeScale == 0)
         {
-            aiCharacter.aiPath.canMove = false; 
+            aiCharacter.aiPath.canMove = false;
             return;
         }
         walkTimer += Time.deltaTime;
@@ -73,7 +74,15 @@ public class GroundedWalk : BaseGroundedState
 
     private IEnumerator PauseBeforeMoving(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        float elapsed = 0f;
+        while (elapsed < delay)
+        {
+            if (aiCharacter.CustomTimeScale > 0)
+            {
+                elapsed += Time.deltaTime * aiCharacter.CustomTimeScale;
+            }
+            yield return null;
+        }
         aiCharacter.aiPath.canMove = true;
     }
 }

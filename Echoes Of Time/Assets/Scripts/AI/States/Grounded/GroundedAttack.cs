@@ -14,8 +14,8 @@ public class GroundedAttack : BaseGroundedState
     {
         base.OnEnable();
         groundedAI.currentState = GroundedStates.Attack;
-        aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.attackSpeed;
-        if(aiCharacter.detectionSound != null)
+        aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.attackSpeed * aiCharacter.CustomTimeScale;
+        if (aiCharacter.detectionSound != null)
         {
             MusicManager.instance.PlaySFX(aiCharacter.detectionSound,aiCharacter.transform.position);
         }
@@ -85,6 +85,11 @@ public class GroundedAttack : BaseGroundedState
 
     public void MoveTowardsPlayer()
     {
+        if (aiCharacter.CustomTimeScale == 0)
+        {
+            groundedAI.aiPath.canMove = false;
+            return;
+        }
         Vector2 playerPos = groundedAI.playerPosition.position;
         groundedAI.aiPath.destination = new Vector3(playerPos.x, transform.position.y, 0);
         groundedAI.aiPath.canMove = true;
