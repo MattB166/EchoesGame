@@ -29,6 +29,11 @@ public class GroundedWalk : BaseGroundedState
 
     public void WalkToTarget()
     {
+        if (aiCharacter.CustomTimeScale == 0)
+        {
+            aiCharacter.aiPath.canMove = false; 
+            return;
+        }
         walkTimer += Time.deltaTime;
         aiCharacter.aiPath.destination = currentTarget;
         aiCharacter.aiPath.canMove = true;

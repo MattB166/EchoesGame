@@ -48,6 +48,12 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     [Header("Events")]
     public GameEvent AIDeath;
 
+    [Header("Sounds")]
+    public AudioClip detectionSound;
+    public AudioClip attackSound;
+    public AudioClip damagedSound;
+    public AudioClip deathSound;
+
 
     //state base class given to AI character is determined by the type of AI it is. grounded/airborne/hybrid etc
 
@@ -106,6 +112,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public void Distort(float timeScale)
     {
         customTimeScale = timeScale;
+        Debug.Log("AI character distorted");
     }
 
     public void Distort(float timeScale, float duration)

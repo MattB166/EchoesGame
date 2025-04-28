@@ -638,6 +638,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 200
+  jumpSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: f701fcb6c6a14bb429444ce03ba898e0, type: 3}
+  landSound: {fileID: 0}
+  respawnSound: {fileID: 8300000, guid: 9ddde15d265320a4c8011c36589cc6fb, type: 3}
   customTimeScale: 1
 --- !u!114 &104509520533267175
 MonoBehaviour:
@@ -659,6 +663,8 @@ MonoBehaviour:
   onHealthChange: {fileID: 11400000, guid: b08515e11ef9fe84fbcaab66c6b297a7, type: 2}
   onDeath: {fileID: 11400000, guid: a8b53f977e61c204e997eab416678000, type: 2}
   onInteract: {fileID: 11400000, guid: f9952b75e07b2a1458b0238f431168bc, type: 2}
+  deathSound: {fileID: 8300000, guid: 6d4a8c46038c6d64c91c1614c6f3addb, type: 3}
+  hitSound: {fileID: 8300000, guid: 5ab45410d400f494a8392178d29bdc3d, type: 3}
 --- !u!95 &945074512683496423
 Animator:
   serializedVersion: 7

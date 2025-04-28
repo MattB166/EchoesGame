@@ -78,6 +78,11 @@ public class Actions : MonoBehaviour, IDamageable
     public GameEvent onInteract;
 
 
+    [Header("Sounds")]
+    public AudioClip deathSound;
+    public AudioClip hitSound;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -384,10 +389,19 @@ public class Actions : MonoBehaviour, IDamageable
         {
             HitPoints -= amount;
             onHealthChange.Announce(this,HitPoints);
+            if(hitSound != null)
+            {
+                MusicManager.instance.PlaySFX(hitSound, gameObject.transform.position);
+            }
             if (HitPoints <= 0)
             {
                 Debug.Log("Player has died");
                 onDeath.Announce(this);
+                //player death sounds 
+                if (deathSound != null)
+                {
+                    MusicManager.instance.PlaySFX(deathSound, gameObject.transform.position);
+                }
             }
         }
 

@@ -13,6 +13,7 @@ public class Switch : BaseNonPickup, IDistortable
     public float switchTime;
     public bool shouldAllowReUse;
     private GameObject switchTimerImage;
+    public AudioClip switchSound;
 
     private float customTimeScale;
     public float CustomTimeScale 
@@ -74,6 +75,10 @@ public class Switch : BaseNonPickup, IDistortable
             {
                 offSwitch = null;
             }
+        }
+        if (switchSound != null)
+        {
+            MusicManager.instance.PlaySFX(switchSound, transform.position);
         }
     }
 

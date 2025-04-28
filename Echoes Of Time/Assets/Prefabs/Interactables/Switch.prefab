@@ -5213,6 +5213,7 @@ MonoBehaviour:
   timedSwitch: 0
   switchTime: 0
   shouldAllowReUse: 0
+  switchSound: {fileID: 8300000, guid: 9386cf06b77c0ef41a6b4526cffe6fb1, type: 3}
 --- !u!95 &3295486453030117772
 Animator:
   serializedVersion: 7

@@ -119,6 +119,13 @@ public class Movement : MonoBehaviour,IDistortable
     private Transform LeftLedgeCheck;
     private Transform RightLedgeCheck;
 
+    [Header("Sounds")]
+    public AudioClip jumpSound;
+    public AudioClip dashSound;
+    public AudioClip landSound;
+    public AudioClip respawnSound;
+
+
     [SerializeField]
     private float customTimeScale;
     public float CustomTimeScale
@@ -245,6 +252,10 @@ public class Movement : MonoBehaviour,IDistortable
         if (context.performed && canDash)
         {
            dashInputEvent.Announce(this, null);
+            if (dashSound != null)
+            {
+                MusicManager.instance.PlaySFX(dashSound, transform.position);
+            }
             StartCoroutine(Dash());
         }
     }
@@ -274,6 +285,10 @@ public class Movement : MonoBehaviour,IDistortable
                 jumpInputEvent.Announce(this, null);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 SetAnimationState(currentWeapon, "Player_Jump");
+                if (jumpSound != null)
+                {
+                    MusicManager.instance.PlaySFX(jumpSound, transform.position);
+                }
             }
             else if (!doubleJumping && !isGrounded)
             {
@@ -648,6 +663,10 @@ public class Movement : MonoBehaviour,IDistortable
             gameObject.transform.position = initialPos;
         }
 
+        if(respawnSound != null)
+        {
+            MusicManager.instance.PlaySFX(respawnSound, gameObject.transform.position);
+        }
 
     }
 

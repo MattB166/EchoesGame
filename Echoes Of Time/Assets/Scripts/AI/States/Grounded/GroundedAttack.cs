@@ -15,7 +15,10 @@ public class GroundedAttack : BaseGroundedState
         base.OnEnable();
         groundedAI.currentState = GroundedStates.Attack;
         aiCharacter.aiPath.maxSpeed = aiCharacter.AICharacterData.attackSpeed;
-        
+        if(aiCharacter.detectionSound != null)
+        {
+            MusicManager.instance.PlaySFX(aiCharacter.detectionSound,aiCharacter.transform.position);
+        }
     }
 
     private void Start()
@@ -36,6 +39,10 @@ public class GroundedAttack : BaseGroundedState
         if (shouldAttack)
         {
             anim.Play(gameObject.name + "_Attack");
+            if(aiCharacter.attackSound != null)
+            {
+                MusicManager.instance.PlaySFX(aiCharacter.attackSound, aiCharacter.transform.position);
+            }
         }
         else if (shouldRun)
         {

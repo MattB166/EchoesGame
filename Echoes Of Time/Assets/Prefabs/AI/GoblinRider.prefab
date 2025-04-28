@@ -61,6 +61,10 @@ MonoBehaviour:
   MaxHealth: 0
   customTimeScale: 0
   AIDeath: {fileID: 0}
+  detectionSound: {fileID: 8300000, guid: 86b4c3dbeeff4d740a680bc1e803103f, type: 3}
+  attackSound: {fileID: 0}
+  damagedSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 5a9a2180242816e43950093bb555f79d, type: 3}
   currentState: 0
   rb: {fileID: 0}
   AttackAnimCheckNeeded: {fileID: 11400000, guid: c49a27efb27abf342be92c1e1eb2fc7f, type: 2}

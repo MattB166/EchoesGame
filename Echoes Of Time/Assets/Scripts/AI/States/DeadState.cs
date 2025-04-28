@@ -8,6 +8,10 @@ public class DeadState : BaseGroundedState
     {
         base.OnEnable();
         groundedAI.currentState = GroundedStates.Dead;
+        if(aiCharacter.deathSound != null)
+        {
+            MusicManager.instance.PlaySFX(aiCharacter.deathSound, aiCharacter.transform.position);
+        }
         anim.Play(gameObject.name + "_Die");
         aiCharacter.AIDeath.Announce(this,aiCharacter);
 
