@@ -57,9 +57,14 @@ MonoBehaviour:
   seeker: {fileID: 0}
   currentStateScript: {fileID: 0}
   playerPosition: {fileID: 0}
+  cachedSpeed: 0
   MaxHealth: 0
   customTimeScale: 0
   AIDeath: {fileID: 0}
+  detectionSound: {fileID: 0}
+  attackSound: {fileID: 0}
+  damagedSound: {fileID: 0}
+  deathSound: {fileID: 0}
   currentState: 0
   rb: {fileID: 0}
   AttackAnimCheckNeeded: {fileID: 11400000, guid: c49a27efb27abf342be92c1e1eb2fc7f, type: 2}
@@ -127,7 +132,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
