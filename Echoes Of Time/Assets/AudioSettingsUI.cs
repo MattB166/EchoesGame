@@ -14,6 +14,10 @@ public class AudioSettingsUI : MonoBehaviour
     public Slider sfxSlider;
     public Slider ambienceSlider;
 
+    [Header("Panels")]
+    public GameObject mainPanel;
+    public GameObject settingsMenuPanel;
+
     private AudioSettingsSaveData audioSettingsSaveData = new AudioSettingsSaveData();
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,17 @@ public class AudioSettingsUI : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (mainPanel == null)
+        {
+            mainPanel = GameObject.Find("MainCanvas");
+        }
+        if (settingsMenuPanel == null)
+        {
+            settingsMenuPanel = this.gameObject;
+        }
+    }
 
     public void OnMusicValueChanged(float value)
     {
@@ -63,5 +78,12 @@ public class AudioSettingsUI : MonoBehaviour
         MusicManager.instance.SetMasterVolume(value);
         audioSettingsSaveData.masterVolume = value;
         SavingSystem.SaveAudioSettings(audioSettingsSaveData, GameManager.instance.currentSaveSlot);
+    }
+
+    public void Close()
+    {
+        //disable settings canvas and enable main canvas
+        mainPanel.SetActive(true);
+        settingsMenuPanel.SetActive(false);
     }
 }

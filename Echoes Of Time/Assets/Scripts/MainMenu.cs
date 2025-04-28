@@ -58,4 +58,14 @@ public class MainMenu : MonoBehaviour
         settingsMenuPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }

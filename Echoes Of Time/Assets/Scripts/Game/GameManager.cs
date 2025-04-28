@@ -44,12 +44,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //load slot 
-        SavingSystem.DeleteSaveSlot(currentSaveSlot);
+        //SavingSystem.DeleteSaveSlot(currentSaveSlot);
         //if (!hasLoaded)
         //{
         //    LoadGame(currentSaveSlot);
         //    hasLoaded = true;
         //}
+        SavingSystem.LoadAudioSettings(currentSaveSlot);
         SceneManager.sceneLoaded += RunMusicChecks;
 
 
