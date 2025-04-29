@@ -588,6 +588,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d79ea3c7-b9c6-4438-a7d4-0c130a791b4d
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8713895717359230334}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: ExternalPositionReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 260ef2d2-22ee-473a-9315-971e2d6a6ab3
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

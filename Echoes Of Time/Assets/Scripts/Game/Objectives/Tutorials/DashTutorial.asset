@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DashTutorial
   m_EditorClassIdentifier: 
   objectiveName: 'Dash '
-  objectiveDescription: 'R to Dash! '
+  objectiveDescription: 'Left Shift to Dash! '
   tutorialType: 0

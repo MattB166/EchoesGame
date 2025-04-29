@@ -670,6 +670,14 @@ public class Movement : MonoBehaviour,IDistortable
 
     }
 
+    public void ExternalPositionReset(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            ResetPlayerPosition();
+        }
+    }
+
     public void TemporarilyDisableMovement(Component sender, object data)
     {
         if(data is object[] dataArray && dataArray.Length > 0)

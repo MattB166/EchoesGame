@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ResetPlayerPosition",
+                    "type": "Button",
+                    "id": "260ef2d2-22ee-473a-9315-971e2d6a6ab3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -391,7 +400,7 @@
                 {
                     "name": "",
                     "id": "bcb01c72-b4d6-451a-91d9-bb91e56d3a66",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -451,6 +460,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f73d687-b021-4bef-9749-d9817ecc86f4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetPlayerPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
