@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: One Way Portal
   m_EditorClassIdentifier: 
   timeToReachFullSize: 0
-  portalPlacementTimer: 2
+  portalPlacementTimer: 0.1
   portalPlacementDistance: 10
   oneWay: 1
   closesAfterTwoWay: 0
