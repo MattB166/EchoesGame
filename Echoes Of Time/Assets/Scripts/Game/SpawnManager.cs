@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             spawnLocations.Add("TestingLevel", new Vector3(-52, -3, 0));
-            spawnLocations.Add("PoisonPuzzleLevel", new Vector3(0, 5, 0));
+            spawnLocations.Add("PoisonPuzzleLevel", new Vector3(0, 3.7f, 0));
             spawnLocations.Add("SecondScene", new Vector3(4, 3, 0));
         }
         else
