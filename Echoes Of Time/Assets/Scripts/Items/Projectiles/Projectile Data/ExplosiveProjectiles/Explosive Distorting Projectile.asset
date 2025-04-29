@@ -20,7 +20,7 @@ MonoBehaviour:
   projectileSpeed: 20
   maxDistance: 13
   projectileType: 3
-  pickupAmount: 1
+  pickupAmount: 40
   notifierColour: {r: 1, g: 0, b: 0, a: 0}
   impactSound: {fileID: 0}
   explosionRadius: 6
