@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   pickupSound: {fileID: 0}
-  useSound: {fileID: 0}
+  useSound: {fileID: 8300000, guid: 0bd05763df902854a80475577a26666a, type: 3}
   isAnimatedOnPickup: 0
   projectilePrefab: {fileID: 6026192619952894362, guid: e04f1962af2744b4286f0dab1f1f8ae9, type: 3}
   projectileSpeed: 20
