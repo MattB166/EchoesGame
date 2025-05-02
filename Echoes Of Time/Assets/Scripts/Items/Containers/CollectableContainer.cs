@@ -71,7 +71,7 @@ public class CollectableContainer : MonoBehaviour
     {
         if(spawnPool.Count == 0)
         {
-            //InitialiseSpawnPool();
+            
             return null;    
         }
 

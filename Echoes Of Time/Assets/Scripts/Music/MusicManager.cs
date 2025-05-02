@@ -149,8 +149,8 @@ public class MusicManager : MonoBehaviour
 
         if (position == null)
         {
-            //sfxSource.outputAudioMixerGroup = sfxGroup;
-            //sfxSource.PlayOneShot(clip);
+            
+            
             AudioSource currentSource = sfxSourcePool[currentSFXSourceIndex];
             currentSource.outputAudioMixerGroup = sfxGroup;
             if (volume != null)
@@ -189,12 +189,12 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        musicSource.Stop(); //change to a fade out. 
+        musicSource.Stop(); 
     }
 
     public void StopAmbience()
     {
-        ambienceSource.Stop(); //change to a fade out. 
+        ambienceSource.Stop(); 
     }
 
     public void SetMusicVolume(float value)

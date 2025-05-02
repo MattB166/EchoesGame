@@ -40,12 +40,12 @@ public class ParallaxScrolling : MonoBehaviour
 
         if (movement > startPos.x + length)
         {
-            //Debug.Log("Snapping back");
+            
             startPos.x += length;
         }
         else if (movement < startPos.x - length)
         {
-            //Debug.Log("Snapping back");
+            
             startPos.x -= length;
         }
     }

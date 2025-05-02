@@ -23,7 +23,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(persistentCheckPointID == 0)
         {
-            //Debug.LogError("Checkpoint ID is not set for checkpoint in level: " + SceneManager.GetActiveScene().name);
+            
         }
     }
     // Start is called before the first frame update
@@ -31,13 +31,9 @@ public class CheckPoint : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
-        //if(CheckPointSystem.instance != null && CheckPointSystem.instance.CheckPointActivated(checkPointID))
-        // {
-        //     ActivateCheckpoint();
-        // }
-        //Debug.Log("Checkpoint ID: " + checkPointID);
+        
         levelName = SceneManager.GetActiveScene().name;
-        //Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been created. ");
+        
     }
 
     // Update is called once per frame
@@ -57,7 +53,7 @@ public class CheckPoint : MonoBehaviour
             if(!isActivated && !hasCorrected)
             {
                 ActivateCheckpoint();
-                //Debug.Log("Checkpoint " + checkPointID + " in level : " + levelName + " has been activated. ");
+                
                 CheckPointSystem.instance.SetNewCheckpoint(this);
             }
 
@@ -70,7 +66,7 @@ public class CheckPoint : MonoBehaviour
         //small delay before it runs any further. 1 for effect, 2 for enough time for game manager to save data.
         isActivated = true;
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.49f, transform.position.z);
-        //Debug.Log("Moved checkpoint up a little");
+        
         hasCorrected = true;
         col.enabled = false;
         if (checkPointActivated != null)

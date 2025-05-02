@@ -62,7 +62,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public virtual void Start()
     {
         //initialise the AI character. 
-        //Debug.Log("AI Character Start");
+        
         Initialise();
        
     }
@@ -72,7 +72,7 @@ public abstract class AICharacter : MonoBehaviour,IDamageable,IDistortable //mak
     public virtual void FixedUpdate()
     {
         //call fixed update logic for the current state. 
-        //Debug.Log("AI Character Fixed Update");
+        
         if (currentStateScript != null)
         {
             currentStateScript.RunLogic();

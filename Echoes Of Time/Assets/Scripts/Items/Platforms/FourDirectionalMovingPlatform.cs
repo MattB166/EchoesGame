@@ -38,26 +38,14 @@ public class FourDirectionalMovingPlatform : BasePlatform
     {
         base.Update();
         Move();
-        //Debug.Log("Custom time scale : " + customTimeScale);
+        
     }
 
     private void Move()
     {
         if(canMove)
         {
-            //Vector2 direction = (targetPositions[currentTargetIndex] - (Vector2)transform.position).normalized;
-            //rb.MovePosition(rb.position + direction * data.speed * Time.deltaTime * customTimeScale);
             
-            //if (Vector2.Distance(transform.position, targetPositions[currentTargetIndex]) < 0.1f)
-            //{
-            //    canMove = false;
-            //    if (data.alwaysMoving)
-            //    {
-
-            //        StartCoroutine(Wait());
-            //    }
-
-            //}
             transform.position = Vector2.MoveTowards(transform.position, targetPositions[currentTargetIndex], data.speed * Time.deltaTime * customTimeScale);
             if (Vector2.Distance(transform.position, targetPositions[currentTargetIndex]) < 0.1f)
             {

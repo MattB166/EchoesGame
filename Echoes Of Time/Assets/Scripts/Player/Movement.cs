@@ -599,11 +599,7 @@ public class Movement : MonoBehaviour,IDistortable
 
 
 
-    //public void EndOfAttackAnim()
-    //{
-    //    isAttacking = false;
-    //}
-
+   
     private void ApplyGravity()
     {
         if (!isGrounded && !isClimbing && !isDescending)
@@ -622,7 +618,7 @@ public class Movement : MonoBehaviour,IDistortable
     public void Distort(float timeScale)
     {
         CustomTimeScale = timeScale; 
-        //animator.speed = timeScale;
+        
     }
     
     public void Distort(float timeScale, float duration)
@@ -702,12 +698,12 @@ public class Movement : MonoBehaviour,IDistortable
         //toggle between 0 and internal gravity.
         if (gravity == 0)
         {
-            //Debug.Log("Gravity on");
+            
             gravity = internalGravity;
         }
         else
         {
-            //Debug.Log("Gravity off");
+            
             gravity = 0;
         }
     }

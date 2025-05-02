@@ -32,7 +32,7 @@ public abstract class BaseObjective : MonoBehaviour
     public virtual void Activate()
     {
         isStarted = true;
-        //Debug.Log("Objective Activated: " + objectiveData.objectiveName);
+        
     }
 
     protected void CompleteObjective()
@@ -43,7 +43,7 @@ public abstract class BaseObjective : MonoBehaviour
             
             ObjectiveManager.instance.CompleteObjective(this);
             gameObject.SetActive(false);
-            //Debug.Log("Objective Complete: " + objectiveData.objectiveName);
+            
         }
     }
 

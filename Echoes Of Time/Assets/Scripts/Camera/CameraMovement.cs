@@ -43,7 +43,7 @@ public class CameraMovement : MonoBehaviour
         initialOffset = playerOffset;
         transform.position = targetVector3;
         CalculateCameraLevelBounds();
-        //InitialiseCameraBackGround();
+        
     }
 
     private void LateUpdate()
@@ -51,15 +51,8 @@ public class CameraMovement : MonoBehaviour
         CamFollow();
     }
 
-    private void Update()
-    {
-
-    }
-    void CamShake()
-    {
-        //perlin noise for camera shake 
-
-    }
+   
+   
 
     /// <summary>
     /// generic metroidvania style camera follow for the player 
@@ -70,12 +63,12 @@ public class CameraMovement : MonoBehaviour
         {
             return;
         }
-        //targetVector3 = player.position + playerOffset;
+        
         targetVector3 = GetTarget();
 
         Vector3 newPos = Vector3.Slerp(transform.position, targetVector3, moveDelay * Time.deltaTime);
         transform.position = ClampPositionIntoLevel(newPos);
-        //Debug.Log("Camera position: " + transform.position);
+        
     }
 
     /// <summary>
@@ -103,7 +96,7 @@ public class CameraMovement : MonoBehaviour
     public void ChangeTarget(Component sender, object data)
     {
         temporaryDifferentTarget.Announce(this, delayForTargetReset);
-        //Debug.Log(sender.gameObject.transform.position);
+        
         targetChanged = true;
         Vector3 newOffset = new Vector3(0, 0, playerOffset.z);
         targetVector3 = sender.gameObject.transform.position + newOffset;
@@ -121,7 +114,7 @@ public class CameraMovement : MonoBehaviour
     {
         //reset the offset to how it was before but taking direction facing into account
         playerOffset = new Vector3(initialOffset.x + (currentDirection * directionFacingOffset), initialOffset.y, initialOffset.z);
-        //Debug.Log("Resetted player offset: " + playerOffset);
+        
     }
 
     public void InvertFacingOffset(Component sender, object data)
@@ -143,7 +136,7 @@ public class CameraMovement : MonoBehaviour
             playerOffset = new Vector3(initialOffset.x + directionFacingOffset, playerOffset.y, playerOffset.z);
 
         }
-        //Debug.Log("New offset has been set: " + playerOffset);
+        
     }
 
     private IEnumerator ResetTarget(float duration)
@@ -187,7 +180,7 @@ public class CameraMovement : MonoBehaviour
 
     private IEnumerator BoundsTransition(LevelBounds targetBounds, float duration)
     {
-        //ToggleCameraLock(this, null);
+        
         //Debug.Log("Bounds transition started");
         float elapsedTime = 0f;
         LevelBounds initialBounds = LevelBounds;
@@ -204,7 +197,6 @@ public class CameraMovement : MonoBehaviour
              yield return null;
         }
         LevelBounds = targetBounds;
-        //ToggleCameraLock(this, null);
-        //Debug.Log("New Bounds : " + LevelBounds.minX + " " + LevelBounds.maxX + " " + LevelBounds.minY + " " + LevelBounds.maxY);
+        
     }
 }

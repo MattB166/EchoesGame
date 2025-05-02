@@ -29,7 +29,7 @@ public class SpearItem : MeleeWeaponItem
             startPos = inventory.player.transform.position;
         }
         
-        //Debug.Log(startPos);
+        
         CheckDistance();
         if (returnToPlayer)
         {
@@ -38,7 +38,7 @@ public class SpearItem : MeleeWeaponItem
     }
     public override void Use()
     {
-        //PlayUseSound();
+        
     }
 
     public override void SecondaryUse()
@@ -61,7 +61,7 @@ public class SpearItem : MeleeWeaponItem
         if(weapon == Actions.Weapons.Spear) //probably a better way to do this. 
         {
             float direction = inventory.player.GetComponent<Movement>().direction;
-            //Debug.Log("Direction: " + direction);
+            
             float xOffSet = 2.0f * direction;
             float xPos = inventory.player.transform.position.x + xOffSet;
             float yPos = inventory.player.transform.position.y;
@@ -75,8 +75,8 @@ public class SpearItem : MeleeWeaponItem
                     col.enabled = false;          /////stops spear stopping when hitting objects on travel. 
                 }
             }
-            //startPos = pos;
-            //Debug.Log(startPos);
+            
+            
             spear.AddComponent<Rigidbody2D>();
             Rigidbody2D rb = spear.GetComponent<Rigidbody2D>();
             spear.GetComponent<SpearItem>().pierceCount = 0;
@@ -94,7 +94,7 @@ public class SpearItem : MeleeWeaponItem
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        //check if interactable object as we dont want to pierce through it. 
+        
     }
 
 
@@ -104,7 +104,7 @@ public class SpearItem : MeleeWeaponItem
         {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
-                //Debug.Log("Spear hit damageable");
+                
                 damageable.TakeDamage(ThrowDamage);
                 GameObject impact = Instantiate(meleeWeaponData.impactAnimation, collision.transform.position, Quaternion.identity);
                 Destroy(impact, 1.0f);
@@ -124,7 +124,7 @@ public class SpearItem : MeleeWeaponItem
                     isThrown = false;
                     pierceCount = 0;
                     return; 
-                    //Invoke("DisableCollidersForReturn", 0.2f);
+                    
                 }
 
             }
@@ -154,11 +154,11 @@ public class SpearItem : MeleeWeaponItem
     {
 
         currentDistance = Vector2.Distance(startPos, transform.position);
-        //Debug.Log(currentDistance);
+        
 
         if (currentDistance > throwDistance && !returnToPlayer)
         {
-            //Debug.Log("Distance exceeded" + currentDistance);
+            
             if(TryGetComponent(out Rigidbody2D rb))
             {
                 rb.velocity = Vector2.zero;
@@ -166,7 +166,7 @@ public class SpearItem : MeleeWeaponItem
                 Invoke("DisableCollidersForReturn", 0.2f);
                 returnToPlayer = true;
             }
-            //Rigidbody2D rb = TryGetComponent<Rigidbody2D>();
+            
             
         }
 
@@ -181,8 +181,8 @@ public class SpearItem : MeleeWeaponItem
         Vector2 direction = playerPos - spearPos;
         float speed = 30.0f;
         transform.position = Vector2.MoveTowards(spearPos, playerPos, speed * Time.deltaTime);
-        //Quaternion targetRot = Quaternion.Euler(0, 0, 90);
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 100 * Time.deltaTime);
+        
+        
         if (Vector2.Distance(playerPos, spearPos) < 0.4f)
         {
             returnToPlayer = false;

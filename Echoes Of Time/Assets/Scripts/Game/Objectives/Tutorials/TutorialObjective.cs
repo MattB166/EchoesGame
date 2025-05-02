@@ -12,7 +12,7 @@ public class TutorialObjective : BaseObjective
     public override void Activate()
     {
         base.Activate();
-        //Debug.Log("Tutorial Objective Activated : " + objectiveData.objectiveName);
+        
         
     }
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class TutorialObjective : BaseObjective
         {
             //set objective and apply tutorial message
             ObjectiveManager.instance.SetMainObjective(this);
-            //gameObject.transform.SetParent(collision.gameObject.transform); not needed for tutorials. 
+            
         }
     }
 

@@ -29,7 +29,7 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
 
     public virtual void Fire(Vector2 startPos) //any logic that needs to be done when the projectile is fired. distance tracking etc. 
     {
-        //Debug.Log("Projectile fired!");
+        
         startingPosition = startPos;
         
         PlayProjectileFiredSound();
@@ -52,19 +52,16 @@ public abstract class BaseProjectile : MonoBehaviour //common behaviour for all 
 
     public virtual void CheckDistance()
     {
-        //Debug.Log("Checking distance");
+        
         distanceTravelled = Vector2.Distance(startingPosition, transform.position);
         Vector2 direction = (transform.position - (Vector3)startingPosition).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         if (distanceTravelled >= projectileData.maxDistance)
         {
-            //Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            //rb.velocity = new Vector2(0, -10);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 90), 1 * Time.deltaTime);
-            //Destroy(gameObject,3.0f); 
+            
             Destroy(gameObject, 3.0f); //destroy after 3 seconds if it has not hit anything.
-            //enable gravity and let it fall to the ground, when it hits ground explode without the effect. 
+            
         }
     }
 

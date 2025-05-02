@@ -62,7 +62,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
         
 
 
-        //arriedBodies.Add(collision.gameObject.GetComponent<Rigidbody2D>());
+        
 
 
     }
@@ -80,17 +80,7 @@ public class BasePlatform : MonoBehaviour, IDistortable //move all common logic 
         }
     }
 
-    //private IEnumerator DelayedChangeOfParent(GameObject item)
-    //{
-    //    yield return null;
-    //    Rigidbody2D itemRB = item.GetComponent<Rigidbody2D>();
-    //    if (itemRB != null)
-    //    {
-    //        carriedBodies.Remove(itemRB);
-    //        itemRB.velocity = new Vector2(itemRB.velocity.x, itemRB.velocity.y);
-    //       item.transform.SetParent(null);
-    //    }
-    //}
+    
 
     public void Distort(float timeScale, float time)
     {

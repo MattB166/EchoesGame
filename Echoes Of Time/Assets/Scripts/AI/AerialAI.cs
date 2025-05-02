@@ -27,10 +27,7 @@ public abstract class AerialAI : AICharacter
         base.Start();
     }
 
-    //public virtual void Update()
-    //{
-    //    base.Update();
-    //}
+    
 
     public override void FixedUpdate()
     {
@@ -41,12 +38,12 @@ public abstract class AerialAI : AICharacter
     {
         if (AerialState == newState)
             return;
-        //destroy current statescript. 
+        
 
         switch (newState)
         {
             case AerialStates.Idle:
-                //add component of this script type.
+                
                 break;
             case AerialStates.Patrol:
                 break;

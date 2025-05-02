@@ -16,15 +16,14 @@ public class SwordItem : MeleeWeaponItem
     }
     public override void Use()
     {
-       // Debug.Log("Using Sword");
-        //PlayUseSound();
+       
     }
 
     public override void Init(ItemData itemData, Inventory inv, GameObject prefab)
     {
         base.Init(itemData,inv,prefab);
         meleeWeaponData = itemData as MeleeWeaponData;
-        //Debug.Log("Sword initialized with " + SwordWeaponData.name);
-        //Debug.Log("Sword damage: " + SwordWeaponData.damage);
+        
+        
     }
 }

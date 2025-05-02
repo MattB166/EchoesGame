@@ -36,7 +36,7 @@ public class ObjectiveDescription : MonoBehaviour
             data = dataArray[0];
             if (data is BaseObjective)
             {
-                //Debug.Log("Setting Objective Description Text");
+                
                 //write the description of the objective
                 objectiveTextString = ((BaseObjective)data).objectiveData.objectiveDescription;
                 //freeze time to allow player to read the description, and when any input is detected, unfreeze time and complete the objective. 
@@ -55,10 +55,10 @@ public class ObjectiveDescription : MonoBehaviour
 
     public void UnfreezeObjectiveDescription(Component sender, object data)
     {
-        //Debug.Log("Unfreezing Objective Description");
+        
         Time.timeScale = 1;
         isFrozen = false;
-        //ClearObjectiveText(this, null);
+        
     }
 
     public void ClearObjectiveText(Component sender, object data)
@@ -66,6 +66,6 @@ public class ObjectiveDescription : MonoBehaviour
         objectiveTextString = "";
         frozenTutorialEventComplete.Announce(this,null);
         hasBeenFrozen = false;
-        //Time.timeScale = 1;
+        
     }
 }

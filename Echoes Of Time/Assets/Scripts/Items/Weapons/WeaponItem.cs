@@ -22,7 +22,7 @@ public abstract class WeaponItem : Item
     {
         base.Init(itemData,inv,prefab);
         weaponData = itemData as WeaponData; 
-        //Debug.Log("Weapon initialized with " + weaponData.name);
+        
 
     }
 

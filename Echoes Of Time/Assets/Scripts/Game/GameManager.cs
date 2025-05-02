@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (player == null && SceneManager.GetActiveScene().name != "MainMenu")
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            //Debug.Log("Player found in scene " + SceneManager.GetActiveScene().name);
+            
         }
         if (player == null)
         {
@@ -113,8 +113,7 @@ public class GameManager : MonoBehaviour
     {
         currentSaveSlot = saveSlot;
         SaveGame(currentSaveSlot);
-        //Debug.Log("Saved game to save slot " + currentSaveSlot);
-        //Application.Quit();
+        
     }
 
     public void LoadGame(int currentSaveSlot)
@@ -127,7 +126,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<Actions>().SetCurrentWeapon(Weapons.None);
             return;
         }
-        //Debug.Log("i have made it this far");
+       
         
         //game data loading. 
         GameSaveData gameSaveData = SavingSystem.LoadGameData(currentSaveSlot);
@@ -138,12 +137,12 @@ public class GameManager : MonoBehaviour
                 CheckPointSystem.instance.lastActiveLevel = gameSaveData.levelName;
                 SceneManager.sceneLoaded += OnSceneLoaded;
                 SceneManager.LoadScene(CheckPointSystem.instance.lastActiveLevel);
-                //Debug.Log("Loading scene " + gameSaveData.levelName + " because why not.");
+                
             }
             else
             {
                 OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
-                //Debug.Log("running this instead.");
+                
                 
             }
 
@@ -199,7 +198,7 @@ public class GameManager : MonoBehaviour
             {
                 //get the item, initialise it and add it to the inventory.
                 item.item.Init(item.item.itemData, player.GetComponent<Inventory>(), item.item.prefab);
-                //Debug.Log("item initialised with " + item.item.itemData.name);
+                
                 if(player.GetComponent<Inventory>() != null)
                 {
                     player.GetComponent<Inventory>().AddItem(item.item);
@@ -213,7 +212,7 @@ public class GameManager : MonoBehaviour
             }
             player.GetComponent<Inventory>().currentItemIndex = playerSaveData.currentInventoryItemIndex;
             player.GetComponent<Actions>().currentWeapon = playerSaveData.currentWeaponIndex;
-            //Debug.Log("i have performed all this");
+            
         }
         else
         {
@@ -269,7 +268,7 @@ public class GameManager : MonoBehaviour
         int currentInventoryItemIndex = player.GetComponent<Inventory>().currentItemIndex;
         //get access to bow item projectiles
         List<Projectiles> projectiles = new List<Projectiles>();
-        //Debug.Log("Attained player weapon data etc. now looping projectiles" + projectiles.Count + " projectiles found.");
+        
         foreach (InventoryItem item in items)
         {
             if (item.item is BowItem bow)
@@ -282,7 +281,7 @@ public class GameManager : MonoBehaviour
         }
         PlayerSaveData playerSaveData = new PlayerSaveData(currentWeapon, availableWeapons, items, currentInventoryItemIndex, projectiles, 0);
         SavingSystem.SavePlayerData(playerSaveData, currentSaveSlot);
-        //Debug.Log("saved player data with: " + playerSaveData.currentWeaponIndex + " , " + playerSaveData.availableWeaponsList.Count + " available weapons, " + playerSaveData.inventoryItems.Count + " items, and " + playerSaveData.availableProjectiles.Count + " projectiles.");
+        
         Debug.Log("Saved player data to save slot " + currentSaveSlot);
 
         ///game data 
@@ -294,6 +293,6 @@ public class GameManager : MonoBehaviour
     public void SetCurrentSceneType(SceneType sceneType)
     {
         CurrentSceneType = sceneType;
-        //Debug.Log("Current scene type set to " + sceneType);
+        
     }
 }

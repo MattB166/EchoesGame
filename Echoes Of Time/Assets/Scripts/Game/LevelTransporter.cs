@@ -31,7 +31,7 @@ public class LevelTransporter : MonoBehaviour
                 onPlayerCollision.Announce(this,null);
             }
             //move to new scene
-            //Debug.Log("Moving to new scene: " + sceneName);
+            
             SceneManager.LoadScene(sceneName);
             //if it is a new scene, use spawn manager to dictate where player should spawn in the new scene. 
         }

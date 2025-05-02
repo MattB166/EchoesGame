@@ -29,7 +29,7 @@ public class GroundedWalk : BaseGroundedState
 
     public void WalkToTarget()
     {
-        // Prevent movement if CustomTimeScale is 0
+        
         if (aiCharacter.CustomTimeScale == 0)
         {
             aiCharacter.aiPath.canMove = false;
@@ -62,12 +62,12 @@ public class GroundedWalk : BaseGroundedState
         if (currentTarget.x > transform.position.x)
         {
             aiCharacter.GetComponent<SpriteRenderer>().flipX = false; ; // Face right
-            //aiCharacter.direction = 1;
+            
         }
         else
         {
             aiCharacter.GetComponent<SpriteRenderer>().flipX = true; // Face left
-            //aiCharacter.direction = -1;
+            
         }
     }
 

@@ -9,7 +9,7 @@ public abstract class MeleeWeaponItem : WeaponItem
     // Start is called before the first frame update
     void Start()
     {
-        //player = inventory.player.transform;
+        
     }
 
     // Update is called once per frame
@@ -26,14 +26,14 @@ public abstract class MeleeWeaponItem : WeaponItem
     {
         base.Init(itemData, inv,prefab);
         meleeWeaponData = itemData as MeleeWeaponData;
-        //Debug.Log("Melee weapon initialized with " + meleeWeaponData.name);
-        //Debug.Log("Melee weapon damage: " + meleeWeaponData.damage);
+        
+        
     }
 
     public void CheckWeaponDamage()
     { 
         Vector2 checkPoint = ItemOwner.gameObject.transform.position;
-        //Debug.Log("Checking weapon damage from weapon side");
+        
         Collider2D[] hits = Physics2D.OverlapCircleAll(checkPoint, 0.6f);
         foreach (var hit in hits)
         {
@@ -43,11 +43,11 @@ public abstract class MeleeWeaponItem : WeaponItem
                 {
                     continue;
                 }
-                //Camera.main.GetComponent<CamShake>().Shake(1.0f,ShakeType.Weak);
+                
                 damageable.TakeDamage(meleeWeaponData.damage);
                 GameObject impact = Instantiate(meleeWeaponData.impactAnimation, hit.transform.position, Quaternion.identity);
                 Destroy(impact, 1.0f);
-                //Debug.Log("Dealt " + meleeWeaponData.damage + " damage to " + hit.name);
+                
             }
         }
     }

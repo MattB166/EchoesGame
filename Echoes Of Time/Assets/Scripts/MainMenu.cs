@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.instance.SetCurrentSceneType(SceneType.MainMenu);
         mainMenuPanel = this.gameObject;
-        //settingsMenuPanel = GameObject.Find("AudioSettingsCanvas");
+        
     }
     // Start is called before the first frame update
     void Start()

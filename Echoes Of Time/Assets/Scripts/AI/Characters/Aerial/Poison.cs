@@ -20,9 +20,9 @@ public class Poison : MonoBehaviour
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
         player = GameObject.FindGameObjectWithTag("Player");
         if (aiDestinationSetter != null && player != null)
-            aiDestinationSetter.target = player.transform; // Set the target to the player transform
+            aiDestinationSetter.target = player.transform; 
         else
-            Debug.LogError("AIDestinationSetter or Player not found!"); // Log an error if not found
+            Debug.LogError("AIDestinationSetter or Player not found!"); 
 
     }
 
@@ -39,7 +39,7 @@ public class Poison : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radiusForDamage);
         if(hitColliders.Length == 0)
         {
-            //Debug.Log("No damageables in radius");
+            
             return;
         }
         foreach (var item in hitColliders)
@@ -52,7 +52,7 @@ public class Poison : MonoBehaviour
                     //if not already in the list, add it to the list and start the coroutine
                     if (damagedTargets.Contains(dam))
                     {
-                        //Debug.Log("Already in list");
+                        
                         continue;
                     }
                     
@@ -76,9 +76,9 @@ public class Poison : MonoBehaviour
                 damagedTargets.Remove(dam);
                 yield break;
             }
-            //perform damage
+            
             dam.TakeDamage(damageAmount);
-            //Debug.Log("Dealt " + damageAmount + " damage to: " + targetObject.name + " because of poison");
+            
             yield return new WaitForSeconds(damageInterval);
         }
 

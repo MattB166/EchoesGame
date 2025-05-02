@@ -19,11 +19,7 @@ public class StandardProjectile : BaseProjectile //behaviour for the standard pr
 
     }
 
-    //public override void Fire(Vector2 startPos)
-    //{
-    //    base.Fire(startPos);
-        
-    //}
+    
 
     public override void CollisionLogic(Collider2D col)
     {
@@ -43,7 +39,7 @@ public class StandardProjectile : BaseProjectile //behaviour for the standard pr
 
     public override void Explode()
     {
-        //animations / effects in here for when it hits something it can damage. 
+        
     }
 
     public override void InitialiseData(ProjectileData data)

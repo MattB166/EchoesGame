@@ -44,7 +44,7 @@ public class EscapeObjective : BaseObjective
     public override void Activate()
     {
         base.Activate();
-        //Debug.Log("Escape Objective Activated");
+        
         currentStage = 0;
         InitialiseNewStage(escapeStages[currentStage]);
         //set to first stage. for each event in the first stage, add a new listener to the event.
@@ -86,14 +86,14 @@ public class EscapeObjective : BaseObjective
     void Start()
     {
         triggerCollider = gameObject.GetComponent<Collider2D>();
-        //Debug.Log("Escape Objective found");
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Player has entered the escape zone");
+            
             ObjectiveManager.instance.SetMainObjective(this);
             triggerCollider.enabled = false;
         }

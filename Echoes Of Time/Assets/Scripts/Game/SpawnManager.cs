@@ -21,9 +21,7 @@ public class SpawnManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //spawnLocations.Clear();
-       
-        //Debug.Log(spawnLocations.Count);
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -42,7 +40,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (spawnLocations.ContainsKey(sceneName))
         {
-            //Debug.Log("Spawn location for " + sceneName + " is " + spawnLocations[sceneName]);
+            
             return spawnLocations[sceneName];
         }
         else

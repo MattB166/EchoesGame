@@ -59,7 +59,7 @@ public class ObjectiveManager : MonoBehaviour
             mainObjective = objective;
             OnMainObjectiveUpdated.Announce(this, mainObjective);
             objective.Activate();
-            //Debug.Log(objective.objectiveData.objectiveDescription);
+            
         }
        
     }

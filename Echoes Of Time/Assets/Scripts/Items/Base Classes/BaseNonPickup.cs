@@ -10,16 +10,14 @@ public abstract class BaseNonPickup : BaseInteractableClass
     //maybe a static list of items in range of player so can determine which is closest to player and therefore which to interact with ?? will work in some capacity as those
     //that i want to interact with still but not through input can just not have the trigger collider and therefore not be in the list. 
     public static List<BaseNonPickup> itemsInRange = new List<BaseNonPickup>();
-    //private BaseNonPickup nearestItem;
-    //private Collider2D col;
+    
     private bool playerInRange = false;
     private GameObject interactSprite;
     private bool isEnabled = false;
 
     private void Start()
     {
-       // col = GetComponent<Collider2D>();
-       //col.isTrigger = true;
+       
     }
     public abstract override void OnInteract();
 
@@ -37,7 +35,7 @@ public abstract class BaseNonPickup : BaseInteractableClass
         {
             playerInRange = true;
             itemsInRange.Add(this);
-            //Debug.Log("Player in range of " + itemData.name);
+            
         }
     }
 
@@ -47,7 +45,7 @@ public abstract class BaseNonPickup : BaseInteractableClass
         {
             playerInRange = false;
             itemsInRange.Remove(this);
-            //Debug.Log("Player out of range of " + itemData.name);
+            
         }
     }
 

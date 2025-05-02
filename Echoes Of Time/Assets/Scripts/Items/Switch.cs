@@ -59,7 +59,7 @@ public class Switch : BaseNonPickup, IDistortable
             {
                 onSwitch = null;
             }
-            //onSwitch = null;
+            
         }
         else if (switchedOn)
         {
@@ -87,7 +87,7 @@ public class Switch : BaseNonPickup, IDistortable
         float elapsed = 0f;
         while (elapsed < switchTime)
         {
-            //Debug.Log("Switching off in " + (switchTime - elapsed));
+            
             yield return null;
             if(customTimeScale > 0)
             {

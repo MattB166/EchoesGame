@@ -15,7 +15,7 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
     private bool intensityChanged;
     public override void OnInteract()
     {
-        //Debug.Log("Changing light intensity");
+        
         ChangeIntensity();
     }
 
@@ -63,7 +63,7 @@ public class InteractableLight : BaseNonPickup ///interactable light class withi
             targetIntensity = maxIntensity;
         }
         targetIntensity = Mathf.Clamp(targetIntensity, minIntensity, maxIntensity);
-        //intensityChanged = false;
+        
     }
 
     public void InteractWithLight(InputAction.CallbackContext context)

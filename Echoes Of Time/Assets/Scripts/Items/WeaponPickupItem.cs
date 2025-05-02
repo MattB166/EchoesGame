@@ -7,19 +7,19 @@ public class WeaponPickupItem : InputPickupItem
 {
     protected override void Collect()
     {
-        // Debug.Log("This is an input pickup item. The item you have just picked up is: " + itemData.dataType.ToString());
+        
         
     }
 
     public override void HandlePickup(Actions player, Inventory i)
     {
 
-        WeaponData weaponData = itemData as WeaponData; //change to generic weapon data to reflect bow as well 
+        WeaponData weaponData = itemData as WeaponData; 
         if (weaponData != null)
         {
             if (!player.GetAvailableWeapons().Contains(weaponData.weaponType))
             {
-                player.AddWeapon(weaponData.weaponType/*, weaponData.damage*/); //damages not even needed as player doesnt care about the damage of the weapon. 
+                player.AddWeapon(weaponData.weaponType); //damages not even needed as player doesnt care about the damage of the weapon. 
 
                 //create instance of the weapon
                 GameObject weapon = weaponData.prefab;
@@ -37,7 +37,7 @@ public class WeaponPickupItem : InputPickupItem
                 }
                 else
                 {
-                    //Debug.Log("Item already exists. Not duplicating");
+                    
                     existingItem.Init(weaponData, i, weapon);
                     existingItem.SetOwner(player.gameObject);
                     i.AddItem(existingItem);

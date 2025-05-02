@@ -138,7 +138,7 @@ public static class SavingSystem
         else
         {
             Debug.LogError("Save file not found in " + path);
-            return new AudioSettingsSaveData(1f, 1f, 1f, 1f); // return default values if file not found
+            return new AudioSettingsSaveData(1f, 1f, 1f, 1f); 
         }
     }
     #endregion

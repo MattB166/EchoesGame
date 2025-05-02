@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause(InputAction.CallbackContext context)
     {
-        //Debug.Log("TogglePause called");
+        
         if (context.performed)
         {
             if (isPaused)

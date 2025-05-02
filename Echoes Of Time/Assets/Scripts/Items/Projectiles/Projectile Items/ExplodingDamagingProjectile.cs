@@ -65,7 +65,7 @@ public class ExplodingDamagingProjectile : BaseProjectile
     private IEnumerator ApplyDelayedDamage(IDamageable damageable, float delay)
     {
        
-        //Debug.Log("Delay is: " + delay);
+        
         yield return new WaitForSeconds(delay);
         damageable.TakeDamage(explosiveDamagingProjectileData.explosionDamage);
         activeCoroutines--;

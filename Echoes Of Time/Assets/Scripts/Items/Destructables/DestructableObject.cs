@@ -32,12 +32,12 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
 
     public void TakeDamage(float amount)
     {
-        //Debug.Log("Taking damage");
+        
         HitPoints -= amount;
         OnInteract();
         if(itemData.interactSound != null)
         {
-            //audioSource.PlayOneShot(itemData.interactSound);
+            
             MusicManager.instance.PlaySFX(itemData.interactSound,transform.position);
         }
         isShaking = true;
@@ -60,7 +60,7 @@ public abstract class DestructableObject : BaseNonPickup, IDamageable
 
     private IEnumerator ShakeItem()
     {
-        //Debug.Log("Shaking");
+        
         isShaking = true;
         float shakeDuration = 0.1f;
         float shakeAmount = 0.1f;

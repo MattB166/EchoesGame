@@ -59,7 +59,7 @@ public class BowItem : WeaponItem
     {
         base.Init(itemData, inv, prefab);
         weaponData = itemData as WeaponData;
-        //Debug.Log("Bow initialized with " + weaponData.name);
+        
         projectiles.Clear(); //need to actually add in the saved projectiles
 
         foreach (var p in inv.storedProjectiles)
@@ -68,7 +68,7 @@ public class BowItem : WeaponItem
             int amount = p.Value;
             BaseProjectile projectile = projectileData.projectilePrefab.GetComponent<BaseProjectile>();
             AddProjectile(projectile, amount);
-            //Debug.Log("Projectile added from inventory: " + projectileData.name + " with amount: " + amount);
+            
         }
 
         inv.storedProjectiles.Clear();
@@ -82,7 +82,7 @@ public class BowItem : WeaponItem
 
             if (currentProjectile == null || currentProjectile.ammoCount <= 0)
             {
-                //Debug.Log("No projectiles left to fire.");
+                
                 return;
             }
 
@@ -105,8 +105,8 @@ public class BowItem : WeaponItem
             bp.Fire(pos);
             currentProjectile.ammoCount--;
             projectileChanged.Announce(this, currentProjectile);
-            //Debug.Log("Fired projectile: " + currentProjectile.projectile.projectileData.name + " Projectile now has: " + currentProjectile.ammoCount + " ammo.");
-            //Debug.Log(projectiles.Count + " projectiles left.");
+            
+           
             if (currentProjectile.ammoCount <= 0)
             {
                 RemoveProjectile(currentProjectile);
@@ -150,7 +150,7 @@ public class BowItem : WeaponItem
     {
         if (projectile == null || projectile.projectileData == null)
         {
-            ///Debug.LogError("Projectile or projectileData is null! Cannot add to BowItem.");
+           
             return;
         }
 
@@ -160,14 +160,14 @@ public class BowItem : WeaponItem
             {
                 projectiles[i].ammoCount += ammoCount;
                 int newCount = projectiles[i].ammoCount;
-                //Debug.Log("Added " + ammoCount + " ammo to existing projectile: " + projectile.projectileData.name + " now has: " + newCount + " ammo.");
+                
                 return;
             }
         }
         BaseProjectile bp = projectile;
         int count = ammoCount;
         Projectiles p = new Projectiles(bp, count);
-        //Debug.Log("Added new projectile: " + projectile.projectileData.name + " with " + ammoCount + " ammo.");
+        
         projectiles.Add(p);
         currentProjectile = p;
         projectileChanged.Announce(this, currentProjectile);
@@ -179,7 +179,7 @@ public class BowItem : WeaponItem
         {
             currentProjectileIndex = (currentProjectileIndex + 1) % projectiles.Count;
             currentProjectile = projectiles[currentProjectileIndex];
-            //Debug.Log("Switched to projectile: " + currentProjectile.projectile.projectileData.name);
+            
             if (currentProjectile.ammoCount <= 0)
             {
                 RemoveProjectile(currentProjectile);
@@ -196,7 +196,7 @@ public class BowItem : WeaponItem
 
     public void ClearUpEmptyProjectiles()
     {
-        //Debug.Log("Checking for empty projectiles");
+        
         for (int i = projectiles.Count - 1; i >= 0; i--)
         {
             if (projectiles[i].ammoCount <= 0)

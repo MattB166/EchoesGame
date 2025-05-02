@@ -16,7 +16,7 @@ public class DestructableCrate : DestructableObject
     }
     public override void OnInteract()
     {
-        //Debug.Log("interacted with crate"); 
+        
     }
 
     public override void Initialise()   ////positions have to be initialised in derived classes 

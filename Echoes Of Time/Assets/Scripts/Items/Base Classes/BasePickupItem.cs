@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class BasePickupItem : BaseInteractableClass
 {
-    public ItemData itemData; //maybe remove this and just let each derived one decide their own data type. ?
+    public ItemData itemData; 
     private GameObject pickupSprite;
     private bool isEnabled = false;
     public override void OnInteract()

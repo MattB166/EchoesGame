@@ -17,7 +17,7 @@ public class Portal : MonoBehaviour
     ///if applicable, and the time it will take to teleport <summary>
     /// </summary>
     /// 
-    //CAM SHAKE AND SOUND EFFECTS WHEN NEARBY TO PORTAL. 
+    
 
     public PortalData portalData;
     private GameObject linkedPortal;
@@ -69,7 +69,7 @@ public class Portal : MonoBehaviour
         {
             portalBeingPlaced = true;
             portalPlacementTimer = portalData.portalPlacementTimer;
-            //Debug.Log("Portal being placed");
+            
         }
 
     }
@@ -100,14 +100,14 @@ public class Portal : MonoBehaviour
             if(Vector3.Distance(transform.position, startingPos) > portalData.portalPlacementDistance)
             {
                 stillTimer = 0;
-                //Debug.Log("Portal too far away from linked portal");
+                
                 return;
             }
 
             if(!CanPlacePortal())
             {
                 stillTimer = 0;
-                //Debug.Log("Cannot place portal here");
+                
                 return;
             }
 
@@ -128,16 +128,7 @@ public class Portal : MonoBehaviour
             }
 
             lastPosition = transform.position;
-            ////Camera.main.orthographicSize = 8;
-            //portalPlacementTimer -= Time.deltaTime;
-            //if (portalPlacementTimer <= 0)
-            //{
-            //    //Camera.main.orthographicSize = 5;
-            //    portalBeingPlaced = false;
-            //    openPortal = true;
-            //    portalPlacementTimer = portalData.portalPlacementTimer;
-            //    //need a way to stop the player from placing the portal on top of each other, and give them a second chance to place it if required. 
-            //}
+            
         }
 
 
@@ -153,10 +144,10 @@ public class Portal : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius,obstacleLayer);
         if (colliders.Length > 0)
         {
-            //Debug.Log(colliders.Length + " objects in the way of the portal");
+            
             for (int i = 0; i < colliders.Length; i++)
             {
-                //Debug.Log(colliders[i].name);
+                
             }
             return false;
         }
@@ -205,14 +196,14 @@ public class Portal : MonoBehaviour
         transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         isClosing = false;
-        //destroy the portal after it has closed. 
+        
     }
 
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !portalBeingPlaced && !linkedPortalScript.portalBeingPlaced) //or any item that can be teleported.
+        if (collision.gameObject.CompareTag("Player") && !portalBeingPlaced && !linkedPortalScript.portalBeingPlaced) 
         {
             //perform checks for one way / two way portals.
             CalculateTeleportType(collision);

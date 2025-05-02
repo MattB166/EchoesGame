@@ -8,6 +8,6 @@ public class WeaponData : ItemData //base weapon class, melee will inherit from 
 {
     public Actions.Weapons weaponType;
     public GameObject prefab; 
-    //public int damage;
+    
     
 }

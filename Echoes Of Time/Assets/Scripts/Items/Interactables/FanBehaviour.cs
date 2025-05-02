@@ -31,8 +31,6 @@ public class FanBehaviour : MonoBehaviour
             Rigidbody2D rb = collision.gameObject.TryGetComponent<Rigidbody2D>(out rb) ? rb : null;
             if (rb != null)
             {
-                //apply initial force to stop player from falling
-                //rb.gravityScale = 0;
                 playerInFan.Announce(this, null);
             }
         }
@@ -55,8 +53,7 @@ public class FanBehaviour : MonoBehaviour
             Rigidbody2D rb = collision.gameObject.TryGetComponent<Rigidbody2D>(out rb) ? rb : null;
             if (rb != null)
             {
-                //Debug.Log("Lifting player");
-                //rb.gravityScale = 0;
+                
                 if(rb.velocity.y < -15)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, -15);

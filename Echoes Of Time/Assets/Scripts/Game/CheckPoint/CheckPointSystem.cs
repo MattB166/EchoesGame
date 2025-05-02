@@ -34,7 +34,7 @@ public class CheckPointSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //bring in the saved checkpoint data, and the most recent checkpoint data.
+        
 
     }
 

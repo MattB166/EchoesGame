@@ -44,12 +44,12 @@ public abstract class GroundedAI : AICharacter
     // Start is called before the first frame update
     public virtual void Start()
     {
-        //Debug.Log("Grounded AI Start");
+        
         cols = GetComponents<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         base.Start();
-        //ChangeState(GroundedStates.Idle);
+        
     }
 
     private void Update()
@@ -65,7 +65,7 @@ public abstract class GroundedAI : AICharacter
 
     public void ChangeState(GroundedStates newState)
     {
-        //Debug.Log("Changing state to " + newState);
+        
         if (currentState != newState)
         {
 
@@ -80,7 +80,7 @@ public abstract class GroundedAI : AICharacter
                     currentStateScript = transform.gameObject.AddComponent<GroundedWalk>();
                     break;
                 case GroundedStates.Attack:
-                    //Debug.Log("Changing state to attack");
+                    
                     currentStateScript = transform.gameObject.AddComponent<GroundedAttack>();
                     break;
                 case GroundedStates.Dead:
@@ -106,7 +106,7 @@ public abstract class GroundedAI : AICharacter
         {
             if (hitCollider.CompareTag("Player"))
             {
-                //Debug.Log("Player detected");
+                
                 foundPlayer = true;
                 playerPosition = hitCollider.transform;
                 if(!playerInRange)
@@ -118,7 +118,7 @@ public abstract class GroundedAI : AICharacter
         }
         if(!foundPlayer && playerInRange)
         {
-            //Debug.Log("Player not found");
+            
             playerInRange = false;
             ChangeState(GroundedStates.Patrol);
         }
@@ -135,7 +135,7 @@ public abstract class GroundedAI : AICharacter
     {
         base.Die();
         ChangeState(GroundedStates.Dead);
-        //Debug.Log("Grounded AI Died");
+        
     }
 
     public void EndOfAttackAnimCallback()

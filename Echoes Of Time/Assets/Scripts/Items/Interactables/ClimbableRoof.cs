@@ -17,7 +17,7 @@ public class ClimbableRoof : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Player on roof ? : " + playerOnRoof);
+        
         
     }
 
@@ -62,7 +62,7 @@ public class ClimbableRoof : MonoBehaviour
         if (descendInput && playerOnRoof)
         {
             ToggleCollider();
-            //playerOnRoof = false;
+            
         }
     }
 

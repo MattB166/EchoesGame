@@ -55,7 +55,7 @@ public class CamShake : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //initialPos = transform.position;
+        
         if (shakeIsActive)
         {
             counter += Time.deltaTime * Mathf.Pow(intensity,0.3f) * intensityMultiplier;
@@ -91,7 +91,7 @@ public class CamShake : MonoBehaviour
         shakeIsActive = true;
         yield return new WaitForSeconds(duration);
         shakeIsActive = false;
-        //transform.position = initialPos;
+        
     }
 
     private void CalculateShakeType(ShakeType type)

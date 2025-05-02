@@ -14,7 +14,7 @@ public abstract class InputPickupItem : BasePickupItem
         {
             playerInRange = true;
             itemsInRange.Add(this);
-            //Debug.Log("Player in range of " + itemData.name);
+            
         }
     }
 
@@ -24,12 +24,12 @@ public abstract class InputPickupItem : BasePickupItem
         {
             playerInRange = false;
             itemsInRange.Remove(this);
-            //Debug.Log("Player out of range of " + itemData.name + " so has been removed from list");
+          
         }
     }
     private void Update()
     {
-        //Debug.Log("Items in range: " + itemsInRange.Count);
+       
     }
 
 

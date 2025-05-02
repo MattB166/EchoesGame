@@ -52,16 +52,16 @@ public class GroundedAttack : BaseGroundedState
 
     public void DetermineDistance()
     {
-        //Debug.Log("Determine Distance");
+        
         Vector2 playerPosition = groundedAI.playerPosition.position;
         float distance = Vector2.Distance(playerPosition, transform.position);
         if (playerPosition.x > transform.position.x)
         {
-            groundedAI.GetComponent<SpriteRenderer>().flipX = false; // Face right
+            groundedAI.GetComponent<SpriteRenderer>().flipX = false; 
         }
         else
         {
-            groundedAI.GetComponent<SpriteRenderer>().flipX = true; // Face left
+            groundedAI.GetComponent<SpriteRenderer>().flipX = true; 
         }
 
         //only the x value is important as the grounded cannot move vertically
@@ -94,7 +94,7 @@ public class GroundedAttack : BaseGroundedState
         groundedAI.aiPath.destination = new Vector3(playerPos.x, transform.position.y, 0);
         groundedAI.aiPath.canMove = true;
         anim.Play(gameObject.name + "_Run");
-        //Debug.Log("Distance left: " + Vector2.Distance(transform.position, playerPos) + " Attack distance: " + groundedAI.AICharacterData.attackDistance, this);
+        
         if (Vector2.Distance(transform.position, playerPos) < aiCharacter.AICharacterData.attackDistance)
         {
             groundedAI.aiPath.canMove = false;

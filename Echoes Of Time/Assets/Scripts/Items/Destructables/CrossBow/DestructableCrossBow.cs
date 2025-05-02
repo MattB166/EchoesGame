@@ -36,8 +36,7 @@ public class DestructableCrossBow : DestructableObject
     void Update()
     {
         base.Update();
-        //Debug.Log("Crossbow Update");
-        //performs raycast for player every check interval, if at all found, it continues to shoot in that direction. 
+         
         if (needsToCheck && !shootPlayer)
         {
             CastForPlayer();
@@ -69,18 +68,18 @@ public class DestructableCrossBow : DestructableObject
 
     public void StartShooting()
     {
-        //Debug.Log("Starting to shoot");
+        
         InvokeRepeating("Shoot", 0, shootTimer);
     }
 
     public void Shoot()
     {
-        //Debug.Log("Shooting");
+        
 
     }
     public void CastForPlayer()
     {
-        //Debug.Log("Casting for player");
+        
         Ray2D ray = new Ray2D(transform.position, new Vector2(shootDirection, 0));
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, shootRange,playerLayer);
         Debug.DrawRay(ray.origin, ray.direction * shootRange, Color.red);
@@ -90,7 +89,7 @@ public class DestructableCrossBow : DestructableObject
             {
              
                 playerDetected = true;
-                //Debug.Log("Player detected by crossbow");
+                
             }
         }
         //reset the check interval
@@ -100,7 +99,7 @@ public class DestructableCrossBow : DestructableObject
 
     private IEnumerator ResetCheck()
     {
-        //Debug.Log("Resetting check");
+        
         yield return new WaitForSeconds(checkInterval);
         needsToCheck = true;
     }

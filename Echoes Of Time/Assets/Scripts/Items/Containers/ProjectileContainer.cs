@@ -54,7 +54,7 @@ public class ProjectileContainer : MonoBehaviour
         {
             int randomIndex = Random.Range(0, pickupItems.Count);
            
-            //spawnPool.Add(currentPrefab);
+            
         }
         while (spawnPool.Count > 100)
         {

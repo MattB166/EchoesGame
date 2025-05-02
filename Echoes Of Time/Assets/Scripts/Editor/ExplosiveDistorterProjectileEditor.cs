@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-//[CustomEditor(typeof(ExplosiveDistorterProjectile))]
+
 public class ExplosiveDistorterProjectileEditor : ProjectileDataEditor
 {
     SerializedProperty distortionType;
@@ -40,19 +40,19 @@ public class ExplosiveDistorterProjectileEditor : ProjectileDataEditor
         switch (distortionType.enumValueIndex)
         {
             case (int)DistortionType.Freeze:
-                //EditorGUILayout.HelpBox("This projectile will freeze the distortable", MessageType.Info);
+                
                 distortionValue.floatValue = 0;
                 break;
             case (int)DistortionType.Half:
-                //EditorGUILayout.HelpBox("This projectile will slow the distortable down by half", MessageType.Info);
+                
                 distortionValue.floatValue = 0.5f;
                 break;
             case (int)DistortionType.SpeedAndAHalf:
-                //EditorGUILayout.HelpBox("This projectile will speed the distortable up by 1.5x", MessageType.Info);
+                
                 distortionValue.floatValue = 1.5f;
                 break;
             case (int)DistortionType.Double:
-                //EditorGUILayout.HelpBox("This projectile will double the speed of the distortable", MessageType.Info);
+                
                 distortionValue.floatValue = 2;
                 break;
         }

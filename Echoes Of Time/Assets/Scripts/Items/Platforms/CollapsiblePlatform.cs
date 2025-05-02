@@ -45,7 +45,7 @@ public class CollapsiblePlatform : BasePlatform
                 if(collision.gameObject.TryGetComponent(out IDamageable damageable))
                 {
                     damageable.TakeDamage(5);
-                    //Debug.Log("Object hit: " + collision.gameObject.name);
+                    
                    
                 }
                 

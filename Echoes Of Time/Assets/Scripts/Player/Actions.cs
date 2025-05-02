@@ -87,7 +87,7 @@ public class Actions : MonoBehaviour, IDamageable
     void Start()
     {
        
-       // attackInput = false;
+       
         animator = GetComponent<Animator>();
         currentWeapon = Weapons.None; //set this to be set to whatever has been saved. 
         InitialiseAttackAnims();
@@ -97,7 +97,7 @@ public class Actions : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        //CheckForUseItem();
+        
         closestInputPickupItem = UpdateClosestInputPickupItem();
         closestNonPickupInteractable = UpdateClosestNonPickupInteractable();
     }
@@ -106,7 +106,7 @@ public class Actions : MonoBehaviour, IDamageable
     {
         playerCurrentHealth = playerMaxHealth;
         HitPoints = playerCurrentHealth;
-        //Debug.Log("Hitpoints reset to : " + HitPoints);
+        
     }
 
     public void ChangeWeaponAnimation(Component sender, object data)
@@ -117,7 +117,7 @@ public class Actions : MonoBehaviour, IDamageable
         }
         if (data is InventoryItem item)
         {
-            //Debug.Log("Changing weapon animation");
+            
             if (item.item.itemData as WeaponData != null)
             {
                 Weapons weapon = (item.item.itemData as WeaponData).weaponType;
@@ -125,7 +125,7 @@ public class Actions : MonoBehaviour, IDamageable
                 {
 
                     AddWeapon(weapon);
-                    //Debug.Log("Adding weapon to available weapons animations");
+                    
                 }
 
                 currentWeapon = weapon;
@@ -144,7 +144,7 @@ public class Actions : MonoBehaviour, IDamageable
             else
             {
                 currentWeapon = Weapons.None;
-                //Debug.Log("This is not a weapon so no animation required"); 
+                
             }
         }
        
@@ -163,7 +163,7 @@ public class Actions : MonoBehaviour, IDamageable
                 Weapons weapon = (item.item.itemData as WeaponData).weaponType;
                 if (availableWeapons.Contains(weapon))
                 {
-                    //Debug.Log("Removing weapon from available weapons animations");
+                    
                     availableWeapons.Remove(weapon);
                     if (availableWeapons.Count < 1)
                     {
@@ -200,15 +200,7 @@ public class Actions : MonoBehaviour, IDamageable
 
     }
 
-    //public void OnUseInput(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        attackInput = true;
-    //    }
-    //    else if (context.canceled)
-    //        attackInput = false;
-    //}
+    
 
     private void SetAnimationState(Weapons currentWeapon, string State)
     {
@@ -333,14 +325,14 @@ public class Actions : MonoBehaviour, IDamageable
     {
         if (context.performed && closestInputPickupItem != null)
         {
-            //Debug.Log("Interacting with closest item");
+            
             HandlePickup(closestInputPickupItem);
             closestInputPickupItem.OnInteract();
             onInteract.Announce(this, closestInputPickupItem);
         }
         else if (context.performed && closestNonPickupInteractable != null)
         {
-            //Debug.Log("Interacting with closest non pickup item");
+            
             closestNonPickupInteractable.OnInteract();
             onInteract.Announce(this, closestNonPickupInteractable);
         }
@@ -364,7 +356,7 @@ public class Actions : MonoBehaviour, IDamageable
         {
             Debug.Log("No Inventory Found");
         }
-        //itemData?.HandlePickup(this);
+        
     }
 
 
@@ -397,7 +389,7 @@ public class Actions : MonoBehaviour, IDamageable
             {
                 Debug.Log("Player has died");
                 onDeath.Announce(this);
-                //player death sounds 
+                
                 if (deathSound != null)
                 {
                     MusicManager.instance.PlaySFX(deathSound, gameObject.transform.position);
@@ -414,6 +406,6 @@ public class Actions : MonoBehaviour, IDamageable
         {
             HitPoints = playerMaxHealth;
         }
-        //Debug.Log("Added " + amount + " health");
+        
     }
 }

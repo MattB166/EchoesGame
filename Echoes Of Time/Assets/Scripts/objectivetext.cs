@@ -14,7 +14,7 @@ public class objectivetext : MonoBehaviour
     {
         objectiveText = GetComponent<TextMeshProUGUI>();
         objectiveTextString = " ";
-        //Debug.Log("Objective Text: " + objectiveTextString);
+        
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class objectivetext : MonoBehaviour
             data = dataArray[0];
             if(data is BaseObjective)
             {
-                //Debug.Log("Data is base objective");
+                
                 float progress = ((BaseObjective)data).currentProgress * 100;
 
                 if(float.IsInfinity(progress) || float.IsNaN(progress))

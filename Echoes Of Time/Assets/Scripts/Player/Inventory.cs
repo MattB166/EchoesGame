@@ -48,21 +48,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
 
     private void Awake()
     {
-        ////Debug.Log("Inventory awake");
-        //if (instance == null)
-        //{
-        //    Debug.Log("Inventory instance created");
-        //    instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else if(instance != null)
-        //{
-        //    Debug.Log("Inventory instance already exists, destroying this one");
-        //    Destroy(gameObject);
-        //    return;
-        //}
-        //transform.SetParent(null);
-        //DontDestroyOnLoad(gameObject);
+        
 
         player = this.gameObject;
     }
@@ -132,24 +118,24 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             itemChanged.Announce(this, currentItem);
         }
 
-        //Debug.Log("Current item: " + currentItem.item.itemData.name);
+        
     }
 
     public void AddItem(Item newItem)
     {
-        //Debug.Log("Adding item to inventory: " + newItem.itemData.name);
-        //check if the item is already in the inventory
+        
+        
         foreach (InventoryItem inventoryItem in items)
         {
             if (inventoryItem.item.itemData.name == newItem.itemData.name)
             {
                 inventoryItem.quantity++;
-                //Debug.Log("Item already in inventory, increasing quantity to " + inventoryItem.quantity);
+                
                 return;
             }
         }
-        //if the item is not in the inventory, add it
-        //Debug.Log("Item not in inventory, adding it");
+        
+        
         InventoryItem item = new InventoryItem(newItem, 1);
         items.Add(item);
         SetCurrentItem(item);
@@ -192,7 +178,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
             if (currentItem.item != null)
                 currentItem.item.Use();
             onItemUsed.Announce(this, currentItem);
-            //DropItem();
+            
         }
     }
 
@@ -229,7 +215,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         {
             storedProjectiles.Add(projectileData, amount);
         }
-        //Debug.Log("Stored " + amount + " " + projectileData.name + " in inventory");
+        
     }
 
     public int GetStoredProjectileAmount(ProjectileData projectileData)
@@ -237,7 +223,7 @@ public class Inventory : MonoBehaviour   //////MAYBE CREATE AN INVENTORY SLOT SC
         if (storedProjectiles.TryGetValue(projectileData, out int amount))
         {
             storedProjectiles.Remove(projectileData);
-            //Debug.Log("Retrieved " + amount + " " + projectileData.name + " from inventory");
+            
             return amount;
         }
         return 0;

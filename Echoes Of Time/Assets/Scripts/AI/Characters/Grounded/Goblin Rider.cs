@@ -6,7 +6,7 @@ public class GoblinRider : GroundedAI
 {
     public override GroundedType GroundedType => GroundedType.GoblinRider;
 
-    //public override GroundedStates currentState => GroundedStates.None;
+    
 
     // Start is called before the first frame update
     public override void Start()
