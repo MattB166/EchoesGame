@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8544db442bc724496411851ddda344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDelay: 2.5
+  moveDelay: 1
   delayForTargetReset: 4
   directionFacingOffset: 3.5
   playerOffset: {x: 0, y: 1, z: -1}
